@@ -6,5 +6,6 @@ scipy>=1.10
 # Testes
 pytest>=7.4
 
-# Opcional: dados reais da B3 (sem ele, o projeto usa dados sintéticos)
+# Opcionais: dados reais da B3 e geração dos gráficos do README
 # yfinance>=0.2
+# matplotlib>=3.7

@@ -6,7 +6,7 @@
 
 [![CI](https://github.com/robertochiocca/calahonda/actions/workflows/ci.yml/badge.svg)](https://github.com/robertochiocca/calahonda/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
-[![Testes](https://img.shields.io/badge/testes-8%2F8-brightgreen.svg)](tests/test_var.py)
+[![Testes](https://img.shields.io/badge/testes-14%2F14-brightgreen.svg)](tests/)
 [![Licença: MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-green.svg)](LICENSE)
 
 **[🌐 Ver ao vivo / Live demo](https://robertochiocca.github.io/calahonda/)**
@@ -35,7 +35,11 @@ Um **módulo de Value at Risk (VaR) e Conditional VaR (CVaR)** em Python, com tr
 | 📈 **Paramétrico** | variância-covariância (fórmula fechada, normal) |
 | 🎲 **Monte Carlo** | 10.000 simulações com semente reprodutível |
 
-Mais **8 testes unitários** — incluindo um que valida o resultado contra a teoria da distribuição normal (VaR 95% ≈ 1.645·σ). Roda 100% offline (dados sintéticos) ou com dados reais da B3 via `yfinance`.
+Além do VaR, o módulo calcula **Sharpe, volatilidade anualizada, curva de patrimônio, drawdown máximo e matriz de correlação** — e otimiza carteiras (**mínima variância** e **máximo Sharpe**, long-only, via SciPy).
+
+Mais **14 testes unitários** — incluindo um que valida o resultado contra a teoria da distribuição normal (VaR 95% ≈ 1.645·σ). Roda 100% offline (dados sintéticos) ou com dados reais da B3 via `yfinance`.
+
+> 🕹️ **Demo interativa:** a [página do projeto](https://robertochiocca.github.io/calahonda/#demo) roda 10.000 simulações de Monte Carlo direto no navegador — monte uma carteira e calcule o VaR.
 
 **Stack:** Python 3.10+ · NumPy · pandas · SciPy · pytest
 
@@ -47,7 +51,7 @@ cd calahonda
 pip install -r requirements.txt
 
 python examples/example_var.py   # exemplo completo
-pytest                           # 8 testes
+pytest                           # 14 testes
 ```
 
 Saída real (carteira de R$1M em PETR4 + VALE3 + ITUB4, VaR 95% em 21 dias úteis):
@@ -90,20 +94,68 @@ def monte_carlo_var(returns, confidence=0.95, horizon_days=1,
     return RiskEstimate(var, cvar)
 ```
 
-O módulo completo (em [`calahonda_var/`](calahonda_var/)) tem ainda os métodos **histórico** e **paramétrico**, Sharpe anualizado, carregamento de dados (yfinance + fallback sintético) e os [8 testes](tests/test_var.py).
+O módulo completo (em [`calahonda_var/`](calahonda_var/)) tem ainda os métodos **histórico** e **paramétrico**, as métricas de performance, a otimização de carteira, carregamento de dados (yfinance + fallback sintético) e os [14 testes](tests/).
+
+### 📈 Gráficos gerados pelo módulo
+
+Gerados com `python examples/example_plots.py` (requer `matplotlib`):
+
+![Distribuição dos retornos diários com o VaR 95%](docs/img/distribuicao.png)
+
+![Curva de patrimônio e drawdown](docs/img/patrimonio_drawdown.png)
+
+![Trajetórias de Monte Carlo e distribuição no horizonte](docs/img/monte_carlo.png)
+
+### 📚 API — exemplos de uso
+
+```python
+import calahonda_var as cv
+
+# Dados: B3 via yfinance (ou sintéticos, se offline)
+returns = cv.load_returns()                          # DataFrame: PETR4, VALE3, ITUB4
+portfolio = cv.portfolio_returns(returns, weights=[0.4, 0.3, 0.3])
+
+# Risco — VaR e CVaR como frações positivas (0.10 = perda de 10%)
+cv.historical_var(portfolio, confidence=0.95, horizon_days=21)  # RiskEstimate(var, cvar)
+cv.parametric_var(portfolio)                                    # fórmula fechada (normal)
+cv.monte_carlo_var(portfolio, n_sims=10_000, seed=42)           # simulação reprodutível
+cv.var_report(portfolio, portfolio_value=1_000_000)             # tabela com os 3 métodos
+
+# Performance
+cv.sharpe_ratio(portfolio)              # Sharpe anualizado
+cv.annualized_volatility(portfolio)     # σ diário · √252
+cv.max_drawdown(portfolio)              # 0.25 = queda de 25% do pico
+cv.equity_curve(portfolio)              # capital acumulado (pd.Series)
+
+# Carteira
+cv.correlation_matrix(returns)          # matriz de correlação (Pearson)
+cv.min_variance_weights(returns)        # pesos de mínima variância (long-only)
+cv.max_sharpe_weights(returns)          # pesos de máximo Sharpe (long-only)
+```
+
+| Função | Retorna |
+|---|---|
+| `historical_var` · `parametric_var` · `monte_carlo_var` | `RiskEstimate(var, cvar)` |
+| `var_report` | `DataFrame` comparando os 3 métodos |
+| `sharpe_ratio` · `annualized_return` · `annualized_volatility` · `max_drawdown` | `float` |
+| `equity_curve` · `drawdown_series` | `pandas.Series` |
+| `correlation_matrix` | `DataFrame` |
+| `min_variance_weights` · `max_sharpe_weights` | `pandas.Series` de pesos (soma 1) |
 
 ### 📁 Estrutura do repositório
 
 ```
 calahonda/
-├── index.html · style.css · script.js   ← landing page (HTML/CSS/JS puro)
+├── index.html · style.css · script.js   ← landing page + demo de VaR (JS puro)
 ├── calahonda_var/                       ← núcleo quantitativo em Python
 │   ├── var.py                           ← VaR (3 métodos) · CVaR · Sharpe
+│   ├── metrics.py                       ← drawdown · correlação · otimização
 │   └── data.py                          ← yfinance + fallback sintético
-├── tests/test_var.py                    ← 8 testes (pytest)
-├── examples/example_var.py              ← exemplo completo
+├── tests/                               ← 14 testes (pytest)
+├── examples/                            ← example_var.py · example_plots.py
+├── docs/img/                            ← gráficos gerados pelo módulo
 ├── requirements.txt · pyproject.toml
-└── .github/workflows/ci.yml             ← CI: testes em Python 3.10–3.12
+└── .github/workflows/                   ← CI (Python 3.10–3.12) + deploy do Pages
 ```
 
 ### 📌 Estado do projeto — honesto
@@ -111,6 +163,8 @@ calahonda/
 | Componente | Status | Tecnologia |
 |---|---|---|
 | Módulo VaR (3 métodos + CVaR) | ✅ **Implementado e testado** | Python · NumPy · pandas · SciPy |
+| Métricas + otimização de carteira | ✅ **Implementado e testado** | Python · SciPy (SLSQP) |
+| Demo interativa de VaR | ✅ Ao vivo | JS puro + Canvas API |
 | Landing page / portfólio | ✅ Ao vivo | HTML + CSS + JS puro |
 | Toggle PT/EN | ✅ Ao vivo | JavaScript puro |
 | CI (testes automáticos) | ✅ Ao vivo | GitHub Actions |
@@ -159,7 +213,11 @@ A **Value at Risk (VaR) and Conditional VaR (CVaR)** module in Python, with thre
 | 📈 **Parametric** | variance-covariance (closed-form, normal) |
 | 🎲 **Monte Carlo** | 10,000 simulations with a reproducible seed |
 
-Plus **8 unit tests** — including one that validates the result against normal-distribution theory (95% VaR ≈ 1.645·σ). Runs 100% offline (synthetic data) or with real B3 data via `yfinance`.
+Beyond VaR, the module computes **Sharpe, annualized volatility, equity curve, maximum drawdown and correlation matrix** — and optimizes portfolios (**minimum variance** and **maximum Sharpe**, long-only, via SciPy).
+
+Plus **14 unit tests** — including one that validates the result against normal-distribution theory (95% VaR ≈ 1.645·σ). Runs 100% offline (synthetic data) or with real B3 data via `yfinance`.
+
+> 🕹️ **Interactive demo:** the [project page](https://robertochiocca.github.io/calahonda/#demo) runs 10,000 Monte Carlo simulations right in the browser — build a portfolio and calculate its VaR.
 
 **Stack:** Python 3.10+ · NumPy · pandas · SciPy · pytest
 
@@ -171,7 +229,7 @@ cd calahonda
 pip install -r requirements.txt
 
 python examples/example_var.py   # full example
-pytest                           # 8 tests
+pytest                           # 14 tests
 ```
 
 Real output (R$1M portfolio in PETR4 + VALE3 + ITUB4, 95% VaR over 21 trading days):
@@ -214,20 +272,68 @@ def monte_carlo_var(returns, confidence=0.95, horizon_days=1,
     return RiskEstimate(var, cvar)
 ```
 
-The full module (in [`calahonda_var/`](calahonda_var/)) also includes the **historical** and **parametric** methods, annualized Sharpe, data loading (yfinance + synthetic fallback) and the [8 tests](tests/test_var.py).
+The full module (in [`calahonda_var/`](calahonda_var/)) also includes the **historical** and **parametric** methods, the performance metrics, portfolio optimization, data loading (yfinance + synthetic fallback) and the [14 tests](tests/).
+
+### 📈 Charts generated by the module
+
+Generated with `python examples/example_plots.py` (requires `matplotlib`; chart labels in Portuguese):
+
+![Daily return distribution with 95% VaR](docs/img/distribuicao.png)
+
+![Equity curve and drawdown](docs/img/patrimonio_drawdown.png)
+
+![Monte Carlo paths and horizon distribution](docs/img/monte_carlo.png)
+
+### 📚 API — usage examples
+
+```python
+import calahonda_var as cv
+
+# Data: B3 via yfinance (or synthetic, if offline)
+returns = cv.load_returns()                          # DataFrame: PETR4, VALE3, ITUB4
+portfolio = cv.portfolio_returns(returns, weights=[0.4, 0.3, 0.3])
+
+# Risk — VaR and CVaR as positive fractions (0.10 = 10% loss)
+cv.historical_var(portfolio, confidence=0.95, horizon_days=21)  # RiskEstimate(var, cvar)
+cv.parametric_var(portfolio)                                    # closed-form (normal)
+cv.monte_carlo_var(portfolio, n_sims=10_000, seed=42)           # reproducible simulation
+cv.var_report(portfolio, portfolio_value=1_000_000)             # table with all 3 methods
+
+# Performance
+cv.sharpe_ratio(portfolio)              # annualized Sharpe
+cv.annualized_volatility(portfolio)     # daily σ · √252
+cv.max_drawdown(portfolio)              # 0.25 = 25% peak-to-trough drop
+cv.equity_curve(portfolio)              # cumulative capital (pd.Series)
+
+# Portfolio
+cv.correlation_matrix(returns)          # correlation matrix (Pearson)
+cv.min_variance_weights(returns)        # minimum-variance weights (long-only)
+cv.max_sharpe_weights(returns)          # max-Sharpe weights (long-only)
+```
+
+| Function | Returns |
+|---|---|
+| `historical_var` · `parametric_var` · `monte_carlo_var` | `RiskEstimate(var, cvar)` |
+| `var_report` | `DataFrame` comparing the 3 methods |
+| `sharpe_ratio` · `annualized_return` · `annualized_volatility` · `max_drawdown` | `float` |
+| `equity_curve` · `drawdown_series` | `pandas.Series` |
+| `correlation_matrix` | `DataFrame` |
+| `min_variance_weights` · `max_sharpe_weights` | `pandas.Series` of weights (sum 1) |
 
 ### 📁 Repository structure
 
 ```
 calahonda/
-├── index.html · style.css · script.js   ← landing page (pure HTML/CSS/JS)
+├── index.html · style.css · script.js   ← landing page + VaR demo (pure JS)
 ├── calahonda_var/                       ← Python quantitative core
 │   ├── var.py                           ← VaR (3 methods) · CVaR · Sharpe
+│   ├── metrics.py                       ← drawdown · correlation · optimization
 │   └── data.py                          ← yfinance + synthetic fallback
-├── tests/test_var.py                    ← 8 tests (pytest)
-├── examples/example_var.py              ← full example
+├── tests/                               ← 14 tests (pytest)
+├── examples/                            ← example_var.py · example_plots.py
+├── docs/img/                            ← charts generated by the module
 ├── requirements.txt · pyproject.toml
-└── .github/workflows/ci.yml             ← CI: tests on Python 3.10–3.12
+└── .github/workflows/                   ← CI (Python 3.10–3.12) + Pages deploy
 ```
 
 ### 📌 Project status — honest
@@ -235,6 +341,8 @@ calahonda/
 | Component | Status | Technology |
 |---|---|---|
 | VaR module (3 methods + CVaR) | ✅ **Implemented and tested** | Python · NumPy · pandas · SciPy |
+| Metrics + portfolio optimization | ✅ **Implemented and tested** | Python · SciPy (SLSQP) |
+| Interactive VaR demo | ✅ Live | Pure JS + Canvas API |
 | Landing page / portfolio | ✅ Live | Pure HTML + CSS + JS |
 | PT/EN toggle | ✅ Live | Pure JavaScript |
 | CI (automated tests) | ✅ Live | GitHub Actions |

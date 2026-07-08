@@ -20,6 +20,7 @@
   <a class="nav-logo" href="#">Cala<span class="dot">.</span>honda</a>
   <div class="nav-links">
     <a href="#portfolio">Portfólio</a>
+    <a href="#demo">Demo</a>
     <a href="#porque">Por quê</a>
     <a href="#ia">IA</a>
     <a href="#mercado">Mercado</a>
@@ -116,6 +117,7 @@
         <div class="tb live">JavaScript ES6+</div>
         <div class="tb live">Intersection Observer</div>
         <div class="tb live">Clipboard API</div>
+        <div class="tb live">Canvas API</div>
         <div class="tb live">Python 3.11+</div>
         <div class="tb live">NumPy</div>
         <div class="tb live">pandas</div>
@@ -165,10 +167,11 @@
             <div class="tree-dir">├── 📁 calahonda_var/ <span class="tree-cm">← núcleo quant</span></div>
             <div class="tree-in">
               <div class="tree-file hl">├── var.py <span class="tree-cm">VaR · CVaR · Sharpe</span></div>
+              <div class="tree-file hl">├── metrics.py <span class="tree-cm">drawdown · otimização</span></div>
               <div class="tree-file hl">└── data.py <span class="tree-cm">yfinance + sintético</span></div>
             </div>
-            <div class="tree-dir">├── 📁 tests/ <span class="tree-cm">← 8 testes (pytest)</span></div>
-            <div class="tree-dir">├── 📁 examples/ <span class="tree-cm">← example_var.py</span></div>
+            <div class="tree-dir">├── 📁 tests/ <span class="tree-cm">← 14 testes (pytest)</span></div>
+            <div class="tree-dir">├── 📁 examples/ <span class="tree-cm">← exemplo + gráficos</span></div>
             <div class="tree-file" style="color:var(--gray3)">├── requirements.txt · pyproject.toml</div>
             <div class="tree-file" style="color:var(--gray3)">└── LICENSE · .gitignore · CI</div>
           </div>
@@ -214,8 +217,8 @@
     </div>
     <h3 style="font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:10px;letter-spacing:-.02em" lang-pt>Módulo de VaR em Python — funcionando de verdade</h3>
     <h3 style="font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:10px;letter-spacing:-.02em" lang-en>Python VaR module — actually working</h3>
-    <p style="color:var(--gray4);font-size:14px;font-weight:300;line-height:1.7;max-width:760px;margin-bottom:32px" lang-pt>O coração de uma plataforma quant é o cálculo de risco. Implementei um módulo de <strong style="color:var(--white);font-weight:500">Value at Risk (VaR)</strong> em Python com três métodos (histórico, paramétrico e Monte Carlo), mais CVaR, usando <strong style="color:var(--white);font-weight:500">NumPy, pandas e SciPy</strong>. Tem 8 testes unitários — incluindo um que valida o resultado contra a teoria da distribuição normal.</p>
-    <p style="color:var(--gray4);font-size:14px;font-weight:300;line-height:1.7;max-width:760px;margin-bottom:32px" lang-en>The heart of a quant platform is risk calculation. I built a <strong style="color:var(--white);font-weight:500">Value at Risk (VaR)</strong> module in Python with three methods (historical, parametric and Monte Carlo), plus CVaR, using <strong style="color:var(--white);font-weight:500">NumPy, pandas and SciPy</strong>. It has 8 unit tests — including one that validates the result against normal-distribution theory.</p>
+    <p style="color:var(--gray4);font-size:14px;font-weight:300;line-height:1.7;max-width:760px;margin-bottom:32px" lang-pt>O coração de uma plataforma quant é o cálculo de risco. Implementei um módulo de <strong style="color:var(--white);font-weight:500">Value at Risk (VaR)</strong> em Python com três métodos (histórico, paramétrico e Monte Carlo), mais CVaR, usando <strong style="color:var(--white);font-weight:500">NumPy, pandas e SciPy</strong>. Tem 14 testes unitários — incluindo um que valida o resultado contra a teoria da distribuição normal.</p>
+    <p style="color:var(--gray4);font-size:14px;font-weight:300;line-height:1.7;max-width:760px;margin-bottom:32px" lang-en>The heart of a quant platform is risk calculation. I built a <strong style="color:var(--white);font-weight:500">Value at Risk (VaR)</strong> module in Python with three methods (historical, parametric and Monte Carlo), plus CVaR, using <strong style="color:var(--white);font-weight:500">NumPy, pandas and SciPy</strong>. It has 14 unit tests — including one that validates the result against normal-distribution theory.</p>
 
     <div class="file-code-grid">
       <div>
@@ -267,7 +270,7 @@
 <span class="cm"># Volatilidade anual : 23.27%</span>
 <span class="cm"># Sharpe (rf=0)      : 0.28</span>
 
-<span class="fn">✔</span> <span class="st">8/8 testes passaram</span></div>
+<span class="fn">✔</span> <span class="st">14/14 testes passaram</span></div>
         </div>
       </div>
     </div>
@@ -297,7 +300,9 @@
       <p class="feat-panel-sub" lang-pt>Tudo abaixo funciona agora — inspecione no código-fonte (Ctrl+U)</p>
       <p class="feat-panel-sub" lang-en>Everything below works now — inspect in the source (Ctrl+U)</p>
       <ul class="feat-list">
-        <li><span class="fck-ok">✔</span><div><span class="ft-ok">Módulo VaR/CVaR em Python — 3 métodos</span><span class="ft-sub">NumPy · SciPy · 8 testes unitários · pytest</span></div></li>
+        <li><span class="fck-ok">✔</span><div><span class="ft-ok">Módulo VaR/CVaR em Python — 3 métodos</span><span class="ft-sub">NumPy · SciPy · 14 testes unitários · pytest</span></div></li>
+        <li><span class="fck-ok">✔</span><div><span class="ft-ok">Métricas quant: drawdown, correlação e otimização de carteira</span><span class="ft-sub">Mín. variância + máx. Sharpe · SciPy (SLSQP) · long-only</span></div></li>
+        <li><span class="fck-ok">✔</span><div><span class="ft-ok">Demo interativa de VaR no navegador</span><span class="ft-sub">10.000 simulações de Monte Carlo · Canvas API · JS puro</span></div></li>
         <li><span class="fck-ok">✔</span><div><span class="ft-ok">Landing page responsiva (mobile, tablet, desktop)</span><span class="ft-sub">CSS Grid puro · sem Bootstrap · sem Tailwind</span></div></li>
         <li><span class="fck-ok">✔</span><div><span class="ft-ok">Design system com CSS Custom Properties</span><span class="ft-sub">Tipografia, paleta e espaçamentos consistentes</span></div></li>
         <li><span class="fck-ok">✔</span><div><span class="ft-ok">Scorecard interativo com animação on-scroll</span><span class="ft-sub">Intersection Observer API · cálculo ponderado em JS</span></div></li>
@@ -376,6 +381,81 @@
       <div class="log-card"><div class="log-icon">🗂</div><div class="log-title" lang-pt>Honestidade técnica é credibilidade</div><div class="log-title" lang-en>Technical honesty is credibility</div><div class="log-desc" lang-pt>Recrutadores julgam pelo que existe, não pelo que será. Distinguir o que funciona do que é roadmap foi o feedback mais valioso que recebi.</div><div class="log-desc" lang-en>Recruiters judge by what exists, not what will be. Separating what works from what's roadmap was the most valuable feedback I received.</div></div>
       <div class="log-card"><div class="log-icon">📊</div><div class="log-title" lang-pt>Domínio financeiro amplifica o tech</div><div class="log-title" lang-en>Domain knowledge amplifies tech</div><div class="log-desc" lang-pt>Estudar VaR e backtesting para desenhar os módulos me fez entender que Data Science sem domínio é commodity. O nicho importa.</div><div class="log-desc" lang-en>Studying VaR and backtesting to design the modules made me realize Data Science without domain is commodity. Niche matters.</div></div>
       <div class="log-card"><div class="log-icon">🌐</div><div class="log-title" lang-pt>Projetos bilíngues têm mais alcance</div><div class="log-title" lang-en>Bilingual projects have wider reach</div><div class="log-desc" lang-pt>Adicionar inglês sem biblioteca — só CSS e JS puro — abriu o portfólio para audiências internacionais sem aumentar o bundle.</div><div class="log-desc" lang-en>Adding English without any library — just pure CSS and JS — opened the portfolio to international audiences without increasing the bundle.</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="sec" id="demo">
+<div class="si">
+  <p class="sec-lbl" lang-pt>Demo Interativa</p><p class="sec-lbl" lang-en>Interactive Demo</p>
+  <h2 class="sec-title">
+    <span lang-pt>Calcule o VaR <span class="dim">de uma carteira</span></span>
+    <span lang-en>Calculate the VaR <span class="dim">of a portfolio</span></span>
+  </h2>
+  <p style="color:var(--gray4);font-size:14px;font-weight:300;line-height:1.7;max-width:760px;margin-bottom:32px;margin-top:-32px" lang-pt>Monte uma carteira e veja o VaR paramétrico e por Monte Carlo — <strong style="color:var(--white);font-weight:500">10.000 simulações rodando agora, no seu navegador</strong>, em JavaScript puro. A matemática é a mesma do módulo Python; os parâmetros de volatilidade e correlação são <strong style="color:var(--amber);font-weight:500">ilustrativos</strong> (os do gerador sintético), não cotações reais.</p>
+  <p style="color:var(--gray4);font-size:14px;font-weight:300;line-height:1.7;max-width:760px;margin-bottom:32px;margin-top:-32px" lang-en>Build a portfolio and see the parametric and Monte Carlo VaR — <strong style="color:var(--white);font-weight:500">10,000 simulations running right now, in your browser</strong>, in pure JavaScript. The math is the same as the Python module; volatility and correlation parameters are <strong style="color:var(--amber);font-weight:500">illustrative</strong> (from the synthetic generator), not real quotes.</p>
+
+  <div class="demo-grid">
+    <div class="demo-panel">
+      <div class="demo-panel-h" lang-pt>🧮 Sua carteira</div><div class="demo-panel-h" lang-en>🧮 Your portfolio</div>
+      <div class="demo-row" style="margin-bottom:4px">
+        <span class="demo-lbl" lang-pt>Ativo</span><span class="demo-lbl" lang-en>Asset</span>
+        <span class="demo-lbl" lang-pt>Peso %</span><span class="demo-lbl" lang-en>Weight %</span>
+      </div>
+      <div class="demo-row"><select class="demo-sel demo-asset"><option>PETR4</option><option>VALE3</option><option>ITUB4</option><option>BBAS3</option><option>WEGE3</option><option>B3SA3</option></select><input class="demo-in demo-weight" type="number" min="0" max="100" step="5" value="40"></div>
+      <div class="demo-row"><select class="demo-sel demo-asset"><option>VALE3</option><option>PETR4</option><option>ITUB4</option><option>BBAS3</option><option>WEGE3</option><option>B3SA3</option></select><input class="demo-in demo-weight" type="number" min="0" max="100" step="5" value="30"></div>
+      <div class="demo-row"><select class="demo-sel demo-asset"><option>ITUB4</option><option>PETR4</option><option>VALE3</option><option>BBAS3</option><option>WEGE3</option><option>B3SA3</option></select><input class="demo-in demo-weight" type="number" min="0" max="100" step="5" value="30"></div>
+      <div class="demo-field" style="margin-top:14px">
+        <span class="demo-lbl" lang-pt>Valor da carteira (R$)</span><span class="demo-lbl" lang-en>Portfolio value (R$)</span>
+        <input class="demo-in" id="demo-value" type="number" min="1000" step="100000" value="1000000">
+      </div>
+      <div class="demo-2col">
+        <div class="demo-field">
+          <span class="demo-lbl" lang-pt>Confiança</span><span class="demo-lbl" lang-en>Confidence</span>
+          <select class="demo-sel" id="demo-conf"><option value="0.90">90%</option><option value="0.95" selected>95%</option><option value="0.99">99%</option></select>
+        </div>
+        <div class="demo-field">
+          <span class="demo-lbl" lang-pt>Horizonte (dias úteis)</span><span class="demo-lbl" lang-en>Horizon (trading days)</span>
+          <input class="demo-in" id="demo-horizon" type="number" min="1" max="252" value="21">
+        </div>
+      </div>
+      <button class="demo-btn" id="demo-run" onclick="runDemo()"><span lang-pt>▶ Calcular VaR</span><span lang-en>▶ Calculate VaR</span></button>
+      <p class="demo-note" lang-pt>* Pesos são normalizados para somar 100%. Simulação didática — não é recomendação de investimento.</p>
+      <p class="demo-note" lang-en>* Weights are normalized to sum 100%. Educational simulation — not investment advice.</p>
+    </div>
+    <div class="demo-panel">
+      <div class="demo-panel-h" lang-pt>📊 Resultado</div><div class="demo-panel-h" lang-en>📊 Result</div>
+      <div class="demo-empty" id="demo-empty">
+        <span lang-pt>Clique em <strong style="color:var(--lime);font-weight:500">Calcular VaR</strong> para rodar as 10.000 simulações e ver a distribuição de perdas e ganhos.</span>
+        <span lang-en>Click <strong style="color:var(--lime);font-weight:500">Calculate VaR</strong> to run the 10,000 simulations and see the P&amp;L distribution.</span>
+      </div>
+      <div id="demo-out" style="display:none">
+        <div class="demo-tiles">
+          <div class="demo-tile">
+            <div class="demo-tile-lbl" style="color:var(--amber)"><span lang-pt>VaR · Monte Carlo</span><span lang-en>VaR · Monte Carlo</span></div>
+            <div class="demo-tile-val" id="demo-var-brl">—</div>
+            <div class="demo-tile-sub" id="demo-var-pct">—</div>
+          </div>
+          <div class="demo-tile">
+            <div class="demo-tile-lbl" style="color:var(--red)"><span lang-pt>CVaR (Expected Shortfall)</span><span lang-en>CVaR (Expected Shortfall)</span></div>
+            <div class="demo-tile-val" id="demo-cvar-brl">—</div>
+            <div class="demo-tile-sub" id="demo-cvar-pct">—</div>
+          </div>
+        </div>
+        <table class="demo-table">
+          <thead><tr>
+            <th lang-pt>Método</th><th lang-en>Method</th>
+            <th>VaR %</th><th>CVaR %</th><th>VaR R$</th>
+          </tr></thead>
+          <tbody id="demo-tbody"></tbody>
+        </table>
+        <div class="demo-chart-wrap">
+          <canvas id="demo-canvas"></canvas>
+          <div id="demo-tt"></div>
+        </div>
+        <p class="demo-note" id="demo-chart-note"></p>
+      </div>
     </div>
   </div>
 </div>
@@ -463,8 +543,8 @@
   <p style="color:var(--gray4);font-size:14px;font-weight:300;line-height:1.7;max-width:720px;margin-bottom:32px;margin-top:-32px" lang-en>These six modules describe the <strong style="color:var(--white);font-weight:500">full vision</strong> of a quant platform. Today, <strong style="color:var(--lime);font-weight:500">Module 03 (VaR) is implemented and tested in Python</strong> — the rest are the conceptual roadmap. The outputs below are illustrative.</p>
   <div class="ai-grid">
     <div class="ai-card" style="opacity:.62"><div class="ai-num">MÓDULO 01 · <span style="color:var(--gray4)">planejado</span></div><div class="ai-name" lang-pt>Previsão de Volatilidade</div><div class="ai-name" lang-en>Volatility Forecasting</div><div class="ai-desc" lang-pt>Modelo GARCH + LSTM que prevê a volatilidade esperada de cada ativo para os próximos 5, 10 e 21 dias úteis, com intervalo de confiança.</div><div class="ai-desc" lang-en>GARCH + LSTM model that forecasts expected volatility for each asset over the next 5, 10 and 21 trading days, with confidence intervals.</div><div class="ai-output">Output: <span>vol_5d = 18.4% ± 2.1%</span></div></div>
-    <div class="ai-card" style="opacity:.62"><div class="ai-num">MÓDULO 02 · <span style="color:var(--gray4)">planejado</span></div><div class="ai-name" lang-pt>Otimização de Portfólio</div><div class="ai-name" lang-en>Portfolio Optimization</div><div class="ai-desc" lang-pt>Algoritmo de Markowitz aumentado com restrições reais (liquidez, concentração, drawdown) para sugerir alocações ótimas por perfil de risco.</div><div class="ai-desc" lang-en>Enhanced Markowitz algorithm with real constraints (liquidity, concentration, drawdown) to suggest optimal allocations by risk profile.</div><div class="ai-output">Output: <span>Sharpe ótimo = 1.92</span></div></div>
-    <div class="ai-card" style="border-color:rgba(200,241,53,.4);background:rgba(200,241,53,.04)"><div class="ai-num" style="color:var(--lime)">MÓDULO 03 · ✔ IMPLEMENTADO</div><div class="ai-name" lang-pt>Cálculo de Risco (VaR/CVaR)</div><div class="ai-name" lang-en>Risk Calculation (VaR/CVaR)</div><div class="ai-desc" lang-pt>Value at Risk e Conditional VaR por três métodos (histórico, paramétrico, Monte Carlo). <strong style="color:var(--white);font-weight:500">Código Python funcionando, com 8 testes.</strong></div><div class="ai-desc" lang-en>Value at Risk and Conditional VaR via three methods (historical, parametric, Monte Carlo). <strong style="color:var(--white);font-weight:500">Working Python code, with 8 tests.</strong></div><div class="ai-output">Output: <span>VaR 95% = R$ 113.087</span></div></div>
+    <div class="ai-card" style="border-color:rgba(245,166,35,.35)"><div class="ai-num" style="color:var(--amber)">MÓDULO 02 · ◐ BASE IMPLEMENTADA</div><div class="ai-name" lang-pt>Otimização de Portfólio</div><div class="ai-name" lang-en>Portfolio Optimization</div><div class="ai-desc" lang-pt>Markowitz long-only em Python: carteiras de <strong style="color:var(--white);font-weight:500">mínima variância e máximo Sharpe</strong> via SciPy, testadas. Restrições avançadas (liquidez, drawdown) são roadmap.</div><div class="ai-desc" lang-en>Long-only Markowitz in Python: <strong style="color:var(--white);font-weight:500">minimum-variance and max-Sharpe</strong> portfolios via SciPy, tested. Advanced constraints (liquidity, drawdown) are roadmap.</div><div class="ai-output">Output: <span>Sharpe ótimo = 0.79</span></div></div>
+    <div class="ai-card" style="border-color:rgba(200,241,53,.4);background:rgba(200,241,53,.04)"><div class="ai-num" style="color:var(--lime)">MÓDULO 03 · ✔ IMPLEMENTADO</div><div class="ai-name" lang-pt>Cálculo de Risco (VaR/CVaR)</div><div class="ai-name" lang-en>Risk Calculation (VaR/CVaR)</div><div class="ai-desc" lang-pt>Value at Risk e Conditional VaR por três métodos (histórico, paramétrico, Monte Carlo). <strong style="color:var(--white);font-weight:500">Código Python funcionando, com 14 testes.</strong></div><div class="ai-desc" lang-en>Value at Risk and Conditional VaR via three methods (historical, parametric, Monte Carlo). <strong style="color:var(--white);font-weight:500">Working Python code, with 14 tests.</strong></div><div class="ai-output">Output: <span>VaR 95% = R$ 113.087</span></div></div>
     <div class="ai-card" style="opacity:.62"><div class="ai-num">MÓDULO 04 · <span style="color:var(--gray4)">planejado</span></div><div class="ai-name" lang-pt>Detecção de Anomalias</div><div class="ai-name" lang-en>Anomaly Detection</div><div class="ai-desc" lang-pt>Isolation Forest + Z-score para identificar movimentos atípicos em preço, volume e correlação — alertando o gestor antes de eventos de risco.</div><div class="ai-desc" lang-en>Isolation Forest + Z-score to identify unusual movements in price, volume and correlation — alerting the manager before risk events.</div><div class="ai-output">Output: <span>VALE3 anomalia ⚠</span></div></div>
     <div class="ai-card" style="opacity:.62"><div class="ai-num">MÓDULO 05 · <span style="color:var(--gray4)">planejado</span></div><div class="ai-name" lang-pt>Sentimento de Notícias</div><div class="ai-name" lang-en>News Sentiment</div><div class="ai-desc" lang-pt>Pipeline NLP (FinBERT em português) que classifica notícias em tempo real e correlaciona sentimento com movimentos de preço intradiários.</div><div class="ai-desc" lang-en>NLP pipeline (FinBERT in Portuguese) that classifies news in real time and correlates sentiment with intraday price movements.</div><div class="ai-output">Output: <span>PETR4 sentimento = -0.73</span></div></div>
     <div class="ai-card" style="opacity:.62"><div class="ai-num">MÓDULO 06 · <span style="color:var(--gray4)">planejado</span></div><div class="ai-name" lang-pt>Relatórios Automáticos</div><div class="ai-name" lang-en>Automated Reports</div><div class="ai-desc" lang-pt>LLM especializado gera relatórios semanais e mensais para cotistas em linguagem natural — com análise de performance, risco e perspectivas.</div><div class="ai-desc" lang-en>Specialized LLM generates weekly and monthly investor reports in natural language — with performance analysis, risk and outlook.</div><div class="ai-output">Output: <span>PDF 12pg em 4s</span></div></div>
@@ -671,7 +751,7 @@ Ele calcula o risco de uma carteira de ações da B3 por três métodos:
 📈 Paramétrico (variância-covariância)
 🎲 Monte Carlo (10.000 simulações)
 
-Mais o CVaR (Expected Shortfall) e 8 testes unitários — incluindo um que valida o resultado contra a teoria da distribuição normal.
+Mais o CVaR (Expected Shortfall) e 14 testes unitários — incluindo um que valida o resultado contra a teoria da distribuição normal.
 
 <b>Stack:</b> Python, NumPy, pandas, SciPy.
 
@@ -714,7 +794,7 @@ A maioria dos fundos menores no Brasil ainda calcula isso manualmente. Resolvi a
 
 Para uma gestora que fazia isso em Excel: 3–4 horas economizadas por semana.
 
-Esse é o Módulo 03 da Calahonda — implementado, com 8 testes unitários.
+Esse é o Módulo 03 da Calahonda — implementado, com 14 testes unitários.
 Código completo no GitHub (link na bio).
 
 <b>Qual métrica de risco você mais usa no dia a dia?</b> 👇
@@ -746,7 +826,7 @@ Deixa eu ser direto sobre o que construí e o que aprendi:
 ✔ Clipboard API para 3 posts LinkedIn prontos
 ✔ Toggle PT/EN sem biblioteca — JS puro, zero reload
 ✔ CSS Grid layout complexo — fr units + gap
-✔ Módulo VaR em Python — 3 métodos, CVaR e 8 testes
+✔ Módulo VaR em Python — 3 métodos, CVaR e 14 testes
 
 <b>O que ainda é roadmap (honestamente):</b>
 ○ Dashboard com dados reais da B3

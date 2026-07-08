@@ -11,6 +11,17 @@ from calahonda_var.data import (
     portfolio_returns,
     synthetic_returns,
 )
+from calahonda_var.metrics import (
+    annualized_return,
+    annualized_volatility,
+    correlation_matrix,
+    drawdown_series,
+    equity_curve,
+    max_drawdown,
+    max_sharpe_weights,
+    min_variance_weights,
+    portfolio_volatility,
+)
 from calahonda_var.var import (
     RiskEstimate,
     historical_var,
@@ -25,11 +36,20 @@ __version__ = "1.0.0"
 __all__ = [
     "DEFAULT_TICKERS",
     "RiskEstimate",
+    "annualized_return",
+    "annualized_volatility",
+    "correlation_matrix",
+    "drawdown_series",
+    "equity_curve",
     "historical_var",
     "load_returns",
+    "max_drawdown",
+    "max_sharpe_weights",
+    "min_variance_weights",
     "monte_carlo_var",
     "parametric_var",
     "portfolio_returns",
+    "portfolio_volatility",
     "sharpe_ratio",
     "synthetic_returns",
     "var_report",

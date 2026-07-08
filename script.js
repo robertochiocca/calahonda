@@ -45,9 +45,9 @@ try {
 } catch (e) { /* modo privado */ }
 
 const posts = {
-  1: `Como estudante querendo entrar em finanças quantitativas, decidi parar de só estudar teoria e construir algo real.\n\nO resultado: um módulo de Value at Risk (VaR) em Python, do zero.\n\nEle calcula o risco de uma carteira de ações da B3 por três métodos:\n📊 Histórico (distribuição empírica)\n📈 Paramétrico (variância-covariância)\n🎲 Monte Carlo (10.000 simulações)\n\nMais o CVaR (Expected Shortfall) e 8 testes unitários — incluindo um que valida o resultado contra a teoria da distribuição normal.\n\nStack: Python, NumPy, pandas, SciPy.\n\nFaz parte de um projeto maior que estou usando para estudar o mercado brasileiro: a Calahonda — um conceito de plataforma quant focada na B3. Por enquanto é portfólio, não produto, e sou honesto sobre isso: o VaR funciona, o resto é roadmap.\n\nCódigo aberto no GitHub (link na bio). Feedback de quem trabalha com risco ou quant é muito bem-vindo.\n\nQual métrica de risco vocês consideram mais útil no dia a dia?\n\n#QuantFinance #Python #DataScience #RiskManagement #B3 #VaR`,
-  2: `Value at Risk (VaR) é a métrica de risco mais usada por fundos no mundo.\n\nEla responde: "qual é a perda máxima esperada com 95% de confiança nos próximos 21 dias?"\n\nA maioria dos fundos menores no Brasil ainda calcula isso manualmente. Resolvi automatizar.\n\nO método (Monte Carlo, 4 passos):\n1. Dados históricos da B3 via yfinance\n2. Retornos diários de cada ativo\n3. 10.000 simulações de Monte Carlo\n4. Percentil 5% da distribuição de perdas\n\nResultado (PETR4 + VALE3 + ITUB4):\n→ VaR 95% (21 dias) = R$ 103.656\n→ CVaR = R$ 130.743\n→ Tempo: 1.2 segundos\n\nPara uma gestora que fazia isso em Excel: 3–4 horas economizadas por semana.\n\nEsse é o Módulo 03 da Calahonda — implementado, com 8 testes unitários.\nCódigo completo no GitHub (link na bio).\n\nQual métrica de risco você mais usa no dia a dia? 👇\n\n#Python #QuantFinance #RiskManagement #DataScience #B3 #VaR #MonteCarlo`,
-  3: `Todo mundo diz "faça projetos para o portfólio."\nPoucos explicam o que isso realmente significa.\n\nDeixa eu ser direto sobre o que construí e o que aprendi:\n\nO que está implementado hoje (você pode inspecionar o código):\n✔ Landing page responsiva — mobile, tablet, desktop\n✔ Design system com CSS Custom Properties — sem Bootstrap\n✔ Scorecard interativo com Intersection Observer API\n✔ Progress bar de leitura com scroll listener passive\n✔ Clipboard API para 3 posts LinkedIn prontos\n✔ Toggle PT/EN sem biblioteca — JS puro, zero reload\n✔ CSS Grid layout complexo — fr units + gap\n✔ Módulo VaR em Python — 3 métodos, CVaR e 8 testes\n\nO que ainda é roadmap (honestamente):\n○ Dashboard com dados reais da B3\n○ Backend FastAPI + banco de dados\n○ Machine Learning — Fase 3\n\nDistinguir o que funciona do que é plano foi o feedback mais valioso que recebi.\n\nO que nenhuma aula ensinou:\n1. CSS Grid em 5 linhas resolve o que eu fazia em 50 com float\n2. Intersection Observer é mais eficiente que scroll listener\n3. Projetos sem domínio de negócio são genéricos\n4. README bilíngue vale mais que 10 projetos mal documentados\n\nCódigo no GitHub: github.com/robertochiocca\n\n#PortfolioDeDesenvolvedor #HTML #CSS #JavaScript #DataScience #PUC #EstágioDev`
+  1: `Como estudante querendo entrar em finanças quantitativas, decidi parar de só estudar teoria e construir algo real.\n\nO resultado: um módulo de Value at Risk (VaR) em Python, do zero.\n\nEle calcula o risco de uma carteira de ações da B3 por três métodos:\n📊 Histórico (distribuição empírica)\n📈 Paramétrico (variância-covariância)\n🎲 Monte Carlo (10.000 simulações)\n\nMais o CVaR (Expected Shortfall) e 14 testes unitários — incluindo um que valida o resultado contra a teoria da distribuição normal.\n\nStack: Python, NumPy, pandas, SciPy.\n\nFaz parte de um projeto maior que estou usando para estudar o mercado brasileiro: a Calahonda — um conceito de plataforma quant focada na B3. Por enquanto é portfólio, não produto, e sou honesto sobre isso: o VaR funciona, o resto é roadmap.\n\nCódigo aberto no GitHub (link na bio). Feedback de quem trabalha com risco ou quant é muito bem-vindo.\n\nQual métrica de risco vocês consideram mais útil no dia a dia?\n\n#QuantFinance #Python #DataScience #RiskManagement #B3 #VaR`,
+  2: `Value at Risk (VaR) é a métrica de risco mais usada por fundos no mundo.\n\nEla responde: "qual é a perda máxima esperada com 95% de confiança nos próximos 21 dias?"\n\nA maioria dos fundos menores no Brasil ainda calcula isso manualmente. Resolvi automatizar.\n\nO método (Monte Carlo, 4 passos):\n1. Dados históricos da B3 via yfinance\n2. Retornos diários de cada ativo\n3. 10.000 simulações de Monte Carlo\n4. Percentil 5% da distribuição de perdas\n\nResultado (PETR4 + VALE3 + ITUB4):\n→ VaR 95% (21 dias) = R$ 103.656\n→ CVaR = R$ 130.743\n→ Tempo: 1.2 segundos\n\nPara uma gestora que fazia isso em Excel: 3–4 horas economizadas por semana.\n\nEsse é o Módulo 03 da Calahonda — implementado, com 14 testes unitários.\nCódigo completo no GitHub (link na bio).\n\nQual métrica de risco você mais usa no dia a dia? 👇\n\n#Python #QuantFinance #RiskManagement #DataScience #B3 #VaR #MonteCarlo`,
+  3: `Todo mundo diz "faça projetos para o portfólio."\nPoucos explicam o que isso realmente significa.\n\nDeixa eu ser direto sobre o que construí e o que aprendi:\n\nO que está implementado hoje (você pode inspecionar o código):\n✔ Landing page responsiva — mobile, tablet, desktop\n✔ Design system com CSS Custom Properties — sem Bootstrap\n✔ Scorecard interativo com Intersection Observer API\n✔ Progress bar de leitura com scroll listener passive\n✔ Clipboard API para 3 posts LinkedIn prontos\n✔ Toggle PT/EN sem biblioteca — JS puro, zero reload\n✔ CSS Grid layout complexo — fr units + gap\n✔ Módulo VaR em Python — 3 métodos, CVaR e 14 testes\n\nO que ainda é roadmap (honestamente):\n○ Dashboard com dados reais da B3\n○ Backend FastAPI + banco de dados\n○ Machine Learning — Fase 3\n\nDistinguir o que funciona do que é plano foi o feedback mais valioso que recebi.\n\nO que nenhuma aula ensinou:\n1. CSS Grid em 5 linhas resolve o que eu fazia em 50 com float\n2. Intersection Observer é mais eficiente que scroll listener\n3. Projetos sem domínio de negócio são genéricos\n4. README bilíngue vale mais que 10 projetos mal documentados\n\nCódigo no GitHub: github.com/robertochiocca\n\n#PortfolioDeDesenvolvedor #HTML #CSS #JavaScript #DataScience #PUC #EstágioDev`
 };
 
 function copyPost(n) {
@@ -60,3 +60,198 @@ function copyPost(n) {
     window.prompt('Copie o texto abaixo (Ctrl+C):', posts[n]);
   });
 }
+
+/* ===== Demo interativa de VaR =====
+   Mesma matemática do módulo Python (calahonda_var), com parâmetros
+   diários ilustrativos — os do gerador sintético — e correlação 0.35. */
+
+const DEMO_ASSETS = {
+  PETR4: { mu: -0.0004, vol: 0.022 },
+  VALE3: { mu: -0.0002, vol: 0.020 },
+  ITUB4: { mu:  0.0002, vol: 0.016 },
+  BBAS3: { mu:  0.0001, vol: 0.017 },
+  WEGE3: { mu:  0.0004, vol: 0.018 },
+  B3SA3: { mu:  0.0001, vol: 0.021 }
+};
+const DEMO_CORR = 0.35;
+const DEMO_Z = { '0.90': 1.2816, '0.95': 1.6449, '0.99': 2.3263 };
+const DEMO_N_SIMS = 10000;
+
+const isEN = () => document.body.classList.contains('en');
+const fmtBRL = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+const fmtPct = v => (v * 100).toFixed(2).replace('.', isEN() ? '.' : ',') + '%';
+
+// PRNG com semente (mulberry32) + Box-Muller: simulação reprodutível
+function mulberry32(seed) {
+  return function () {
+    seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function gaussian(rand) {
+  const u = 1 - rand(), v = rand();
+  return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+}
+const normPdf = z => Math.exp(-z * z / 2) / Math.sqrt(2 * Math.PI);
+
+let demoState = null;
+
+function runDemo() {
+  // 1. Carteira: pesos normalizados
+  const rows = document.querySelectorAll('#demo .demo-row');
+  const assets = [], weights = [];
+  rows.forEach(row => {
+    const sel = row.querySelector('select');
+    const inp = row.querySelector('input');
+    if (!sel || !inp) return;
+    const w = parseFloat(inp.value) || 0;
+    if (w > 0) { assets.push(sel.value); weights.push(w); }
+  });
+  const total = weights.reduce((a, b) => a + b, 0);
+  if (!total) return;
+  const w = weights.map(x => x / total);
+
+  const value = Math.max(1000, parseFloat(document.getElementById('demo-value').value) || 1e6);
+  const confStr = document.getElementById('demo-conf').value;
+  const conf = parseFloat(confStr);
+  const h = Math.min(252, Math.max(1, parseInt(document.getElementById('demo-horizon').value) || 21));
+
+  // 2. Parâmetros da carteira: μ = wᵀμ ; σ² = wᵀΣw (Σ via correlação constante)
+  let mu = 0;
+  for (let i = 0; i < assets.length; i++) mu += w[i] * DEMO_ASSETS[assets[i]].mu;
+  let varDaily = 0;
+  for (let i = 0; i < assets.length; i++) {
+    for (let j = 0; j < assets.length; j++) {
+      const rho = i === j ? 1 : DEMO_CORR;
+      varDaily += w[i] * w[j] * rho * DEMO_ASSETS[assets[i]].vol * DEMO_ASSETS[assets[j]].vol;
+    }
+  }
+  const sigma = Math.sqrt(varDaily);
+  const muH = mu * h, sigH = sigma * Math.sqrt(h);
+
+  // 3. Paramétrico (fórmula fechada, normal)
+  const z = DEMO_Z[confStr], alpha = 1 - conf;
+  const varPar = z * sigH - muH;
+  const cvarPar = sigH * normPdf(z) / alpha - muH;
+
+  // 4. Monte Carlo: 10.000 cenários de P&L no horizonte
+  const rand = mulberry32(42);
+  const pnl = new Float64Array(DEMO_N_SIMS);
+  for (let i = 0; i < DEMO_N_SIMS; i++) pnl[i] = muH + sigH * gaussian(rand);
+  const sorted = Float64Array.from(pnl).sort();
+  const varMC = -sorted[Math.floor(alpha * DEMO_N_SIMS)];
+  let tailSum = 0, tailN = 0;
+  for (let i = 0; i < DEMO_N_SIMS && sorted[i] <= -varMC; i++) { tailSum += sorted[i]; tailN++; }
+  const cvarMC = tailN ? -tailSum / tailN : varMC;
+
+  // 5. Render
+  document.getElementById('demo-empty').style.display = 'none';
+  document.getElementById('demo-out').style.display = 'block';
+  document.getElementById('demo-var-brl').textContent = fmtBRL(varMC * value);
+  document.getElementById('demo-var-pct').textContent =
+    fmtPct(varMC) + (isEN() ? ` of the portfolio · ${h} days · ${Math.round(conf * 100)}%` : ` da carteira · ${h} dias · ${Math.round(conf * 100)}%`);
+  document.getElementById('demo-cvar-brl').textContent = fmtBRL(cvarMC * value);
+  document.getElementById('demo-cvar-pct').textContent =
+    fmtPct(cvarMC) + (isEN() ? ' — mean loss beyond the VaR' : ' — perda média além do VaR');
+
+  const rowsHtml = [
+    ['parametric', varPar, cvarPar],
+    ['monte_carlo', varMC, cvarMC]
+  ].map(([name, v, c]) =>
+    `<tr><td>${name}</td><td>${fmtPct(v)}</td><td>${fmtPct(c)}</td><td>${fmtBRL(v * value)}</td></tr>`
+  ).join('');
+  document.getElementById('demo-tbody').innerHTML = rowsHtml;
+
+  document.getElementById('demo-chart-note').textContent = isEN()
+    ? `Distribution of simulated P&L over ${h} trading days (${DEMO_N_SIMS.toLocaleString('en-US')} scenarios). Amber line = VaR · red line = CVaR.`
+    : `Distribuição do P&L simulado em ${h} dias úteis (${DEMO_N_SIMS.toLocaleString('pt-BR')} cenários). Linha âmbar = VaR · vermelha = CVaR.`;
+
+  demoState = { pnl: sorted, varMC, cvarMC, h };
+  drawDemoHistogram();
+}
+
+function drawDemoHistogram() {
+  if (!demoState) return;
+  const { pnl, varMC, cvarMC } = demoState;
+  const canvas = document.getElementById('demo-canvas');
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.clientWidth, H = canvas.clientHeight;
+  canvas.width = W * dpr; canvas.height = H * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, W, H);
+
+  const padL = 8, padR = 8, padT = 26, padB = 22;
+  const min = pnl[0], max = pnl[pnl.length - 1];
+  const nBins = 48, binW = (max - min) / nBins;
+  const bins = new Array(nBins).fill(0);
+  pnl.forEach(v => bins[Math.min(nBins - 1, Math.floor((v - min) / binW))]++);
+  const maxBin = Math.max(...bins);
+  const plotW = W - padL - padR, plotH = H - padT - padB;
+  const xOf = v => padL + ((v - min) / (max - min)) * plotW;
+
+  // grid recessivo
+  ctx.strokeStyle = 'rgba(255,255,255,.06)';
+  ctx.lineWidth = 1;
+  [0.25, 0.5, 0.75].forEach(f => {
+    ctx.beginPath();
+    ctx.moveTo(padL, padT + plotH * f); ctx.lineTo(W - padR, padT + plotH * f);
+    ctx.stroke();
+  });
+
+  // barras (série única, lima) com respiro de 2px entre elas
+  const barW = plotW / nBins;
+  for (let i = 0; i < nBins; i++) {
+    const bh = (bins[i] / maxBin) * plotH;
+    ctx.fillStyle = '#C8F135';
+    ctx.globalAlpha = 0.88;
+    ctx.fillRect(padL + i * barW + 1, padT + plotH - bh, Math.max(1, barW - 2), bh);
+  }
+  ctx.globalAlpha = 1;
+
+  // linha de base + rótulos min/0/max
+  ctx.strokeStyle = 'rgba(255,255,255,.18)';
+  ctx.beginPath(); ctx.moveTo(padL, padT + plotH + .5); ctx.lineTo(W - padR, padT + plotH + .5); ctx.stroke();
+  ctx.fillStyle = '#8892A4';
+  ctx.font = '10px "IBM Plex Mono", monospace';
+  ctx.textAlign = 'left';
+  ctx.fillText((min * 100).toFixed(0) + '%', padL, H - 7);
+  ctx.textAlign = 'right';
+  ctx.fillText('+' + (max * 100).toFixed(0) + '%', W - padR, H - 7);
+  if (min < 0 && max > 0) { ctx.textAlign = 'center'; ctx.fillText('0', xOf(0), H - 7); }
+
+  // limiares com rótulo direto (nunca cor sozinha)
+  const threshold = (v, color, label, line) => {
+    const x = xOf(-v);
+    ctx.strokeStyle = color; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(x, padT - 4); ctx.lineTo(x, padT + plotH); ctx.stroke();
+    ctx.fillStyle = color; ctx.textAlign = x < W / 2 ? 'left' : 'right';
+    ctx.fillText(label, x + (x < W / 2 ? 5 : -5), 12 + line * 12);
+  };
+  const confLabel = document.getElementById('demo-conf').selectedOptions[0].textContent;
+  threshold(varMC, '#F5A623', `VaR ${confLabel} = ${(varMC * 100).toFixed(1)}%`, 0);
+  threshold(cvarMC, '#F24B4B', `CVaR = ${(cvarMC * 100).toFixed(1)}%`, 1);
+
+  // camada de hover: tooltip por barra
+  canvas.onmousemove = e => {
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const i = Math.floor((x - padL) / barW);
+    const tt = document.getElementById('demo-tt');
+    if (i < 0 || i >= nBins) { tt.style.display = 'none'; return; }
+    const lo = (min + i * binW) * 100, hi = (min + (i + 1) * binW) * 100;
+    tt.textContent = isEN()
+      ? `${lo.toFixed(1)}% to ${hi.toFixed(1)}% · ${bins[i]} scenarios`
+      : `${lo.toFixed(1)}% a ${hi.toFixed(1)}% · ${bins[i]} cenários`;
+    tt.style.display = 'block';
+    const wrap = canvas.parentElement.getBoundingClientRect();
+    const left = Math.min(e.clientX - wrap.left + 12, wrap.width - tt.offsetWidth - 8);
+    tt.style.left = left + 'px';
+    tt.style.top = (e.clientY - wrap.top - 34) + 'px';
+  };
+  canvas.onmouseleave = () => { document.getElementById('demo-tt').style.display = 'none'; };
+}
+
+window.addEventListener('resize', () => { if (demoState) drawDemoHistogram(); });
