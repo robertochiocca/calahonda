@@ -1,0 +1,10 @@
+# Núcleo quantitativo
+numpy>=1.24
+pandas>=2.0
+scipy>=1.10
+
+# Testes
+pytest>=7.4
+
+# Opcional: dados reais da B3 (sem ele, o projeto usa dados sintéticos)
+# yfinance>=0.2

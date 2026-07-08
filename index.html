@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calahonda — AI Quant Platform for Brazilian Asset Managers</title>
+<meta name="description" content="Calahonda — a portfolio project exploring an AI-native quantitative analysis platform concept for independent Brazilian asset managers.">
+<meta name="author" content="Roberto Chiocca">
+<meta property="og:title" content="Calahonda — Quant Finance Portfolio Project">
+<meta property="og:description" content="Portfolio project: a quantitative analysis platform concept, with a working Python VaR module. Built by Roberto Chiocca.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='14' fill='%23C8F135'/><text y='.9em' font-size='72' x='16'>C</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="pb"></div>
+
+<nav>
+  <a class="nav-logo" href="#">Cala<span class="dot">.</span>honda</a>
+  <div class="nav-links">
+    <a href="#portfolio">Portfólio</a>
+    <a href="#porque">Por quê</a>
+    <a href="#ia">IA</a>
+    <a href="#mercado">Mercado</a>
+    <a href="#receita">Receita</a>
+    <a href="#riscos">Riscos</a>
+    <a href="#linkedin">LinkedIn</a>
+  </div>
+  <div style="display:flex;gap:12px;align-items:center">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-pt" onclick="setLang('pt')">PT</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <div class="nav-pill" lang-pt>Projeto</div>
+    <div class="nav-pill" lang-en>Portfolio</div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-badge">
+    <div class="hero-badge-dot"></div>
+    <span lang-pt>Calahonda · Projeto de portfólio · Finanças quantitativas</span>
+    <span lang-en>Calahonda · Portfolio project · Quantitative finance</span>
+  </div>
+  <h1>
+    <span lang-pt>Um conceito de plataforma<br><span class="acc">de IA quant</span><br><span class="dim">para gestoras brasileiras</span></span>
+    <span lang-en>A concept for an<br><span class="acc">AI quant platform</span><br><span class="dim">for Brazilian asset managers</span></span>
+  </h1>
+  <div class="hero-bottom">
+    <p class="hero-desc">
+      <span lang-pt>Projeto de portfólio explorando análise quantitativa aplicada ao mercado brasileiro. Gestoras independentes raramente pagam <strong>US$2k+/mês</strong> por ferramentas internacionais — este projeto estuda como uma alternativa focada na B3 poderia funcionar, começando por um <strong>módulo de VaR em Python</strong> que já roda.</span>
+      <span lang-en>A portfolio project exploring quantitative analysis for the Brazilian market. Independent managers rarely pay <strong>$2k+/month</strong> for international tools — this project studies how a B3-focused alternative could work, starting with a <strong>working Python VaR module</strong>.</span>
+    </p>
+    <div class="hero-kpis">
+      <div>
+        <div class="kpi-num">~1000<span class="u"></span></div>
+        <div class="kpi-lbl" lang-pt>Fundos de ações (B3)</div>
+        <div class="kpi-lbl" lang-en>Equity funds (B3)</div>
+        <div class="kpi-src"><a href="https://www.b3.com.br" target="_blank" rel="noopener" style="color:inherit">Fonte: B3 / ANBIMA ↗</a></div>
+      </div>
+      <div>
+        <div class="kpi-num">3</div>
+        <div class="kpi-lbl" lang-pt>Métodos de VaR implementados</div>
+        <div class="kpi-lbl" lang-en>VaR methods implemented</div>
+        <div class="kpi-src" lang-pt>Python · testado</div>
+        <div class="kpi-src" lang-en>Python · tested</div>
+      </div>
+      <div>
+        <div class="kpi-num">5M<span class="u">+</span></div>
+        <div class="kpi-lbl" lang-pt>Investidores PF na B3</div>
+        <div class="kpi-lbl" lang-en>Retail investors on B3</div>
+        <div class="kpi-src"><a href="https://www.b3.com.br" target="_blank" rel="noopener" style="color:inherit">Fonte: B3, 2024 ↗</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="status-banner">
+  <div>📌</div>
+  <div class="status-banner-text">
+    <strong lang-pt>Estado real do projeto</strong><strong lang-en>Project current state</strong>
+    <span lang-pt> — Front-end (HTML/CSS/JS) + módulo VaR em Python, ambos funcionando</span>
+    <span lang-en> — Front-end (HTML/CSS/JS) + Python VaR module, both working</span>
+  </div>
+  <div class="status-items">
+    <div class="status-item sitem-ok">✔ <span lang-pt>Front-end ao vivo</span><span lang-en>Front-end live</span></div>
+    <div class="status-item sitem-ok">✔ <span lang-pt>Módulo VaR em Python</span><span lang-en>Python VaR module</span></div>
+    <div class="status-item sitem-plan">○ <span lang-pt>Dashboard dados reais</span><span lang-en>Real data dashboard</span></div>
+    <div class="status-item sitem-plan">○ <span lang-pt>API FastAPI</span><span lang-en>FastAPI backend</span></div>
+  </div>
+</div>
+
+<section class="sec" id="portfolio">
+<div class="si">
+  <p class="sec-lbl" lang-pt>Portfólio Técnico</p><p class="sec-lbl" lang-en>Technical Portfolio</p>
+  <h2 class="sec-title">
+    <span lang-pt>O que já está <span class="dim">implementado hoje</span></span>
+    <span lang-en>What is <span class="dim">already implemented</span></span>
+  </h2>
+
+  <div class="stack-split">
+    <div class="stack-panel">
+      <div class="stack-panel-title">
+        <span>⚡</span>
+        <span lang-pt>Stack atual <span class="badge-live">Ao vivo</span></span>
+        <span lang-en>Current stack <span class="badge-live">Live</span></span>
+      </div>
+      <p class="stack-panel-sub" lang-pt>O que já está implementado — front-end e o núcleo quantitativo em Python.</p>
+      <p class="stack-panel-sub" lang-en>What's already implemented — front-end and the Python quantitative core.</p>
+      <div class="tech-badges">
+        <div class="tb live">HTML5</div>
+        <div class="tb live">CSS3 Grid/Flexbox</div>
+        <div class="tb live">JavaScript ES6+</div>
+        <div class="tb live">Intersection Observer</div>
+        <div class="tb live">Clipboard API</div>
+        <div class="tb live">Python 3.11+</div>
+        <div class="tb live">NumPy</div>
+        <div class="tb live">pandas</div>
+        <div class="tb live">SciPy</div>
+        <div class="tb live">pytest</div>
+      </div>
+    </div>
+    <div class="stack-panel">
+      <div class="stack-panel-title">
+        <span>🗺</span>
+        <span lang-pt>Próximos passos <span class="badge-plan">Roadmap</span></span>
+        <span lang-en>Next steps <span class="badge-plan">Roadmap</span></span>
+      </div>
+      <p class="stack-panel-sub" lang-pt>Planejado para as próximas versões. Ainda não implementado — declarado aqui de forma intencional.</p>
+      <p class="stack-panel-sub" lang-en>Planned for next versions. Not yet implemented — intentionally stated here.</p>
+      <div class="tech-badges">
+        <div class="tb wip">Streamlit (dashboard)</div>
+        <div class="tb wip">yfinance (dados B3)</div>
+        <div class="tb plan">React 18</div>
+        <div class="tb plan">FastAPI</div>
+        <div class="tb plan">PostgreSQL</div>
+        <div class="tb plan">scikit-learn</div>
+        <div class="tb plan">Docker</div>
+        <div class="tb plan">AWS / Railway</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="file-code-grid">
+    <div>
+      <h3 style="font-family:var(--serif);font-size:16px;font-weight:700;margin-bottom:14px;color:var(--gray5)" lang-pt>Estrutura hoje</h3>
+      <h3 style="font-family:var(--serif);font-size:16px;font-weight:700;margin-bottom:14px;color:var(--gray5)" lang-en>Structure today</h3>
+      <div class="file-tree">
+        <div class="tree-bar">
+          <div class="tree-dot" style="background:#FF5F56"></div>
+          <div class="tree-dot" style="background:#FFBD2E"></div>
+          <div class="tree-dot" style="background:#27C93F"></div>
+          <span style="font-family:var(--mono);font-size:11px;color:var(--gray4);margin-left:8px">calahonda/</span>
+        </div>
+        <div class="tree-body">
+          <div class="tree-dir">📁 calahonda/</div>
+          <div class="tree-in">
+            <div class="tree-file hl">├── index.html <span class="tree-cm">← você está aqui</span></div>
+            <div class="tree-file hl">├── style.css <span class="tree-cm">← design system</span></div>
+            <div class="tree-file hl">├── script.js <span class="tree-cm">← interatividade</span></div>
+            <div class="tree-file hl">├── README.md <span class="tree-cm">← docs bilíngue</span></div>
+            <div class="tree-dir">├── 📁 calahonda_var/ <span class="tree-cm">← núcleo quant</span></div>
+            <div class="tree-in">
+              <div class="tree-file hl">├── var.py <span class="tree-cm">VaR · CVaR · Sharpe</span></div>
+              <div class="tree-file hl">└── data.py <span class="tree-cm">yfinance + sintético</span></div>
+            </div>
+            <div class="tree-dir">├── 📁 tests/ <span class="tree-cm">← 8 testes (pytest)</span></div>
+            <div class="tree-dir">├── 📁 examples/ <span class="tree-cm">← example_var.py</span></div>
+            <div class="tree-file" style="color:var(--gray3)">├── requirements.txt · pyproject.toml</div>
+            <div class="tree-file" style="color:var(--gray3)">└── LICENSE · .gitignore · CI</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-family:var(--serif);font-size:16px;font-weight:700;margin-bottom:14px;color:var(--gray5)" lang-pt>Código real implementado</h3>
+      <h3 style="font-family:var(--serif);font-size:16px;font-weight:700;margin-bottom:14px;color:var(--gray5)" lang-en>Real implemented code</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <div class="tree-dot" style="background:#FF5F56"></div>
+          <div class="tree-dot" style="background:#FFBD2E"></div>
+          <div class="tree-dot" style="background:#27C93F"></div>
+          <span class="code-title">script.js — Scorecard com Intersection Observer</span>
+          <span class="code-lang">JS</span>
+        </div>
+        <div class="code-body"><span class="ln">1</span><span class="cm">// Anima barras só quando entra na viewport</span>
+<span class="ln">2</span><span class="kw">const</span> <span class="vr">observer</span> = <span class="kw">new</span> <span class="fn">IntersectionObserver</span>(([<span class="vr">entry</span>]) => {
+<span class="ln">3</span>  <span class="kw">if</span> (!<span class="vr">entry</span>.isIntersecting || <span class="vr">animated</span>) <span class="kw">return</span>;
+<span class="ln">4</span>  <span class="vr">animated</span> = <span class="kw">true</span>;
+<span class="ln">5</span>  <span class="kw">let</span> <span class="vr">total</span> = <span class="nm">0</span>;
+<span class="ln">6</span>  <span class="vr">rows</span>.<span class="fn">forEach</span>(<span class="vr">row</span> => {
+<span class="ln">7</span>    <span class="kw">const</span> <span class="vr">w</span> = +<span class="vr">row</span>.dataset.<span class="vr">weight</span>;
+<span class="ln">8</span>    <span class="kw">const</span> <span class="vr">s</span> = +<span class="vr">row</span>.dataset.<span class="vr">score</span>;
+<span class="ln">9</span>    <span class="vr">total</span> += <span class="vr">w</span> * <span class="vr">s</span> / <span class="nm">100</span>;
+<span class="ln">10</span>   <span class="vr">row</span>.<span class="fn">querySelector</span>(<span class="st">'.sc-bar-fill'</span>)
+<span class="ln">11</span>      .style.<span class="vr">width</span> = (<span class="vr">s</span> * <span class="nm">10</span>) + <span class="st">'%'</span>;
+<span class="ln">12</span>  });
+<span class="ln">13</span>  <span class="fn">setTotal</span>(<span class="vr">total</span>.<span class="fn">toFixed</span>(<span class="nm">1</span>));
+<span class="ln">14</span>}, { threshold: <span class="nm">0.3</span> });
+<span class="ln">15</span><span class="vr">observer</span>.<span class="fn">observe</span>(<span class="vr">scorecard</span>);</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PYTHON VAR SECTION -->
+  <div style="margin-top:56px;padding-top:8px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;flex-wrap:wrap">
+      <span class="badge-live" style="font-size:10px">🐍 Python · testado</span>
+      <span class="sec-lbl" style="margin:0" lang-pt>O núcleo quantitativo</span>
+      <span class="sec-lbl" style="margin:0" lang-en>The quantitative core</span>
+    </div>
+    <h3 style="font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:10px;letter-spacing:-.02em" lang-pt>Módulo de VaR em Python — funcionando de verdade</h3>
+    <h3 style="font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:10px;letter-spacing:-.02em" lang-en>Python VaR module — actually working</h3>
+    <p style="color:var(--gray4);font-size:14px;font-weight:300;line-height:1.7;max-width:760px;margin-bottom:32px" lang-pt>O coração de uma plataforma quant é o cálculo de risco. Implementei um módulo de <strong style="color:var(--white);font-weight:500">Value at Risk (VaR)</strong> em Python com três métodos (histórico, paramétrico e Monte Carlo), mais CVaR, usando <strong style="color:var(--white);font-weight:500">NumPy, pandas e SciPy</strong>. Tem 8 testes unitários — incluindo um que valida o resultado contra a teoria da distribuição normal.</p>
+    <p style="color:var(--gray4);font-size:14px;font-weight:300;line-height:1.7;max-width:760px;margin-bottom:32px" lang-en>The heart of a quant platform is risk calculation. I built a <strong style="color:var(--white);font-weight:500">Value at Risk (VaR)</strong> module in Python with three methods (historical, parametric and Monte Carlo), plus CVaR, using <strong style="color:var(--white);font-weight:500">NumPy, pandas and SciPy</strong>. It has 8 unit tests — including one that validates the result against normal-distribution theory.</p>
+
+    <div class="file-code-grid">
+      <div>
+        <div class="code-block">
+          <div class="code-bar">
+            <div class="tree-dot" style="background:#FF5F56"></div>
+            <div class="tree-dot" style="background:#FFBD2E"></div>
+            <div class="tree-dot" style="background:#27C93F"></div>
+            <span class="code-title">var.py — Monte Carlo VaR</span>
+            <span class="code-lang" style="color:#FFD343;background:rgba(255,211,67,.1)">PY</span>
+          </div>
+          <div class="code-body"><span class="ln">1</span><span class="kw">def</span> <span class="fn">monte_carlo_var</span>(returns, confidence=<span class="nm">0.95</span>,
+<span class="ln">2</span>        horizon_days=<span class="nm">1</span>, n_sims=<span class="nm">10_000</span>, seed=<span class="nm">42</span>):
+<span class="ln">3</span>    <span class="st">"""VaR e CVaR por simulação de Monte Carlo."""</span>
+<span class="ln">4</span>    r = <span class="fn">_clean_returns</span>(returns, confidence,
+<span class="ln">5</span>                       horizon_days)
+<span class="ln">6</span>    mu, sigma = r.<span class="fn">mean</span>(), r.<span class="fn">std</span>(ddof=<span class="nm">1</span>)
+<span class="ln">7</span>    rng = np.random.<span class="fn">default_rng</span>(seed)
+<span class="ln">8</span>
+<span class="ln">9</span>    <span class="cm"># simula n_sims cenários no horizonte</span>
+<span class="ln">10</span>    sims = rng.<span class="fn">normal</span>(mu, sigma,
+<span class="ln">11</span>        size=(n_sims, horizon_days))
+<span class="ln">12</span>    losses = -sims.<span class="fn">sum</span>(axis=<span class="nm">1</span>)
+<span class="ln">13</span>
+<span class="ln">14</span>    <span class="cm"># VaR = quantil das perdas acumuladas</span>
+<span class="ln">15</span>    var = <span class="kw">float</span>(np.<span class="fn">quantile</span>(losses, confidence))
+<span class="ln">16</span>    cvar = <span class="fn">_cvar_from_losses</span>(losses, var)
+<span class="ln">17</span>    <span class="kw">return</span> <span class="fn">RiskEstimate</span>(var, cvar)</div>
+        </div>
+      </div>
+      <div>
+        <div class="code-block">
+          <div class="code-bar">
+            <div class="tree-dot" style="background:#FF5F56"></div>
+            <div class="tree-dot" style="background:#FFBD2E"></div>
+            <div class="tree-dot" style="background:#27C93F"></div>
+            <span class="code-title">$ python example_var.py</span>
+            <span class="code-lang" style="color:#27C93F;background:rgba(39,201,63,.1)">OUT</span>
+          </div>
+          <div class="code-body"><span class="cm"># Carteira R$1M: PETR4 + VALE3 + ITUB4</span>
+<span class="cm"># VaR 95%, horizonte 21 dias úteis</span>
+
+              <span class="vr">VaR %</span>  <span class="vr">CVaR %</span>    <span class="vr">VaR R$</span>
+<span class="fn">historical</span>   <span class="st">11.31</span>   <span class="st">14.00</span>   <span class="nm">113.087</span>
+<span class="fn">parametric</span>   <span class="st">10.50</span>   <span class="st">13.31</span>   <span class="nm">105.022</span>
+<span class="fn">monte_carlo</span>  <span class="st">10.37</span>   <span class="st">13.07</span>   <span class="nm">103.656</span>
+
+<span class="cm"># Retorno anualizado : 6.55%</span>
+<span class="cm"># Volatilidade anual : 23.27%</span>
+<span class="cm"># Sharpe (rf=0)      : 0.28</span>
+
+<span class="fn">✔</span> <span class="st">8/8 testes passaram</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:var(--gray1);border:1px solid var(--rule);border-radius:6px;padding:24px 28px;margin-top:24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+      <div style="flex:1;min-width:240px">
+        <div style="font-family:var(--serif);font-size:15px;font-weight:700;margin-bottom:4px" lang-pt>📦 Código Python neste repositório</div>
+        <div style="font-family:var(--serif);font-size:15px;font-weight:700;margin-bottom:4px" lang-en>📦 Python code in this repository</div>
+        <div style="color:var(--gray4);font-size:13px;font-weight:300;line-height:1.6" lang-pt>Código completo em <code style="font-family:var(--mono);color:var(--lime)">calahonda_var/</code> — com testes, exemplos e README bilíngue. Roda offline (dados sintéticos) ou com dados reais da B3 via yfinance.</div>
+        <div style="color:var(--gray4);font-size:13px;font-weight:300;line-height:1.6" lang-en>Full code in <code style="font-family:var(--mono);color:var(--lime)">calahonda_var/</code> — with tests, examples and bilingual README. Runs offline (synthetic data) or with real B3 data via yfinance.</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <span class="tb live">NumPy</span>
+        <span class="tb live">pandas</span>
+        <span class="tb live">SciPy</span>
+        <span class="tb live">pytest</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="feat-split" style="margin-top:40px">
+    <div class="feat-panel">
+      <div class="feat-panel-h">
+        ✅ <span lang-pt>Funcionalidades implementadas</span><span lang-en>Implemented features</span>
+        <span class="badge-live">Ao vivo</span>
+      </div>
+      <p class="feat-panel-sub" lang-pt>Tudo abaixo funciona agora — inspecione no código-fonte (Ctrl+U)</p>
+      <p class="feat-panel-sub" lang-en>Everything below works now — inspect in the source (Ctrl+U)</p>
+      <ul class="feat-list">
+        <li><span class="fck-ok">✔</span><div><span class="ft-ok">Módulo VaR/CVaR em Python — 3 métodos</span><span class="ft-sub">NumPy · SciPy · 8 testes unitários · pytest</span></div></li>
+        <li><span class="fck-ok">✔</span><div><span class="ft-ok">Landing page responsiva (mobile, tablet, desktop)</span><span class="ft-sub">CSS Grid puro · sem Bootstrap · sem Tailwind</span></div></li>
+        <li><span class="fck-ok">✔</span><div><span class="ft-ok">Design system com CSS Custom Properties</span><span class="ft-sub">Tipografia, paleta e espaçamentos consistentes</span></div></li>
+        <li><span class="fck-ok">✔</span><div><span class="ft-ok">Scorecard interativo com animação on-scroll</span><span class="ft-sub">Intersection Observer API · cálculo ponderado em JS</span></div></li>
+        <li><span class="fck-ok">✔</span><div><span class="ft-ok">Progress bar de leitura</span><span class="ft-sub">scroll listener leve (passive: true)</span></div></li>
+        <li><span class="fck-ok">✔</span><div><span class="ft-ok">Cópia de posts LinkedIn (Clipboard API)</span><span class="ft-sub">3 posts prontos para diferentes audiências</span></div></li>
+        <li><span class="fck-ok">✔</span><div><span class="ft-ok">Toggle de idioma PT/EN</span><span class="ft-sub">JavaScript puro · sem biblioteca · sem reload</span></div></li>
+      </ul>
+    </div>
+    <div class="feat-panel">
+      <div class="feat-panel-h">
+        ⬜ <span lang-pt>Próximas versões</span><span lang-en>Next versions</span>
+        <span class="badge-plan">Roadmap</span>
+      </div>
+      <p class="feat-panel-sub" lang-pt>Planejado e documentado — mas honestamente ainda não construído</p>
+      <p class="feat-panel-sub" lang-en>Planned and documented — but honestly not yet built</p>
+      <ul class="feat-list">
+        <li><span class="fck-no">◐</span><div><span class="ft-ok" style="color:var(--amber)">Dashboard Streamlit (protótipo)</span><span class="ft-sub">Em desenvolvimento · dados estáticos</span></div></li>
+        <li><span class="fck-no">○</span><div><span class="ft-no">Dashboard com dados reais da B3</span><span class="ft-sub">yfinance + Recharts (Fase 2)</span></div></li>
+        <li><span class="fck-no">○</span><div><span class="ft-no">Login e autenticação</span><span class="ft-sub">FastAPI + JWT (Fase 2)</span></div></li>
+        <li><span class="fck-no">○</span><div><span class="ft-no">Modelo LSTM de previsão</span><span class="ft-sub">TensorFlow / PyTorch (Fase 3)</span></div></li>
+        <li><span class="fck-no">○</span><div><span class="ft-no">Relatórios automáticos em PDF</span><span class="ft-sub">ReportLab + LLM API (Fase 4)</span></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:40px">
+    <h3 style="font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:32px;letter-spacing:-.02em" lang-pt>Os 3 próximos marcos — focados, sem dispersão</h3>
+    <h3 style="font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:32px;letter-spacing:-.02em" lang-en>The 3 next milestones — focused, no scope creep</h3>
+    <div class="mvp3-wrap">
+      <div class="mvp3-col">
+        <div class="mvp3-num" data-n="01">01</div>
+        <div class="mvp3-title" lang-pt>Módulo VaR publicado</div><div class="mvp3-title" lang-en>VaR Module published</div>
+        <div class="mvp3-desc" lang-pt>Repositório público no GitHub com cálculo de VaR por Monte Carlo — código limpo, README bilíngue, exemplos com dados reais da B3 via yfinance.</div>
+        <div class="mvp3-desc" lang-en>Public GitHub repo with Monte Carlo VaR — clean code, bilingual README, examples with real B3 data via yfinance.</div>
+        <span class="mvp3-eta" style="color:var(--lime);background:rgba(200,241,53,.1);border-color:rgba(200,241,53,.25)" lang-pt>✅ Concluído · Julho 2026</span><span class="mvp3-eta" lang-en>✅ Done · July 2026</span>
+        <ul class="mvp3-items">
+          <li><span class="mvp3-check">✔</span><span lang-pt>Python + pandas + scipy</span><span lang-en>Python + pandas + scipy</span></li>
+          <li><span class="mvp3-check">✔</span><span lang-pt>README PT + EN</span><span lang-en>README PT + EN</span></li>
+          <li><span class="mvp3-check">✔</span><span lang-pt>Notebook com exemplos</span><span lang-en>Notebook with examples</span></li>
+        </ul>
+      </div>
+      <div class="mvp3-col">
+        <div class="mvp3-num" data-n="02">02</div>
+        <div class="mvp3-title" lang-pt>Dashboard com dados reais</div><div class="mvp3-title" lang-en>Dashboard with real data</div>
+        <div class="mvp3-desc" lang-pt>Streamlit app conectado ao yfinance — portfólio real, gráficos de performance, VaR em tempo real. Sem login ainda, mas com dados reais.</div>
+        <div class="mvp3-desc" lang-en>Streamlit app connected to yfinance — real portfolio, performance charts, real-time VaR. No login yet, but real data.</div>
+        <span class="mvp3-eta" lang-pt>📅 Meta: Novembro 2026</span><span class="mvp3-eta" lang-en>📅 Target: November 2026</span>
+        <ul class="mvp3-items">
+          <li><span class="mvp3-check">✔</span><span lang-pt>Streamlit + Plotly</span><span lang-en>Streamlit + Plotly</span></li>
+          <li><span class="mvp3-check">✔</span><span lang-pt>yfinance integrado (B3)</span><span lang-en>yfinance integrated (B3)</span></li>
+          <li><span class="mvp3-check">✔</span><span lang-pt>Deploy Streamlit Cloud</span><span lang-en>Deploy Streamlit Cloud</span></li>
+        </ul>
+      </div>
+      <div class="mvp3-col">
+        <div class="mvp3-num" data-n="03">03</div>
+        <div class="mvp3-title" lang-pt>API simples com FastAPI</div><div class="mvp3-title" lang-en>Simple API with FastAPI</div>
+        <div class="mvp3-desc" lang-pt>Backend Python expondo os módulos de risco via REST API. Auth básica, PostgreSQL, deploy no Railway. Primeiro piloto possível daqui em diante.</div>
+        <div class="mvp3-desc" lang-en>Python backend exposing risk modules via REST API. Basic auth, PostgreSQL, deploy on Railway. First pilot possible from here.</div>
+        <span class="mvp3-eta" lang-pt>📅 Meta: Fevereiro 2027</span><span class="mvp3-eta" lang-en>📅 Target: February 2027</span>
+        <ul class="mvp3-items">
+          <li><span class="mvp3-check">✔</span><span lang-pt>FastAPI + PostgreSQL</span><span lang-en>FastAPI + PostgreSQL</span></li>
+          <li><span class="mvp3-check">✔</span><span lang-pt>Auth JWT básica</span><span lang-en>Basic JWT auth</span></li>
+          <li><span class="mvp3-check">✔</span><span lang-pt>1 cliente piloto grátis</span><span lang-en>1 free pilot client</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:48px">
+    <h3 style="font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:24px;letter-spacing:-.02em" lang-pt>O que construir este projeto ensinou</h3>
+    <h3 style="font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:24px;letter-spacing:-.02em" lang-en>What building this project taught me</h3>
+    <div class="log-grid">
+      <div class="log-card"><div class="log-icon">🎨</div><div class="log-title" lang-pt>Design system sem frameworks</div><div class="log-title" lang-en>Design system without frameworks</div><div class="log-desc" lang-pt>Criar consistência tipográfica com apenas CSS variables ensina mais que qualquer framework. A disciplina de não adicionar nada desnecessário foi a maior lição.</div><div class="log-desc" lang-en>Building typographic consistency with just CSS variables teaches more than any framework. The discipline of not adding anything unnecessary was the biggest lesson.</div></div>
+      <div class="log-card"><div class="log-icon">⚡</div><div class="log-title" lang-pt>JavaScript orientado a eventos</div><div class="log-title" lang-en>Event-driven JavaScript</div><div class="log-desc" lang-pt>Intersection Observer para animações, Clipboard API para cópia — APIs nativas são mais poderosas do que parece, sem dependências.</div><div class="log-desc" lang-en>Intersection Observer for animations, Clipboard API for copying — native APIs are more powerful than they look, with zero dependencies.</div></div>
+      <div class="log-card"><div class="log-icon">📐</div><div class="log-title" lang-pt>CSS Grid muda tudo</div><div class="log-title" lang-en>CSS Grid changes everything</div><div class="log-desc" lang-pt>Tabelas, cards, timelines — tudo com CSS Grid. As fr units e gap substituem qualquer sistema de colunas que já usei.</div><div class="log-desc" lang-en>Tables, cards, timelines — all with CSS Grid. fr units and gap replace any column system I'd used before.</div></div>
+      <div class="log-card"><div class="log-icon">🗂</div><div class="log-title" lang-pt>Honestidade técnica é credibilidade</div><div class="log-title" lang-en>Technical honesty is credibility</div><div class="log-desc" lang-pt>Recrutadores julgam pelo que existe, não pelo que será. Distinguir o que funciona do que é roadmap foi o feedback mais valioso que recebi.</div><div class="log-desc" lang-en>Recruiters judge by what exists, not what will be. Separating what works from what's roadmap was the most valuable feedback I received.</div></div>
+      <div class="log-card"><div class="log-icon">📊</div><div class="log-title" lang-pt>Domínio financeiro amplifica o tech</div><div class="log-title" lang-en>Domain knowledge amplifies tech</div><div class="log-desc" lang-pt>Estudar VaR e backtesting para desenhar os módulos me fez entender que Data Science sem domínio é commodity. O nicho importa.</div><div class="log-desc" lang-en>Studying VaR and backtesting to design the modules made me realize Data Science without domain is commodity. Niche matters.</div></div>
+      <div class="log-card"><div class="log-icon">🌐</div><div class="log-title" lang-pt>Projetos bilíngues têm mais alcance</div><div class="log-title" lang-en>Bilingual projects have wider reach</div><div class="log-desc" lang-pt>Adicionar inglês sem biblioteca — só CSS e JS puro — abriu o portfólio para audiências internacionais sem aumentar o bundle.</div><div class="log-desc" lang-en>Adding English without any library — just pure CSS and JS — opened the portfolio to international audiences without increasing the bundle.</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="sec" id="porque">
+<div class="si">
+  <p class="sec-lbl" lang-pt>Manifesto</p><p class="sec-lbl" lang-en>Manifesto</p>
+  <h2 class="sec-title">
+    <span lang-pt>Por que a Calahonda <span class="dim">existe</span></span>
+    <span lang-en>Why Calahonda <span class="dim">exists</span></span>
+  </h2>
+  <div class="manifesto-wrap">
+    <p class="manifesto-q" lang-pt>"Hoje, uma gestora independente brasileira com R$50M sob gestão não consegue pagar Bloomberg Terminal. Ela usa Excel. Em 2026, isso é inaceitável."</p>
+    <p class="manifesto-q" lang-en>"Today, a Brazilian independent asset manager with R$50M under management can't afford Bloomberg Terminal. They use Excel. In 2026, this is unacceptable."</p>
+    <div class="manifesto-body">
+      <span lang-pt>Ferramentas quantitativas profissionais custam <strong>milhares de dólares por mês</strong> (Bloomberg, FactSet) e foram construídas para bancos americanos — em inglês, com foco em NYSE e S&P 500. Enquanto isso, <strong>centenas de gestoras independentes brasileiras</strong> operam com orçamentos muito menores. Este projeto explora como seria uma alternativa focada na B3 — e começa pela peça mais concreta: o cálculo de risco.</span>
+      <span lang-en>Professional quant tools cost <strong>thousands of dollars per month</strong> (Bloomberg, FactSet) and were built for American banks — in English, focused on NYSE and S&P 500. Meanwhile, <strong>hundreds of independent Brazilian managers</strong> operate with much smaller budgets. This project explores what a B3-focused alternative could look like — starting with the most concrete piece: risk calculation.</span>
+    </div>
+    <div class="manifesto-src">
+      <span lang-pt>Fontes: </span><span lang-en>Sources: </span>
+      <a href="https://www.cvm.gov.br" target="_blank" rel="noopener">CVM (2024)</a> · 
+      <a href="https://www.b3.com.br" target="_blank" rel="noopener">B3 (2024)</a> · 
+      Bloomberg Terminal pricing (2026)
+    </div>
+  </div>
+
+  <div class="origin-box">
+    <div class="origin-pin">📍</div>
+    <div>
+      <div class="origin-label" lang-pt>A origem do nome</div>
+      <div class="origin-label" lang-en>The origin of the name</div>
+      <div class="origin-title" lang-pt>Por que <span class="es">Calahonda</span>?</div>
+      <div class="origin-title" lang-en>Why <span class="es">Calahonda</span>?</div>
+      <div class="origin-desc" lang-pt>O nome vem do <strong>Sítio de Calahonda</strong>, na costa de Málaga, sul da Espanha — a cidade de onde minha família emigrou. Assim como uma enseada abrigada (o que <em>calahonda</em> evoca: uma "cala honda", ou angra profunda), a plataforma nasceu para ser um porto seguro: um lugar onde gestoras independentes brasileiras ancoram suas decisões em dados sólidos, longe das ferramentas caras e distantes feitas para outros mercados.</div>
+      <div class="origin-desc" lang-en>The name comes from <strong>Sitio de Calahonda</strong>, on the Málaga coast in southern Spain — the town my family emigrated from. Like a sheltered cove (what <em>calahonda</em> evokes: a "cala honda", or deep inlet), the platform was born to be a safe harbor: a place where independent Brazilian asset managers anchor their decisions in solid data, far from the expensive, distant tools built for other markets.</div>
+      <div class="origin-coords">Sitio de Calahonda · Mijas, Málaga · Andalucía, España · 36.49°N, 4.71°W</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="sec">
+<div class="si">
+  <p class="sec-lbl" lang-pt>Diagnóstico</p><p class="sec-lbl" lang-en>Diagnosis</p>
+  <h2 class="sec-title">
+    <span lang-pt>O problema e <span class="dim">nossa resposta</span></span>
+    <span lang-en>The problem and <span class="dim">our answer</span></span>
+  </h2>
+  <div class="ps-grid">
+    <div class="ps-card">
+      <div class="ps-icon">🔴</div>
+      <h3 class="ps-h" lang-pt>O que gestoras enfrentam hoje</h3><h3 class="ps-h" lang-en>What asset managers face today</h3>
+      <ul class="ps-list">
+        <li><span class="mk mk-r">✕</span><span lang-pt>Análise de risco manual em Excel — lenta e sujeita a erro</span><span lang-en>Manual risk analysis in Excel — slow and error-prone</span></li>
+        <li><span class="mk mk-r">✕</span><span lang-pt>Ferramentas internacionais fora do orçamento (US$2k+/mês)</span><span lang-en>International tools out of budget ($2k+/month)</span></li>
+        <li><span class="mk mk-r">✕</span><span lang-pt>Sem backtesting automatizado para validar estratégias</span><span lang-en>No automated backtesting to validate strategies</span></li>
+        <li><span class="mk mk-r">✕</span><span lang-pt>Dados da B3 não integrados com modelos preditivos</span><span lang-en>B3 data not integrated with predictive models</span></li>
+        <li><span class="mk mk-r">✕</span><span lang-pt>Relatórios para cotistas feitos manualmente toda semana</span><span lang-en>Investor reports made manually every week</span></li>
+      </ul>
+    </div>
+    <div class="ps-card">
+      <div class="ps-icon">🟢</div>
+      <h3 class="ps-h" lang-pt>O que a Calahonda entrega</h3><h3 class="ps-h" lang-en>What Calahonda delivers</h3>
+      <ul class="ps-list">
+        <li><span class="mk mk-l">✓</span><span lang-pt>Dashboard de risco em tempo real integrado com B3</span><span lang-en>Real-time risk dashboard integrated with B3</span></li>
+        <li><span class="mk mk-l">✓</span><span lang-pt>IA que prevê volatilidade, otimiza portfólio e detecta anomalias</span><span lang-en>AI that predicts volatility, optimizes portfolio and detects anomalies</span></li>
+        <li><span class="mk mk-l">✓</span><span lang-pt>Backtesting automatizado com métricas institucionais</span><span lang-en>Automated backtesting with institutional metrics</span></li>
+        <li><span class="mk mk-l">✓</span><span lang-pt>Relatórios em PDF gerados automaticamente por IA</span><span lang-en>PDF reports automatically generated by AI</span></li>
+        <li><span class="mk mk-l">✓</span><span lang-pt>Tudo em português, focado na realidade brasileira</span><span lang-en>Everything in Portuguese, focused on Brazilian reality</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="sec" id="ia">
+<div class="si">
+  <p class="sec-lbl" lang-pt>Visão do Produto</p><p class="sec-lbl" lang-en>Product Vision</p>
+  <h2 class="sec-title">
+    <span lang-pt>Os módulos <span class="dim">imaginados</span></span>
+    <span lang-en>The <span class="dim">envisioned modules</span></span>
+  </h2>
+  <p style="color:var(--gray4);font-size:14px;font-weight:300;line-height:1.7;max-width:720px;margin-bottom:32px;margin-top:-32px" lang-pt>Estes seis módulos descrevem a <strong style="color:var(--white);font-weight:500">visão completa</strong> de uma plataforma quant. Hoje, <strong style="color:var(--lime);font-weight:500">o Módulo 03 (VaR) está implementado e testado em Python</strong> — os demais são o roadmap conceitual. As saídas abaixo são ilustrativas.</p>
+  <p style="color:var(--gray4);font-size:14px;font-weight:300;line-height:1.7;max-width:720px;margin-bottom:32px;margin-top:-32px" lang-en>These six modules describe the <strong style="color:var(--white);font-weight:500">full vision</strong> of a quant platform. Today, <strong style="color:var(--lime);font-weight:500">Module 03 (VaR) is implemented and tested in Python</strong> — the rest are the conceptual roadmap. The outputs below are illustrative.</p>
+  <div class="ai-grid">
+    <div class="ai-card" style="opacity:.62"><div class="ai-num">MÓDULO 01 · <span style="color:var(--gray4)">planejado</span></div><div class="ai-name" lang-pt>Previsão de Volatilidade</div><div class="ai-name" lang-en>Volatility Forecasting</div><div class="ai-desc" lang-pt>Modelo GARCH + LSTM que prevê a volatilidade esperada de cada ativo para os próximos 5, 10 e 21 dias úteis, com intervalo de confiança.</div><div class="ai-desc" lang-en>GARCH + LSTM model that forecasts expected volatility for each asset over the next 5, 10 and 21 trading days, with confidence intervals.</div><div class="ai-output">Output: <span>vol_5d = 18.4% ± 2.1%</span></div></div>
+    <div class="ai-card" style="opacity:.62"><div class="ai-num">MÓDULO 02 · <span style="color:var(--gray4)">planejado</span></div><div class="ai-name" lang-pt>Otimização de Portfólio</div><div class="ai-name" lang-en>Portfolio Optimization</div><div class="ai-desc" lang-pt>Algoritmo de Markowitz aumentado com restrições reais (liquidez, concentração, drawdown) para sugerir alocações ótimas por perfil de risco.</div><div class="ai-desc" lang-en>Enhanced Markowitz algorithm with real constraints (liquidity, concentration, drawdown) to suggest optimal allocations by risk profile.</div><div class="ai-output">Output: <span>Sharpe ótimo = 1.92</span></div></div>
+    <div class="ai-card" style="border-color:rgba(200,241,53,.4);background:rgba(200,241,53,.04)"><div class="ai-num" style="color:var(--lime)">MÓDULO 03 · ✔ IMPLEMENTADO</div><div class="ai-name" lang-pt>Cálculo de Risco (VaR/CVaR)</div><div class="ai-name" lang-en>Risk Calculation (VaR/CVaR)</div><div class="ai-desc" lang-pt>Value at Risk e Conditional VaR por três métodos (histórico, paramétrico, Monte Carlo). <strong style="color:var(--white);font-weight:500">Código Python funcionando, com 8 testes.</strong></div><div class="ai-desc" lang-en>Value at Risk and Conditional VaR via three methods (historical, parametric, Monte Carlo). <strong style="color:var(--white);font-weight:500">Working Python code, with 8 tests.</strong></div><div class="ai-output">Output: <span>VaR 95% = R$ 113.087</span></div></div>
+    <div class="ai-card" style="opacity:.62"><div class="ai-num">MÓDULO 04 · <span style="color:var(--gray4)">planejado</span></div><div class="ai-name" lang-pt>Detecção de Anomalias</div><div class="ai-name" lang-en>Anomaly Detection</div><div class="ai-desc" lang-pt>Isolation Forest + Z-score para identificar movimentos atípicos em preço, volume e correlação — alertando o gestor antes de eventos de risco.</div><div class="ai-desc" lang-en>Isolation Forest + Z-score to identify unusual movements in price, volume and correlation — alerting the manager before risk events.</div><div class="ai-output">Output: <span>VALE3 anomalia ⚠</span></div></div>
+    <div class="ai-card" style="opacity:.62"><div class="ai-num">MÓDULO 05 · <span style="color:var(--gray4)">planejado</span></div><div class="ai-name" lang-pt>Sentimento de Notícias</div><div class="ai-name" lang-en>News Sentiment</div><div class="ai-desc" lang-pt>Pipeline NLP (FinBERT em português) que classifica notícias em tempo real e correlaciona sentimento com movimentos de preço intradiários.</div><div class="ai-desc" lang-en>NLP pipeline (FinBERT in Portuguese) that classifies news in real time and correlates sentiment with intraday price movements.</div><div class="ai-output">Output: <span>PETR4 sentimento = -0.73</span></div></div>
+    <div class="ai-card" style="opacity:.62"><div class="ai-num">MÓDULO 06 · <span style="color:var(--gray4)">planejado</span></div><div class="ai-name" lang-pt>Relatórios Automáticos</div><div class="ai-name" lang-en>Automated Reports</div><div class="ai-desc" lang-pt>LLM especializado gera relatórios semanais e mensais para cotistas em linguagem natural — com análise de performance, risco e perspectivas.</div><div class="ai-desc" lang-en>Specialized LLM generates weekly and monthly investor reports in natural language — with performance analysis, risk and outlook.</div><div class="ai-output">Output: <span>PDF 12pg em 4s</span></div></div>
+  </div>
+</div>
+</section>
+
+<section class="sec">
+<div class="si">
+  <p class="sec-lbl" lang-pt>Tecnologia</p><p class="sec-lbl" lang-en>Technology</p>
+  <h2 class="sec-title">
+    <span lang-pt>Como o produto <span class="dim">será construído</span></span>
+    <span lang-en>How the product <span class="dim">will be built</span></span>
+  </h2>
+  <div class="arch-wrap">
+    <div class="arch-col"><div class="arch-col-lbl">Frontend</div><div class="arch-layer hl">React + Recharts</div><div class="arch-arrow">↓</div><div class="arch-layer">TailwindCSS</div><div class="arch-arrow">↓</div><div class="arch-layer">TradingView Widgets</div></div>
+    <div class="arch-sep">→</div>
+    <div class="arch-col"><div class="arch-col-lbl">API Layer</div><div class="arch-layer hl">FastAPI (Python)</div><div class="arch-arrow">↓</div><div class="arch-layer">JWT Auth</div><div class="arch-arrow">↓</div><div class="arch-layer">Celery (async)</div></div>
+    <div class="arch-sep">→</div>
+    <div class="arch-col"><div class="arch-col-lbl">ML Models</div><div class="arch-layer hl">LSTM / XGBoost</div><div class="arch-arrow">↓</div><div class="arch-layer">FinBERT NLP</div><div class="arch-arrow">↓</div><div class="arch-layer">MLflow Registry</div></div>
+    <div class="arch-sep">→</div>
+    <div class="arch-col"><div class="arch-col-lbl">Data Layer</div><div class="arch-layer hl">TimescaleDB</div><div class="arch-arrow">↓</div><div class="arch-layer">Redis (cache)</div><div class="arch-arrow">↓</div><div class="arch-layer">yfinance + B3</div></div>
+    <div class="arch-sep">→</div>
+    <div class="arch-col"><div class="arch-col-lbl">Infra</div><div class="arch-layer hl">AWS EC2 / RDS</div><div class="arch-arrow">↓</div><div class="arch-layer">Docker + CI/CD</div><div class="arch-arrow">↓</div><div class="arch-layer">Grafana</div></div>
+  </div>
+  <p style="font-family:var(--mono);font-size:10px;color:var(--gray3);margin-top:12px;text-align:right" lang-pt>* Arquitetura planejada para v2/v3. Stack atual: HTML/CSS/JS puro.</p>
+  <p style="font-family:var(--mono);font-size:10px;color:var(--gray3);margin-top:12px;text-align:right" lang-en>* Architecture planned for v2/v3. Current stack: pure HTML/CSS/JS.</p>
+</div>
+</section>
+
+<section class="sec" id="mercado">
+<div class="si">
+  <p class="sec-lbl" lang-pt>Análise Competitiva</p><p class="sec-lbl" lang-en>Competitive Analysis</p>
+  <h2 class="sec-title">
+    <span lang-pt>Por que a Calahonda <span class="dim">ganha</span></span>
+    <span lang-en>Why Calahonda <span class="dim">wins</span></span>
+  </h2>
+  <div style="overflow-x:auto">
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th lang-pt>Plataforma</th><th lang-en>Platform</th>
+        <th lang-pt>Preço / mês</th><th lang-en>Price / month</th>
+        <th lang-pt>Foco Brasil</th><th lang-en>Brazil focus</th>
+        <th lang-pt>IA preditiva</th><th lang-en>Predictive AI</th>
+        <th lang-pt>Diferencial</th><th lang-en>Differentiator</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Bloomberg Terminal</strong></td><td><span class="ptag p-hi">US$2.000+</span></td><td lang-pt>Parcial</td><td lang-en>Partial</td><td lang-pt>Limitada</td><td lang-en>Limited</td><td lang-pt>100× mais caro, foco global</td><td lang-en>100× more expensive, global</td></tr>
+      <tr><td><strong>FactSet</strong></td><td><span class="ptag p-hi">US$1.500+</span></td><td lang-pt>Limitado</td><td lang-en>Limited</td><td lang-pt>Básica</td><td lang-en>Basic</td><td lang-pt>Complexo, sem PT-BR</td><td lang-en>Complex, no PT-BR</td></tr>
+      <tr><td><strong>Koyfin</strong></td><td><span class="ptag p-md">US$49</span></td><td lang-pt>Fraco</td><td lang-en>Weak</td><td lang-pt>Não</td><td lang-en>No</td><td lang-pt>Sem IA, sem B3 profundo</td><td lang-en>No AI, no deep B3</td></tr>
+      <tr><td><strong>Status Invest</strong></td><td><span class="ptag p-lo">R$30–R$80</span></td><td lang-pt>Sim</td><td lang-en>Yes</td><td lang-pt>Não</td><td lang-en>No</td><td lang-pt>Sem quant, uso retail</td><td lang-en>No quant, retail use</td></tr>
+      <tr><td><strong>Economatica</strong></td><td><span class="ptag p-md">R$800–R$2k</span></td><td lang-pt>Sim</td><td lang-en>Yes</td><td lang-pt>Não</td><td lang-en>No</td><td lang-pt>Dados sem automação</td><td lang-en>Data, no automation</td></tr>
+      <tr class="ours"><td><strong>⚡ Calahonda <span style="font-size:9px;opacity:.7">(conceito)</span></strong></td><td><span class="ptag p-lo" lang-pt>a definir</span><span class="ptag p-lo" lang-en>TBD</span></td><td lang-pt><strong>Foco B3</strong></td><td lang-en><strong>B3 focus</strong></td><td lang-pt><strong>VaR (1 de 6)</strong></td><td lang-en><strong>VaR (1 of 6)</strong></td><td><span class="diff-badge" lang-pt>Nicho BR + código aberto</span><span class="diff-badge" lang-en>BR niche + open source</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="comp-src" lang-pt>Fontes: sites oficiais das plataformas (2026) · Bloomberg via <a href="https://www.bloomberg.com/professional/products/bloomberg-terminal/" target="_blank" rel="noopener">Bloomberg.com</a></p>
+  <p class="comp-src" lang-en>Sources: official platform websites (2026) · Bloomberg via <a href="https://www.bloomberg.com/professional/products/bloomberg-terminal/" target="_blank" rel="noopener">Bloomberg.com</a></p>
+</div>
+</section>
+
+<section class="sec" id="receita">
+<div class="si">
+  <p class="sec-lbl" lang-pt>Exercício de Negócio</p><p class="sec-lbl" lang-en>Business Exercise</p>
+  <h2 class="sec-title">
+    <span lang-pt>Se fosse um produto, <span class="dim">faria sentido?</span></span>
+    <span lang-en>If it were a product, <span class="dim">would it make sense?</span></span>
+  </h2>
+  <p style="color:var(--gray4);font-size:15px;font-weight:300;line-height:1.75;max-width:720px;margin-bottom:20px;border-left:2px solid var(--amber);padding-left:20px" lang-pt>Este é um <strong style="color:var(--white);font-weight:500">exercício de raciocínio de negócio</strong>, não uma projeção de receita. Parte do valor de um projeto de portfólio é mostrar que entendo o contexto comercial em que a tecnologia viveria — não afirmar números que ainda não têm base em clientes reais.</p>
+  <p style="color:var(--gray4);font-size:15px;font-weight:300;line-height:1.75;max-width:720px;margin-bottom:32px;border-left:2px solid var(--amber);padding-left:20px" lang-en>This is a <strong style="color:var(--white);font-weight:500">business-reasoning exercise</strong>, not a revenue forecast. Part of the value of a portfolio project is showing I understand the commercial context the technology would live in — not asserting numbers that have no basis in real customers yet.</p>
+  <div class="ps-grid">
+    <div class="ps-card">
+      <div class="ps-icon">💭</div>
+      <h3 class="ps-h" lang-pt>A hipótese</h3><h3 class="ps-h" lang-en>The hypothesis</h3>
+      <ul class="ps-list">
+        <li><span class="mk mk-l">→</span><span lang-pt>Ferramentas quant internacionais custam milhares de dólares/mês (Bloomberg, FactSet)</span><span lang-en>International quant tools cost thousands of dollars/month (Bloomberg, FactSet)</span></li>
+        <li><span class="mk mk-l">→</span><span lang-pt>Gestoras menores no Brasil operam com orçamentos muito menores</span><span lang-en>Smaller Brazilian managers operate with much smaller budgets</span></li>
+        <li><span class="mk mk-l">→</span><span lang-pt>Existiria espaço para uma ferramenta focada, mais barata e em português?</span><span lang-en>Would there be room for a focused, cheaper, Portuguese tool?</span></li>
+        <li><span class="mk mk-l">→</span><span lang-pt>É uma pergunta a ser validada com entrevistas — não uma certeza</span><span lang-en>It's a question to validate with interviews — not a certainty</span></li>
+      </ul>
+    </div>
+    <div class="ps-card">
+      <div class="ps-icon">🔍</div>
+      <h3 class="ps-h" lang-pt>Como eu validaria</h3><h3 class="ps-h" lang-en>How I'd validate it</h3>
+      <ul class="ps-list">
+        <li><span class="mk mk-l">✓</span><span lang-pt>Conversar com gestores reais antes de assumir qualquer demanda</span><span lang-en>Talk to real managers before assuming any demand</span></li>
+        <li><span class="mk mk-l">✓</span><span lang-pt>Oferecer um piloto gratuito e medir se há uso recorrente</span><span lang-en>Offer a free pilot and measure recurring use</span></li>
+        <li><span class="mk mk-l">✓</span><span lang-pt>Só falar em preço depois de comprovar valor percebido</span><span lang-en>Only discuss price after proving perceived value</span></li>
+        <li><span class="mk mk-l">✓</span><span lang-pt>Tratar cada premissa como hipótese, não como fato</span><span lang-en>Treat each assumption as hypothesis, not fact</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="sec">
+<div class="si">
+  <p class="sec-lbl" lang-pt>Prova de Mercado</p><p class="sec-lbl" lang-en>Market Proof</p>
+  <h2 class="sec-title">
+    <span lang-pt>Como provar que alguém <span class="dim">pagaria</span></span>
+    <span lang-en>How to prove someone <span class="dim">would pay</span></span>
+  </h2>
+  <div class="val-steps">
+    <div class="val-step"><div class="val-step-num" data-n="01">01</div><div class="val-step-title" lang-pt>Entrevistas de Problema</div><div class="val-step-title" lang-en>Problem Interviews</div><div class="val-step-desc" lang-pt>Antes de escrever código Python, conversar com 20 gestores. Perguntar sobre processo atual, ferramentas e quanto pagariam.</div><div class="val-step-desc" lang-en>Before writing Python, talk to 20 managers. Ask about current process, tools and how much they'd pay.</div><span class="val-step-kpi" lang-pt>Meta: 20 entrevistas</span><span class="val-step-kpi" lang-en>Target: 20 interviews</span></div>
+    <div class="val-step"><div class="val-step-num" data-n="02">02</div><div class="val-step-title" lang-pt>Letter of Intent</div><div class="val-step-title" lang-en>Letter of Intent</div><div class="val-step-desc" lang-pt>Apresentar o dashboard e pedir que 3 gestoras assinem uma LOI — compromisso não-vinculante de testar grátis.</div><div class="val-step-desc" lang-en>Present the dashboard and ask 3 managers to sign an LOI — non-binding commitment to test for free.</div><span class="val-step-kpi" lang-pt>Meta: 3 LOIs</span><span class="val-step-kpi" lang-en>Target: 3 LOIs</span></div>
+    <div class="val-step"><div class="val-step-num" data-n="03">03</div><div class="val-step-title" lang-pt>Piloto Pago Parcial</div><div class="val-step-title" lang-en>Partial Paid Pilot</div><div class="val-step-desc" lang-pt>Propor R$500/mês para continuar. Qualquer valor pago transforma "vou construir" em "já está sendo usado".</div><div class="val-step-desc" lang-en>Propose R$500/month to continue. Any payment transforms "will build" into "already in use".</div><span class="val-step-kpi" lang-pt>Meta: 1 cliente paga</span><span class="val-step-kpi" lang-en>Target: 1 paying</span></div>
+    <div class="val-step"><div class="val-step-num" data-n="04">04</div><div class="val-step-title" lang-pt>NPS e Retenção</div><div class="val-step-title" lang-en>NPS and Retention</div><div class="val-step-desc" lang-pt>NPS acima de 40 e churn abaixo de 5%/mês sinaliza product-market fit inicial.</div><div class="val-step-desc" lang-en>NPS above 40 and churn below 5%/month signals initial product-market fit.</div><span class="val-step-kpi" lang-pt>Meta: NPS &gt; 40</span><span class="val-step-kpi" lang-en>Target: NPS &gt; 40</span></div>
+  </div>
+  <div class="val-ok-bar">
+    <span style="font-size:22px">🎯</span>
+    <div class="val-ok-text" lang-pt><b>Regra de ouro:</b> quando o cliente perguntar "quando posso começar a usar?" em vez de "parece interessante" — você achou product-market fit.</div>
+    <div class="val-ok-text" lang-en><b>Golden rule:</b> when the client asks "when can I start using it?" instead of "sounds interesting" — you've found product-market fit.</div>
+  </div>
+</div>
+</section>
+
+<section class="sec" id="riscos">
+<div class="si">
+  <p class="sec-lbl" lang-pt>Gestão de Risco</p><p class="sec-lbl" lang-en>Risk Management</p>
+  <h2 class="sec-title">
+    <span lang-pt>O que pode dar errado <span class="dim">e como mitigar</span></span>
+    <span lang-en>What can go wrong <span class="dim">and how to mitigate</span></span>
+  </h2>
+  <div class="risk-grid">
+    <div class="risk-card"><div class="risk-hdr"><div class="risk-icon">📉</div><div class="risk-title" lang-pt>Modelos com performance ruim</div><div class="risk-title" lang-en>Underperforming models</div><span class="risk-sev sev-hi" lang-pt>Alto</span><span class="risk-sev sev-hi" lang-en>High</span></div><div class="risk-prob" lang-pt>O modelo prevê de forma imprecisa em condições atípicas (crises), gerando desconfiança.</div><div class="risk-prob" lang-en>The model predicts inaccurately in atypical conditions (crises), generating distrust.</div><div class="risk-mit-lbl" lang-pt>Mitigação</div><div class="risk-mit-lbl" lang-en>Mitigation</div><div class="risk-mit" lang-pt>Comunicar limites do modelo. Usar intervalos de confiança. Backtesting com 5+ anos incluindo crises (2020, 2022).</div><div class="risk-mit" lang-en>Communicate model limits. Use confidence intervals. Backtesting with 5+ years including crises (2020, 2022).</div></div>
+    <div class="risk-card"><div class="risk-hdr"><div class="risk-icon">⚖️</div><div class="risk-title" lang-pt>Bloqueio regulatório CVM</div><div class="risk-title" lang-en>CVM regulatory block</div><span class="risk-sev sev-hi" lang-pt>Alto</span><span class="risk-sev sev-hi" lang-en>High</span></div><div class="risk-prob" lang-pt>A CVM pode interpretar a plataforma como serviço de recomendação, exigindo habilitação.</div><div class="risk-prob" lang-en>CVM may interpret the platform as a recommendation service, requiring authorization.</div><div class="risk-mit-lbl" lang-pt>Mitigação</div><div class="risk-mit-lbl" lang-en>Mitigation</div><div class="risk-mit" lang-pt>Advogado antes do 1º contrato pago. Posicionar como "ferramenta de análise", não "recomendação".</div><div class="risk-mit" lang-en>Lawyer before 1st paid contract. Position as "analysis tool", not "recommendation".</div></div>
+    <div class="risk-card"><div class="risk-hdr"><div class="risk-icon">🏢</div><div class="risk-title" lang-pt>Concorrente grande entra</div><div class="risk-title" lang-en>Large competitor enters</div><span class="risk-sev sev-md" lang-pt>Médio</span><span class="risk-sev sev-md" lang-en>Medium</span></div><div class="risk-prob" lang-pt>Bloomberg ou fintech capitalizada lança produto similar focado no Brasil.</div><div class="risk-prob" lang-en>Bloomberg or a funded fintech launches a similar Brazil-focused product.</div><div class="risk-mit-lbl" lang-pt>Mitigação</div><div class="risk-mit-lbl" lang-en>Mitigation</div><div class="risk-mit" lang-pt>Velocidade e foco são vantagem do early-stage. Especialização profunda em B3 cria barreira.</div><div class="risk-mit" lang-en>Speed and focus are early-stage advantages. Deep B3 expertise creates barriers.</div></div>
+    <div class="risk-card"><div class="risk-hdr"><div class="risk-icon">🔒</div><div class="risk-title" lang-pt>Vazamento de dados</div><div class="risk-title" lang-en>Data breach</div><span class="risk-sev sev-hi" lang-pt>Alto</span><span class="risk-sev sev-hi" lang-en>High</span></div><div class="risk-prob" lang-pt>Dados de portfólio são sensíveis. Um vazamento pode encerrar o negócio.</div><div class="risk-prob" lang-en>Portfolio data is sensitive. A breach can end the business.</div><div class="risk-mit-lbl" lang-pt>Mitigação</div><div class="risk-mit-lbl" lang-en>Mitigation</div><div class="risk-mit" lang-pt>LGPD desde o dia 1. Criptografia AES-256 e TLS. Isolamento por tenant. Pentest antes de clientes.</div><div class="risk-mit" lang-en>LGPD from day 1. AES-256 and TLS encryption. Tenant isolation. Pentest before clients.</div></div>
+  </div>
+</div>
+</section>
+
+<section class="sec" id="scorecard">
+<div class="si">
+  <p class="sec-lbl" lang-pt>Avaliação</p><p class="sec-lbl" lang-en>Assessment</p>
+  <h2 class="sec-title">
+    <span lang-pt>Scorecard do <span class="dim">investidor-anjo</span></span>
+    <span lang-en>Angel investor <span class="dim">scorecard</span></span>
+  </h2>
+  <div class="sc-wrap">
+    <div class="sc-hdr">
+      <div class="sc-hdr-title" lang-pt>Calahonda — Análise de Investimento</div><div class="sc-hdr-title" lang-en>Calahonda — Investment Analysis</div>
+      <div><div class="sc-total-lbl" lang-pt>Nota geral</div><div class="sc-total-lbl" lang-en>Overall score</div><div class="sc-total-val" id="sc-total">—</div></div>
+    </div>
+    <div class="sc-row" data-weight="15" data-score="9.5"><div class="sc-criterion" lang-pt>Tamanho de mercado</div><div class="sc-criterion" lang-en>Market size</div><div class="sc-bar-wrap"><div class="sc-bar-bg"><div class="sc-bar-fill" style="background:#C8F135"></div></div></div><div class="sc-weight">15%</div><div class="sc-score" style="color:#C8F135">9.5</div></div>
+    <div class="sc-row" data-weight="20" data-score="8.0"><div class="sc-criterion" lang-pt>Clareza do problema</div><div class="sc-criterion" lang-en>Problem clarity</div><div class="sc-bar-wrap"><div class="sc-bar-bg"><div class="sc-bar-fill" style="background:#C8F135"></div></div></div><div class="sc-weight">20%</div><div class="sc-score" style="color:#C8F135">8.0</div></div>
+    <div class="sc-row" data-weight="20" data-score="7.5"><div class="sc-criterion" lang-pt>Viabilidade técnica</div><div class="sc-criterion" lang-en>Technical viability</div><div class="sc-bar-wrap"><div class="sc-bar-bg"><div class="sc-bar-fill" style="background:#C8F135"></div></div></div><div class="sc-weight">20%</div><div class="sc-score" style="color:#C8F135">7.5</div></div>
+    <div class="sc-row" data-weight="15" data-score="6.0"><div class="sc-criterion" lang-pt>Validação de mercado</div><div class="sc-criterion" lang-en>Market validation</div><div class="sc-bar-wrap"><div class="sc-bar-bg"><div class="sc-bar-fill" style="background:#F5A623"></div></div></div><div class="sc-weight">15%</div><div class="sc-score" style="color:#F5A623">6.0</div></div>
+    <div class="sc-row" data-weight="10" data-score="9.5"><div class="sc-criterion" lang-pt>Design e apresentação</div><div class="sc-criterion" lang-en>Design and presentation</div><div class="sc-bar-wrap"><div class="sc-bar-bg"><div class="sc-bar-fill" style="background:#C8F135"></div></div></div><div class="sc-weight">10%</div><div class="sc-score" style="color:#C8F135">9.5</div></div>
+    <div class="sc-row" data-weight="10" data-score="8.5"><div class="sc-criterion" lang-pt>Modelo de receita</div><div class="sc-criterion" lang-en>Revenue model</div><div class="sc-bar-wrap"><div class="sc-bar-bg"><div class="sc-bar-fill" style="background:#C8F135"></div></div></div><div class="sc-weight">10%</div><div class="sc-score" style="color:#C8F135">8.5</div></div>
+    <div class="sc-row" data-weight="10" data-score="5.0"><div class="sc-criterion" lang-pt>Tração e evidência</div><div class="sc-criterion" lang-en>Traction and evidence</div><div class="sc-bar-wrap"><div class="sc-bar-bg"><div class="sc-bar-fill" style="background:#F24B4B"></div></div></div><div class="sc-weight">10%</div><div class="sc-score" style="color:#F24B4B">5.0</div></div>
+    <div class="sc-foot">
+      <div class="sc-legend">
+        <div class="sc-leg-item"><div class="sc-leg-dot" style="background:#C8F135"></div><span lang-pt>Forte (≥8)</span><span lang-en>Strong (≥8)</span></div>
+        <div class="sc-leg-item"><div class="sc-leg-dot" style="background:#F5A623"></div><span lang-pt>Desenvolver (6–7)</span><span lang-en>Develop (6–7)</span></div>
+        <div class="sc-leg-item"><div class="sc-leg-dot" style="background:#F24B4B"></div><span lang-pt>Crítico (&lt;6)</span><span lang-en>Critical (&lt;6)</span></div>
+      </div>
+      <div class="sc-note" lang-pt>* Tração sobe para 9+ com 1 cliente piloto e módulo VaR publicado</div>
+      <div class="sc-note" lang-en>* Traction rises to 9+ with 1 pilot client and published VaR module</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="sec cta-sec">
+<div class="cta-inner">
+  <div>
+    <p class="cta-eyebrow" lang-pt>Ação imediata</p><p class="cta-eyebrow" lang-en>Immediate action</p>
+    <h2 class="cta-title" lang-pt>O que fazer nos próximos 90 dias</h2><h2 class="cta-title" lang-en>What to do in the next 90 days</h2>
+    <p class="cta-desc" lang-pt>A visão já existe. O próximo passo é sair do papel. Estas são as 5 ações com maior retorno por hora investida.</p>
+    <p class="cta-desc" lang-en>The vision exists. The next step is leaving the paper stage. These are the 5 actions with the highest return per hour invested.</p>
+  </div>
+  <div class="cta-items">
+    <div class="cta-item"><div class="cta-item-icon">💻</div><div><div class="cta-item-title" lang-pt>Publicar módulo VaR no GitHub</div><div class="cta-item-title" lang-en>Publish VaR module on GitHub</div><div class="cta-item-desc" lang-pt>Repositório público bem documentado mostra competência técnica real. README bilíngue.</div><div class="cta-item-desc" lang-en>A well-documented public repo shows real technical competence. Bilingual README.</div><span class="cta-item-tag" lang-pt>Semana 1–4 · Alto impacto</span><span class="cta-item-tag" lang-en>Week 1–4 · High impact</span></div></div>
+    <div class="cta-item"><div class="cta-item-icon">📞</div><div><div class="cta-item-title" lang-pt>10 entrevistas com gestores</div><div class="cta-item-title" lang-en>10 interviews with managers</div><div class="cta-item-desc" lang-pt>LinkedIn → "pesquisa acadêmica" → 20 min. Valida o problema antes do produto.</div><div class="cta-item-desc" lang-en>LinkedIn → "academic research" → 20 min. Validates the problem before the product.</div><span class="cta-item-tag" lang-pt>Semana 2–6 · Validação</span><span class="cta-item-tag" lang-en>Week 2–6 · Validation</span></div></div>
+    <div class="cta-item"><div class="cta-item-icon">✍️</div><div><div class="cta-item-title" lang-pt>1 artigo técnico por semana</div><div class="cta-item-title" lang-en>1 technical article per week</div><div class="cta-item-desc" lang-pt>"Como calcular VaR com Python e B3" — conteúdo técnico atrai o público-alvo real.</div><div class="cta-item-desc" lang-en>"How to calculate VaR with Python and B3" — technical content attracts the real audience.</div><span class="cta-item-tag" lang-pt>Semana 1+ · Marca</span><span class="cta-item-tag" lang-en>Week 1+ · Brand</span></div></div>
+    <div class="cta-item"><div class="cta-item-icon">🎓</div><div><div class="cta-item-title" lang-pt>IC na PUC — QuantFinance</div><div class="cta-item-title" lang-en>Research at PUC — QuantFinance</div><div class="cta-item-desc" lang-pt>Iniciação Científica dá estrutura, orientação e credencial. TCC vira o case do produto.</div><div class="cta-item-desc" lang-en>Scientific initiation gives structure, guidance and credentials. Thesis becomes the product case.</div><span class="cta-item-tag" lang-pt>1º semestre · Estrutura</span><span class="cta-item-tag" lang-en>1st semester · Structure</span></div></div>
+    <div class="cta-item"><div class="cta-item-icon">🤝</div><div><div class="cta-item-title" lang-pt>Fechar 1 piloto gratuito</div><div class="cta-item-title" lang-en>Close 1 free pilot</div><div class="cta-item-desc" lang-pt>Uma gestora usando o produto real transforma "vou construir" em "já está sendo usado".</div><div class="cta-item-desc" lang-en>A manager using the real product transforms "will build" into "already in use".</div><span class="cta-item-tag" lang-pt>Mês 3–6 · Desbloqueador</span><span class="cta-item-tag" lang-en>Month 3–6 · Unlocker</span></div></div>
+  </div>
+</div>
+</section>
+
+<div id="linkedin">
+<div class="li-outer">
+  <div class="li-wrap">
+    <p class="li-pre-label" lang-pt>Posts para LinkedIn — 3 audiências diferentes</p><p class="li-pre-label" lang-en>LinkedIn posts — 3 different audiences</p>
+    <h2 class="li-pre-title" lang-pt>Narrativas prontas para publicar</h2><h2 class="li-pre-title" lang-en>Ready-to-publish narratives</h2>
+
+    <p class="li-pre-label" lang-pt>Post 1 — Para investidores e gestores</p><p class="li-pre-label" lang-en>Post 1 — For investors and managers</p>
+    <div class="li-card">
+      <div class="li-top li-top-1">
+        <div class="li-profile"><div class="li-ava">R</div><div><div class="li-pname">Roberto Chiocca · 1º</div><div class="li-prole">Estudante · PUC · Finanças Quantitativas</div></div></div>
+        <div class="li-hl">Construí um módulo de Value at Risk em Python, do zero. Aqui está o que aprendi.</div>
+      </div>
+      <div class="li-body">
+        <div class="li-post">Como estudante querendo entrar em finanças quantitativas, decidi parar de só estudar teoria e construir algo real.
+
+O resultado: <b>um módulo de Value at Risk (VaR) em Python</b>, do zero.
+
+Ele calcula o risco de uma carteira de ações da B3 por três métodos:
+📊 Histórico (distribuição empírica)
+📈 Paramétrico (variância-covariância)
+🎲 Monte Carlo (10.000 simulações)
+
+Mais o CVaR (Expected Shortfall) e 8 testes unitários — incluindo um que valida o resultado contra a teoria da distribuição normal.
+
+<b>Stack:</b> Python, NumPy, pandas, SciPy.
+
+Faz parte de um projeto maior que estou usando para estudar o mercado brasileiro: a <b>Calahonda</b> — um conceito de plataforma quant focada na B3. Por enquanto é portfólio, não produto, e sou honesto sobre isso: o VaR funciona, o resto é roadmap.
+
+Código aberto no GitHub (link na bio). Feedback de quem trabalha com risco ou quant é muito bem-vindo.
+
+<b>Qual métrica de risco vocês consideram mais útil no dia a dia?</b>
+
+#QuantFinance #Python #DataScience #RiskManagement #B3 #VaR</div>
+        <hr class="li-sep">
+        <div class="li-btns"><button class="li-btn p" onclick="copyPost(1)">📋 Copiar</button></div>
+        <p class="copy-ok" id="ok1">✓ Copiado! Cole no LinkedIn.</p>
+      </div>
+    </div>
+
+    <p class="li-pre-label" style="margin-top:36px" lang-pt>Post 2 — Para analistas e devs (prova técnica)</p><p class="li-pre-label" style="margin-top:36px" lang-en>Post 2 — For analysts and devs (technical proof)</p>
+    <div class="li-card">
+      <div class="li-top li-top-2">
+        <div class="li-profile"><div class="li-ava">R</div><div><div class="li-pname">Roberto Chiocca · 1º</div><div class="li-prole">Data Scientist · PUC · Construindo Calahonda</div></div></div>
+        <div class="li-hl">Calculei o VaR de uma carteira da B3 com Python em 23 linhas. Aqui está como funciona.</div>
+      </div>
+      <div class="li-body">
+        <div class="li-post">Value at Risk (VaR) é a métrica de risco mais usada por fundos no mundo.
+
+Ela responde: "qual é a perda máxima esperada com 95% de confiança nos próximos 21 dias?"
+
+A maioria dos fundos menores no Brasil ainda calcula isso manualmente. Resolvi automatizar.
+
+<b>O método (Monte Carlo, 4 passos):</b>
+1. Dados históricos da B3 via yfinance
+2. Retornos diários de cada ativo
+3. 10.000 simulações de Monte Carlo
+4. Percentil 5% da distribuição de perdas
+
+<b>Resultado (PETR4 + VALE3 + ITUB4):</b>
+→ VaR 95% (21 dias) = R$ 103.656
+→ CVaR = R$ 130.743
+→ Tempo: 1.2 segundos
+
+Para uma gestora que fazia isso em Excel: 3–4 horas economizadas por semana.
+
+Esse é o Módulo 03 da Calahonda — implementado, com 8 testes unitários.
+Código completo no GitHub (link na bio).
+
+<b>Qual métrica de risco você mais usa no dia a dia?</b> 👇
+
+#Python #QuantFinance #RiskManagement #DataScience #B3 #VaR #MonteCarlo</div>
+        <hr class="li-sep">
+        <div class="li-btns"><button class="li-btn p" onclick="copyPost(2)">📋 Copiar</button></div>
+        <p class="copy-ok" id="ok2">✓ Copiado! Cole no LinkedIn.</p>
+      </div>
+    </div>
+
+    <p class="li-pre-label" style="margin-top:36px" lang-pt>Post 3 — Para recrutadores (portfólio honesto)</p><p class="li-pre-label" style="margin-top:36px" lang-en>Post 3 — For recruiters (honest portfolio)</p>
+    <div class="li-card">
+      <div class="li-top li-top-3">
+        <div class="li-profile"><div class="li-ava">R</div><div><div class="li-pname">Roberto Chiocca · 1º</div><div class="li-prole">Data Scientist · PUC · HTML/CSS/JS/Python</div></div></div>
+        <div class="li-hl">Construí um pitch deck interativo do zero — sem framework, sem template. Aqui está o que aprendi.</div>
+      </div>
+      <div class="li-body">
+        <div class="li-post">Todo mundo diz "faça projetos para o portfólio."
+Poucos explicam o que isso realmente significa.
+
+Deixa eu ser direto sobre o que construí e o que aprendi:
+
+<b>O que está implementado hoje (você pode inspecionar o código):</b>
+✔ Landing page responsiva — mobile, tablet, desktop
+✔ Design system com CSS Custom Properties — sem Bootstrap
+✔ Scorecard interativo com Intersection Observer API
+✔ Progress bar de leitura com scroll listener passive
+✔ Clipboard API para 3 posts LinkedIn prontos
+✔ Toggle PT/EN sem biblioteca — JS puro, zero reload
+✔ CSS Grid layout complexo — fr units + gap
+✔ Módulo VaR em Python — 3 métodos, CVaR e 8 testes
+
+<b>O que ainda é roadmap (honestamente):</b>
+○ Dashboard com dados reais da B3
+○ Backend FastAPI + banco de dados
+○ Machine Learning — Fase 3
+
+<b>Distinguir o que funciona do que é plano foi o feedback mais valioso que recebi.</b>
+
+O que nenhuma aula ensinou:
+1. CSS Grid em 5 linhas resolve o que eu fazia em 50 com float
+2. Intersection Observer é mais eficiente que scroll listener
+3. Projetos sem domínio de negócio são genéricos
+4. README bilíngue vale mais que 10 projetos mal documentados
+
+Código no GitHub: github.com/robertochiocca
+
+#PortfolioDeDesenvolvedor #HTML #CSS #JavaScript #DataScience #PUC #EstágioDev</div>
+        <hr class="li-sep">
+        <div class="li-btns"><button class="li-btn p" onclick="copyPost(3)">📋 Copiar</button></div>
+        <p class="copy-ok" id="ok3">✓ Copiado! Cole no LinkedIn.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<footer>
+  <div class="ft-logo">Cala<span class="dot">.</span>honda</div>
+  <div class="ft-links">
+    <a href="https://github.com/robertochiocca" target="_blank" rel="noopener">GitHub ↗</a>
+    <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn ↗</a>
+  </div>
+  <div class="ft-copy" lang-pt>PORTFÓLIO v4 · 2026–2029 · Roberto Chiocca</div>
+  <div class="ft-copy" lang-en>PORTFOLIO v4 · 2026–2029 · Roberto Chiocca</div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
