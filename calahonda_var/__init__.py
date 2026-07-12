@@ -5,8 +5,10 @@ Carlo), mais Sharpe anualizado e carregamento de dados com fallback
 sintético para rodar 100% offline.
 """
 
+from calahonda_var.backtest import VarBacktest, backtest_var, kupiec_test
 from calahonda_var.data import (
     DEFAULT_TICKERS,
+    load_portfolio_csv,
     load_returns,
     portfolio_returns,
     synthetic_returns,
@@ -22,6 +24,12 @@ from calahonda_var.metrics import (
     min_variance_weights,
     portfolio_volatility,
 )
+from calahonda_var.report import generate_pdf_report
+from calahonda_var.stress import (
+    HISTORICAL_SCENARIOS,
+    stress_test,
+    volatility_shock_var,
+)
 from calahonda_var.var import (
     RiskEstimate,
     historical_var,
@@ -35,8 +43,16 @@ __version__ = "1.0.0"
 
 __all__ = [
     "DEFAULT_TICKERS",
+    "HISTORICAL_SCENARIOS",
     "RiskEstimate",
+    "VarBacktest",
     "annualized_return",
+    "backtest_var",
+    "generate_pdf_report",
+    "kupiec_test",
+    "load_portfolio_csv",
+    "stress_test",
+    "volatility_shock_var",
     "annualized_volatility",
     "correlation_matrix",
     "drawdown_series",

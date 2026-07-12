@@ -68,7 +68,8 @@ def load_returns(
         import yfinance as yf
 
         prices = yf.download(
-            list(tickers), period=period, progress=False, auto_adjust=True
+            list(tickers), period=period, progress=False,
+            auto_adjust=True, timeout=10,
         )["Close"]
         returns = prices.pct_change().dropna(how="any")
         if returns.empty:
@@ -78,6 +79,37 @@ def load_returns(
         if not fallback:
             raise
         return synthetic_returns(tickers=tickers)
+
+
+def load_portfolio_csv(path_or_buffer) -> tuple[tuple[str, ...], np.ndarray]:
+    """Importa uma carteira de um CSV com colunas ``ticker`` e ``peso``.
+
+    Aceita pesos em fração (0.4) ou porcentagem (40); pesos são
+    normalizados para somar 1. Tickers sem sufixo ganham ``.SA`` (B3).
+
+    Returns
+    -------
+    (tickers, weights)
+        Tupla de tickers prontos para o yfinance e array de pesos.
+    """
+    df = pd.read_csv(path_or_buffer)
+    df.columns = [c.strip().lower() for c in df.columns]
+    if not {"ticker", "peso"}.issubset(df.columns):
+        raise ValueError(
+            f"CSV precisa das colunas 'ticker' e 'peso', recebeu {list(df.columns)}."
+        )
+    df = df.dropna(subset=["ticker", "peso"])
+    if df.empty:
+        raise ValueError("CSV não tem nenhuma linha válida de carteira.")
+
+    tickers = tuple(
+        t if "." in t else f"{t}.SA"
+        for t in df["ticker"].astype(str).str.strip().str.upper()
+    )
+    weights = df["peso"].astype(float).to_numpy()
+    if (weights < 0).any() or weights.sum() <= 0:
+        raise ValueError("Pesos devem ser não-negativos e somar mais que zero.")
+    return tickers, weights / weights.sum()
 
 
 def portfolio_returns(returns: pd.DataFrame, weights=None) -> pd.Series:
