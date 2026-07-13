@@ -19,7 +19,6 @@
 <nav>
   <a class="nav-logo" href="#">Cala<span class="dot">.</span>honda</a>
   <div class="nav-links">
-    <a href="https://calahonda.streamlit.app" target="_blank" rel="noopener" style="color:var(--lime)">App ↗</a>
     <a href="#portfolio">Portfólio</a>
     <a href="#demo">Demo</a>
     <a href="#porque">Por quê</a>
@@ -27,15 +26,13 @@
     <a href="#mercado">Mercado</a>
     <a href="#receita">Receita</a>
     <a href="#riscos">Riscos</a>
-    <a href="#linkedin">LinkedIn</a>
   </div>
   <div style="display:flex;gap:12px;align-items:center">
     <div class="lang-toggle">
       <button class="lang-btn active" id="btn-pt" onclick="setLang('pt')">PT</button>
       <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
     </div>
-    <div class="nav-pill" lang-pt>Projeto</div>
-    <div class="nav-pill" lang-en>Portfolio</div>
+    <a class="nav-pill" href="https://calahonda.streamlit.app" target="_blank" rel="noopener"><span lang-pt>Abrir App ↗</span><span lang-en>Open App ↗</span></a>
   </div>
 </nav>
 
@@ -51,6 +48,11 @@
     <span lang-pt>Um conceito de plataforma<br><span class="acc">de IA quant</span><br><span class="dim">para gestoras brasileiras</span></span>
     <span lang-en>A concept for an<br><span class="acc">AI quant platform</span><br><span class="dim">for Brazilian asset managers</span></span>
   </h1>
+  <div class="hero-ctas">
+    <a class="btn btn-primary" href="https://calahonda.streamlit.app" target="_blank" rel="noopener"><span lang-pt>Abrir o app ao vivo ↗</span><span lang-en>Open the live app ↗</span></a>
+    <a class="btn btn-ghost" href="#demo"><span lang-pt>Calcular VaR nesta página</span><span lang-en>Calculate VaR on this page</span></a>
+    <a class="btn btn-ghost" href="https://github.com/robertochiocca/calahonda" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
   <div class="hero-bottom">
     <p class="hero-desc">
       <span lang-pt>Projeto de portfólio explorando análise quantitativa aplicada ao mercado brasileiro. Gestoras independentes raramente pagam <strong>US$2k+/mês</strong> por ferramentas internacionais — este projeto estuda como uma alternativa focada na B3 poderia funcionar, começando por um <strong>módulo de VaR em Python</strong> que já roda.</span>
@@ -117,7 +119,6 @@
         <div class="tb live">CSS3 Grid/Flexbox</div>
         <div class="tb live">JavaScript ES6+</div>
         <div class="tb live">Intersection Observer</div>
-        <div class="tb live">Clipboard API</div>
         <div class="tb live">Canvas API</div>
         <div class="tb live">Python 3.11+</div>
         <div class="tb live">NumPy</div>
@@ -319,7 +320,7 @@
         <li><span class="fck-ok">✔</span><div><span class="ft-ok">Design system com CSS Custom Properties</span><span class="ft-sub">Tipografia, paleta e espaçamentos consistentes</span></div></li>
         <li><span class="fck-ok">✔</span><div><span class="ft-ok">Scorecard interativo com animação on-scroll</span><span class="ft-sub">Intersection Observer API · cálculo ponderado em JS</span></div></li>
         <li><span class="fck-ok">✔</span><div><span class="ft-ok">Progress bar de leitura</span><span class="ft-sub">scroll listener leve (passive: true)</span></div></li>
-        <li><span class="fck-ok">✔</span><div><span class="ft-ok">Cópia de posts LinkedIn (Clipboard API)</span><span class="ft-sub">3 posts prontos para diferentes audiências</span></div></li>
+        <li><span class="fck-ok">✔</span><div><span class="ft-ok">Animações de entrada on-scroll acessíveis</span><span class="ft-sub">IntersectionObserver · respeita prefers-reduced-motion</span></div></li>
         <li><span class="fck-ok">✔</span><div><span class="ft-ok">Toggle de idioma PT/EN</span><span class="ft-sub">JavaScript puro · sem biblioteca · sem reload</span></div></li>
       </ul>
     </div>
@@ -491,6 +492,12 @@
       <a href="https://www.b3.com.br" target="_blank" rel="noopener">B3 (2024)</a> · 
       Bloomberg Terminal pricing (2026)
     </div>
+  </div>
+
+  <div class="log-grid" style="margin-top:32px">
+    <div class="log-card"><div class="log-icon">🎯</div><div class="log-title" lang-pt>O objetivo</div><div class="log-title" lang-en>The goal</div><div class="log-desc" lang-pt>Estudar finanças quantitativas construindo ferramentas reais para o mercado brasileiro — do módulo de VaR ao dashboard público — em vez de só acumular teoria.</div><div class="log-desc" lang-en>Learn quantitative finance by building real tools for the Brazilian market — from the VaR module to the public dashboard — instead of just stacking theory.</div></div>
+    <div class="log-card"><div class="log-icon">🔬</div><div class="log-title" lang-pt>O método</div><div class="log-title" lang-en>The method</div><div class="log-desc" lang-pt>Construir em público com honestidade técnica: tudo que a página anuncia existe, tem teste e CI — e o que ainda não existe fica explícito como roadmap.</div><div class="log-desc" lang-en>Build in public with technical honesty: everything this page claims exists, is tested and runs in CI — and what doesn't yet is explicitly labeled roadmap.</div></div>
+    <div class="log-card"><div class="log-icon">🧭</div><div class="log-title" lang-pt>A direção</div><div class="log-title" lang-en>The direction</div><div class="log-desc" lang-pt>Evoluir de biblioteca a plataforma: módulo Python → dashboard no ar → API e modelos de ML, validando cada etapa com uso e feedback reais.</div><div class="log-desc" lang-en>Evolve from library to platform: Python module → live dashboard → API and ML models, validating each step with real use and feedback.</div></div>
   </div>
 
   <div class="origin-box">
@@ -739,136 +746,11 @@
 </div>
 </section>
 
-<div id="linkedin">
-<div class="li-outer">
-  <div class="li-wrap">
-    <p class="li-pre-label" lang-pt>Posts para LinkedIn — 3 audiências diferentes</p><p class="li-pre-label" lang-en>LinkedIn posts — 3 different audiences</p>
-    <h2 class="li-pre-title" lang-pt>Narrativas prontas para publicar</h2><h2 class="li-pre-title" lang-en>Ready-to-publish narratives</h2>
-
-    <p class="li-pre-label" lang-pt>Post 1 — Para investidores e gestores</p><p class="li-pre-label" lang-en>Post 1 — For investors and managers</p>
-    <div class="li-card">
-      <div class="li-top li-top-1">
-        <div class="li-profile"><div class="li-ava">R</div><div><div class="li-pname">Roberto Chiocca · 1º</div><div class="li-prole">Estudante · PUC · Finanças Quantitativas</div></div></div>
-        <div class="li-hl">Construí um módulo de Value at Risk em Python, do zero. Aqui está o que aprendi.</div>
-      </div>
-      <div class="li-body">
-        <div class="li-post">Como estudante querendo entrar em finanças quantitativas, decidi parar de só estudar teoria e construir algo real.
-
-O resultado: <b>um módulo de Value at Risk (VaR) em Python</b>, do zero.
-
-Ele calcula o risco de uma carteira de ações da B3 por três métodos:
-📊 Histórico (distribuição empírica)
-📈 Paramétrico (variância-covariância)
-🎲 Monte Carlo (10.000 simulações)
-
-Mais o CVaR (Expected Shortfall) e 25 testes unitários — incluindo um que valida o resultado contra a teoria da distribuição normal.
-
-<b>Stack:</b> Python, NumPy, pandas, SciPy.
-
-Faz parte de um projeto maior que estou usando para estudar o mercado brasileiro: a <b>Calahonda</b> — um conceito de plataforma quant focada na B3. Por enquanto é portfólio, não produto, e sou honesto sobre isso: o VaR funciona, o resto é roadmap.
-
-Código aberto no GitHub (link na bio). Feedback de quem trabalha com risco ou quant é muito bem-vindo.
-
-<b>Qual métrica de risco vocês consideram mais útil no dia a dia?</b>
-
-#QuantFinance #Python #DataScience #RiskManagement #B3 #VaR</div>
-        <hr class="li-sep">
-        <div class="li-btns"><button class="li-btn p" onclick="copyPost(1)">📋 Copiar</button></div>
-        <p class="copy-ok" id="ok1">✓ Copiado! Cole no LinkedIn.</p>
-      </div>
-    </div>
-
-    <p class="li-pre-label" style="margin-top:36px" lang-pt>Post 2 — Para analistas e devs (prova técnica)</p><p class="li-pre-label" style="margin-top:36px" lang-en>Post 2 — For analysts and devs (technical proof)</p>
-    <div class="li-card">
-      <div class="li-top li-top-2">
-        <div class="li-profile"><div class="li-ava">R</div><div><div class="li-pname">Roberto Chiocca · 1º</div><div class="li-prole">Data Scientist · PUC · Construindo Calahonda</div></div></div>
-        <div class="li-hl">Calculei o VaR de uma carteira da B3 com Python em 23 linhas. Aqui está como funciona.</div>
-      </div>
-      <div class="li-body">
-        <div class="li-post">Value at Risk (VaR) é a métrica de risco mais usada por fundos no mundo.
-
-Ela responde: "qual é a perda máxima esperada com 95% de confiança nos próximos 21 dias?"
-
-A maioria dos fundos menores no Brasil ainda calcula isso manualmente. Resolvi automatizar.
-
-<b>O método (Monte Carlo, 4 passos):</b>
-1. Dados históricos da B3 via yfinance
-2. Retornos diários de cada ativo
-3. 10.000 simulações de Monte Carlo
-4. Percentil 5% da distribuição de perdas
-
-<b>Resultado (PETR4 + VALE3 + ITUB4):</b>
-→ VaR 95% (21 dias) = R$ 103.656
-→ CVaR = R$ 130.743
-→ Tempo: 1.2 segundos
-
-Para uma gestora que fazia isso em Excel: 3–4 horas economizadas por semana.
-
-Esse é o Módulo 03 da Calahonda — implementado, com 25 testes unitários.
-Código completo no GitHub (link na bio).
-
-<b>Qual métrica de risco você mais usa no dia a dia?</b> 👇
-
-#Python #QuantFinance #RiskManagement #DataScience #B3 #VaR #MonteCarlo</div>
-        <hr class="li-sep">
-        <div class="li-btns"><button class="li-btn p" onclick="copyPost(2)">📋 Copiar</button></div>
-        <p class="copy-ok" id="ok2">✓ Copiado! Cole no LinkedIn.</p>
-      </div>
-    </div>
-
-    <p class="li-pre-label" style="margin-top:36px" lang-pt>Post 3 — Para recrutadores (portfólio honesto)</p><p class="li-pre-label" style="margin-top:36px" lang-en>Post 3 — For recruiters (honest portfolio)</p>
-    <div class="li-card">
-      <div class="li-top li-top-3">
-        <div class="li-profile"><div class="li-ava">R</div><div><div class="li-pname">Roberto Chiocca · 1º</div><div class="li-prole">Data Scientist · PUC · HTML/CSS/JS/Python</div></div></div>
-        <div class="li-hl">Construí um pitch deck interativo do zero — sem framework, sem template. Aqui está o que aprendi.</div>
-      </div>
-      <div class="li-body">
-        <div class="li-post">Todo mundo diz "faça projetos para o portfólio."
-Poucos explicam o que isso realmente significa.
-
-Deixa eu ser direto sobre o que construí e o que aprendi:
-
-<b>O que está implementado hoje (você pode inspecionar o código):</b>
-✔ Landing page responsiva — mobile, tablet, desktop
-✔ Design system com CSS Custom Properties — sem Bootstrap
-✔ Scorecard interativo com Intersection Observer API
-✔ Progress bar de leitura com scroll listener passive
-✔ Clipboard API para 3 posts LinkedIn prontos
-✔ Toggle PT/EN sem biblioteca — JS puro, zero reload
-✔ CSS Grid layout complexo — fr units + gap
-✔ Módulo VaR em Python — 3 métodos, CVaR e 25 testes
-
-<b>O que ainda é roadmap (honestamente):</b>
-○ Dashboard com dados reais da B3
-○ Backend FastAPI + banco de dados
-○ Machine Learning — Fase 3
-
-<b>Distinguir o que funciona do que é plano foi o feedback mais valioso que recebi.</b>
-
-O que nenhuma aula ensinou:
-1. CSS Grid em 5 linhas resolve o que eu fazia em 50 com float
-2. Intersection Observer é mais eficiente que scroll listener
-3. Projetos sem domínio de negócio são genéricos
-4. README bilíngue vale mais que 10 projetos mal documentados
-
-Código no GitHub: github.com/robertochiocca
-
-#PortfolioDeDesenvolvedor #HTML #CSS #JavaScript #DataScience #PUC #EstágioDev</div>
-        <hr class="li-sep">
-        <div class="li-btns"><button class="li-btn p" onclick="copyPost(3)">📋 Copiar</button></div>
-        <p class="copy-ok" id="ok3">✓ Copiado! Cole no LinkedIn.</p>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
 <footer>
   <div class="ft-logo">Cala<span class="dot">.</span>honda</div>
   <div class="ft-links">
     <a href="https://calahonda.streamlit.app" target="_blank" rel="noopener">App ↗</a>
     <a href="https://github.com/robertochiocca" target="_blank" rel="noopener">GitHub ↗</a>
-    <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn ↗</a>
   </div>
   <div class="ft-copy" lang-pt>PORTFÓLIO v4 · 2026–2029 · Roberto Chiocca</div>
   <div class="ft-copy" lang-en>PORTFOLIO v4 · 2026–2029 · Roberto Chiocca</div>

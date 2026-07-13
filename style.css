@@ -266,32 +266,6 @@ nav{position:fixed;top:2px;left:0;right:0;z-index:300;display:flex;align-items:c
 .cta-item-desc{font-size:12.5px;color:var(--gray4);font-weight:300;line-height:1.5}
 .cta-item-tag{font-family:var(--mono);font-size:10px;color:var(--amber);margin-top:8px;display:block}
 
-/* LINKEDIN */
-.li-outer{background:#F3F2EF;padding:64px 48px}
-.li-wrap{max-width:680px;margin:0 auto}
-.li-pre-label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray3);margin-bottom:8px}
-.li-pre-title{font-family:var(--serif);font-size:30px;font-weight:800;color:#0D0F14;letter-spacing:-.03em;margin-bottom:28px}
-.li-card{background:#fff;border-radius:10px;box-shadow:0 0 0 1px rgba(0,0,0,.08),0 8px 32px rgba(0,0,0,.08);overflow:hidden;margin-bottom:36px}
-.li-top{padding:32px;color:#fff}
-.li-top-1{background:linear-gradient(135deg,#0A2F6B 0%,#0A66C2 100%)}
-.li-top-2{background:linear-gradient(135deg,#1e3a1e 0%,#166534 100%)}
-.li-top-3{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%)}
-.li-profile{display:flex;align-items:center;gap:14px;margin-bottom:20px}
-.li-ava{width:50px;height:50px;border-radius:50%;background:#C8F135;color:#0D0F14;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:19px;font-weight:800;flex-shrink:0}
-.li-pname{font-weight:600;font-size:14px}
-.li-prole{font-size:11px;opacity:.7}
-.li-hl{font-family:var(--serif);font-size:20px;font-weight:700;line-height:1.25;letter-spacing:-.01em}
-.li-body{padding:28px 32px 32px}
-.li-post{font-size:13.5px;line-height:1.82;color:#1C1C1C;white-space:pre-line}
-.li-post b{font-weight:600;color:#0A66C2}
-.li-sep{border:none;border-top:1px solid #E8E4E0;margin:22px 0}
-.li-btns{display:flex;gap:10px;flex-wrap:wrap}
-.li-btn{font-family:var(--body);font-size:13px;font-weight:600;padding:8px 20px;border-radius:20px;cursor:pointer;border:1.5px solid #0A66C2;color:#0A66C2;background:transparent;transition:all .2s}
-.li-btn.p{background:#0A66C2;color:#fff}
-.li-btn.p:hover{background:#0A2F6B}
-.li-btn:hover{background:#EEF3FB}
-.copy-ok{display:none;text-align:center;margin-top:14px;color:#16A34A;font-size:13px;font-weight:600}
-
 .badge-live{background:rgba(200,241,53,.15);color:var(--lime);border:1px solid rgba(200,241,53,.3);font-family:var(--mono);font-size:9px;padding:3px 10px;border-radius:20px;letter-spacing:.08em;text-transform:uppercase}
 .badge-plan{background:rgba(139,148,158,.1);color:var(--gray4);border:1px solid var(--rule);font-family:var(--mono);font-size:9px;padding:3px 10px;border-radius:20px;letter-spacing:.08em;text-transform:uppercase}
 
@@ -322,7 +296,6 @@ body.en [lang-en]{display:block}
   .arch-wrap{flex-direction:column}.arch-sep{display:none}
   .sc-row{grid-template-columns:1fr 1fr;gap:8px}
   .cta-inner{grid-template-columns:1fr;gap:36px}
-  .li-outer{padding:36px 16px}
   .file-code-grid{grid-template-columns:1fr}
   footer{flex-direction:column;align-items:flex-start;gap:14px}
 }
@@ -365,3 +338,25 @@ body.en [lang-en]{display:block}
 
 /* Âncoras param abaixo da nav fixa */
 section[id],div[id]{scroll-margin-top:64px}
+
+/* HERO CTAs */
+.hero-ctas{display:flex;gap:12px;margin-bottom:44px;position:relative;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:13px 24px;border-radius:4px;text-decoration:none;transition:transform .18s,filter .18s,border-color .18s,color .18s}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--lime);color:var(--black)}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-ghost{border:1px solid var(--rule);color:var(--gray5);background:rgba(255,255,255,.02)}
+.btn-ghost:hover{border-color:rgba(200,241,53,.4);color:var(--white)}
+a.nav-pill{text-decoration:none;transition:filter .18s}
+a.nav-pill:hover{filter:brightness(1.1)}
+
+/* Revelação suave das seções ao rolar */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease}
+.reveal.visible{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+}
+
+/* Acessibilidade: foco visível por teclado */
+:focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-radius:2px}
