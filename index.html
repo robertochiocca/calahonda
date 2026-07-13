@@ -126,6 +126,8 @@
         <div class="tb live">Streamlit</div>
         <div class="tb live">yfinance</div>
         <div class="tb live">matplotlib</div>
+        <div class="tb live">Plotly</div>
+        <div class="tb live">Ruff + Black</div>
       </div>
     </div>
     <div class="stack-panel">
@@ -176,7 +178,7 @@
               <div class="tree-file hl">├── report.py <span class="tree-cm">PDF</span></div>
               <div class="tree-file hl">└── data.py <span class="tree-cm">yfinance + CSV</span></div>
             </div>
-            <div class="tree-dir">├── 📁 tests/ <span class="tree-cm">← 18 testes (pytest)</span></div>
+            <div class="tree-dir">├── 📁 tests/ <span class="tree-cm">← 21 testes (pytest)</span></div>
             <div class="tree-dir">├── 📁 examples/ <span class="tree-cm">← exemplo + gráficos</span></div>
             <div class="tree-file" style="color:var(--gray3)">├── requirements.txt · pyproject.toml</div>
             <div class="tree-file" style="color:var(--gray3)">└── LICENSE · .gitignore · CI</div>
@@ -223,8 +225,8 @@
     </div>
     <h3 style="font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:10px;letter-spacing:-.02em" lang-pt>Módulo de VaR em Python — funcionando de verdade</h3>
     <h3 style="font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:10px;letter-spacing:-.02em" lang-en>Python VaR module — actually working</h3>
-    <p style="color:var(--gray4);font-size:14px;font-weight:300;line-height:1.7;max-width:760px;margin-bottom:32px" lang-pt>O coração de uma plataforma quant é o cálculo de risco. Implementei um módulo de <strong style="color:var(--white);font-weight:500">Value at Risk (VaR)</strong> em Python com três métodos (histórico, paramétrico e Monte Carlo), mais CVaR, usando <strong style="color:var(--white);font-weight:500">NumPy, pandas e SciPy</strong>. Tem 18 testes unitários — incluindo um que valida o resultado contra a teoria da distribuição normal.</p>
-    <p style="color:var(--gray4);font-size:14px;font-weight:300;line-height:1.7;max-width:760px;margin-bottom:32px" lang-en>The heart of a quant platform is risk calculation. I built a <strong style="color:var(--white);font-weight:500">Value at Risk (VaR)</strong> module in Python with three methods (historical, parametric and Monte Carlo), plus CVaR, using <strong style="color:var(--white);font-weight:500">NumPy, pandas and SciPy</strong>. It has 18 unit tests — including one that validates the result against normal-distribution theory.</p>
+    <p style="color:var(--gray4);font-size:14px;font-weight:300;line-height:1.7;max-width:760px;margin-bottom:32px" lang-pt>O coração de uma plataforma quant é o cálculo de risco. Implementei um módulo de <strong style="color:var(--white);font-weight:500">Value at Risk (VaR)</strong> em Python com três métodos (histórico, paramétrico e Monte Carlo), mais CVaR, usando <strong style="color:var(--white);font-weight:500">NumPy, pandas e SciPy</strong>. Tem 21 testes unitários — incluindo um que valida o resultado contra a teoria da distribuição normal.</p>
+    <p style="color:var(--gray4);font-size:14px;font-weight:300;line-height:1.7;max-width:760px;margin-bottom:32px" lang-en>The heart of a quant platform is risk calculation. I built a <strong style="color:var(--white);font-weight:500">Value at Risk (VaR)</strong> module in Python with three methods (historical, parametric and Monte Carlo), plus CVaR, using <strong style="color:var(--white);font-weight:500">NumPy, pandas and SciPy</strong>. It has 21 unit tests — including one that validates the result against normal-distribution theory.</p>
 
     <div class="file-code-grid">
       <div>
@@ -276,7 +278,7 @@
 <span class="cm"># Volatilidade anual : 23.27%</span>
 <span class="cm"># Sharpe (rf=0)      : 0.28</span>
 
-<span class="fn">✔</span> <span class="st">18/18 testes passaram</span></div>
+<span class="fn">✔</span> <span class="st">21/21 testes passaram</span></div>
         </div>
       </div>
     </div>
@@ -306,10 +308,10 @@
       <p class="feat-panel-sub" lang-pt>Tudo abaixo funciona agora — inspecione no código-fonte (Ctrl+U)</p>
       <p class="feat-panel-sub" lang-en>Everything below works now — inspect in the source (Ctrl+U)</p>
       <ul class="feat-list">
-        <li><span class="fck-ok">✔</span><div><span class="ft-ok">Módulo VaR/CVaR em Python — 3 métodos</span><span class="ft-sub">NumPy · SciPy · 18 testes unitários · pytest</span></div></li>
+        <li><span class="fck-ok">✔</span><div><span class="ft-ok">Módulo VaR/CVaR em Python — 3 métodos</span><span class="ft-sub">NumPy · SciPy · 21 testes unitários · pytest</span></div></li>
         <li><span class="fck-ok">✔</span><div><span class="ft-ok">Métricas quant: drawdown, correlação e otimização de carteira</span><span class="ft-sub">Mín. variância + máx. Sharpe · SciPy (SLSQP) · long-only</span></div></li>
         <li><span class="fck-ok">✔</span><div><span class="ft-ok">Demo interativa de VaR no navegador</span><span class="ft-sub">10.000 simulações de Monte Carlo · Canvas API · JS puro</span></div></li>
-        <li><span class="fck-ok">✔</span><div><span class="ft-ok">Dashboard web com dados reais da B3</span><span class="ft-sub">Streamlit + yfinance · import de carteira via CSV</span></div></li>
+        <li><span class="fck-ok">✔</span><div><span class="ft-ok">Dashboard web com dados reais da B3</span><span class="ft-sub">Streamlit + Plotly · CSV/XLSX/JSON · benchmark vs. IBOV</span></div></li>
         <li><span class="fck-ok">✔</span><div><span class="ft-ok">Stress testing + backtest de VaR (Kupiec)</span><span class="ft-sub">Cenários históricos · janela móvel out-of-sample</span></div></li>
         <li><span class="fck-ok">✔</span><div><span class="ft-ok">Relatório de risco em PDF (3 páginas)</span><span class="ft-sub">matplotlib · download direto no dashboard</span></div></li>
         <li><span class="fck-ok">✔</span><div><span class="ft-ok">Landing page responsiva (mobile, tablet, desktop)</span><span class="ft-sub">CSS Grid puro · sem Bootstrap · sem Tailwind</span></div></li>
@@ -551,7 +553,7 @@
   <div class="ai-grid">
     <div class="ai-card" style="opacity:.62"><div class="ai-num">MÓDULO 01 · <span style="color:var(--gray4)">planejado</span></div><div class="ai-name" lang-pt>Previsão de Volatilidade</div><div class="ai-name" lang-en>Volatility Forecasting</div><div class="ai-desc" lang-pt>Modelo GARCH + LSTM que prevê a volatilidade esperada de cada ativo para os próximos 5, 10 e 21 dias úteis, com intervalo de confiança.</div><div class="ai-desc" lang-en>GARCH + LSTM model that forecasts expected volatility for each asset over the next 5, 10 and 21 trading days, with confidence intervals.</div><div class="ai-output">Output: <span>vol_5d = 18.4% ± 2.1%</span></div></div>
     <div class="ai-card" style="border-color:rgba(245,166,35,.35)"><div class="ai-num" style="color:var(--amber)">MÓDULO 02 · ◐ BASE IMPLEMENTADA</div><div class="ai-name" lang-pt>Otimização de Portfólio</div><div class="ai-name" lang-en>Portfolio Optimization</div><div class="ai-desc" lang-pt>Markowitz long-only em Python: carteiras de <strong style="color:var(--white);font-weight:500">mínima variância e máximo Sharpe</strong> via SciPy, testadas. Restrições avançadas (liquidez, drawdown) são roadmap.</div><div class="ai-desc" lang-en>Long-only Markowitz in Python: <strong style="color:var(--white);font-weight:500">minimum-variance and max-Sharpe</strong> portfolios via SciPy, tested. Advanced constraints (liquidity, drawdown) are roadmap.</div><div class="ai-output">Output: <span>Sharpe ótimo = 0.79</span></div></div>
-    <div class="ai-card" style="border-color:rgba(200,241,53,.4);background:rgba(200,241,53,.04)"><div class="ai-num" style="color:var(--lime)">MÓDULO 03 · ✔ IMPLEMENTADO</div><div class="ai-name" lang-pt>Cálculo de Risco (VaR/CVaR)</div><div class="ai-name" lang-en>Risk Calculation (VaR/CVaR)</div><div class="ai-desc" lang-pt>Value at Risk e Conditional VaR por três métodos (histórico, paramétrico, Monte Carlo). <strong style="color:var(--white);font-weight:500">Código Python funcionando, com 18 testes.</strong></div><div class="ai-desc" lang-en>Value at Risk and Conditional VaR via three methods (historical, parametric, Monte Carlo). <strong style="color:var(--white);font-weight:500">Working Python code, with 18 tests.</strong></div><div class="ai-output">Output: <span>VaR 95% = R$ 113.087</span></div></div>
+    <div class="ai-card" style="border-color:rgba(200,241,53,.4);background:rgba(200,241,53,.04)"><div class="ai-num" style="color:var(--lime)">MÓDULO 03 · ✔ IMPLEMENTADO</div><div class="ai-name" lang-pt>Cálculo de Risco (VaR/CVaR)</div><div class="ai-name" lang-en>Risk Calculation (VaR/CVaR)</div><div class="ai-desc" lang-pt>Value at Risk e Conditional VaR por três métodos (histórico, paramétrico, Monte Carlo). <strong style="color:var(--white);font-weight:500">Código Python funcionando, com 21 testes.</strong></div><div class="ai-desc" lang-en>Value at Risk and Conditional VaR via three methods (historical, parametric, Monte Carlo). <strong style="color:var(--white);font-weight:500">Working Python code, with 21 tests.</strong></div><div class="ai-output">Output: <span>VaR 95% = R$ 113.087</span></div></div>
     <div class="ai-card" style="opacity:.62"><div class="ai-num">MÓDULO 04 · <span style="color:var(--gray4)">planejado</span></div><div class="ai-name" lang-pt>Detecção de Anomalias</div><div class="ai-name" lang-en>Anomaly Detection</div><div class="ai-desc" lang-pt>Isolation Forest + Z-score para identificar movimentos atípicos em preço, volume e correlação — alertando o gestor antes de eventos de risco.</div><div class="ai-desc" lang-en>Isolation Forest + Z-score to identify unusual movements in price, volume and correlation — alerting the manager before risk events.</div><div class="ai-output">Output: <span>VALE3 anomalia ⚠</span></div></div>
     <div class="ai-card" style="opacity:.62"><div class="ai-num">MÓDULO 05 · <span style="color:var(--gray4)">planejado</span></div><div class="ai-name" lang-pt>Sentimento de Notícias</div><div class="ai-name" lang-en>News Sentiment</div><div class="ai-desc" lang-pt>Pipeline NLP (FinBERT em português) que classifica notícias em tempo real e correlaciona sentimento com movimentos de preço intradiários.</div><div class="ai-desc" lang-en>NLP pipeline (FinBERT in Portuguese) that classifies news in real time and correlates sentiment with intraday price movements.</div><div class="ai-output">Output: <span>PETR4 sentimento = -0.73</span></div></div>
     <div class="ai-card" style="border-color:rgba(245,166,35,.35)"><div class="ai-num" style="color:var(--amber)">MÓDULO 06 · ◐ BASE IMPLEMENTADA</div><div class="ai-name" lang-pt>Relatórios Automáticos</div><div class="ai-name" lang-en>Automated Reports</div><div class="ai-desc" lang-pt>PDF de 3 páginas <strong style="color:var(--white);font-weight:500">já é gerado pelo módulo Python</strong> (métricas, stress, Monte Carlo). Narrativa em linguagem natural por LLM é o roadmap.</div><div class="ai-desc" lang-en>A 3-page PDF <strong style="color:var(--white);font-weight:500">is already generated by the Python module</strong> (metrics, stress, Monte Carlo). LLM-written narrative is the roadmap.</div><div class="ai-output">Output: <span>relatorio_carteira.pdf · 3pg</span></div></div>
@@ -758,7 +760,7 @@ Ele calcula o risco de uma carteira de ações da B3 por três métodos:
 📈 Paramétrico (variância-covariância)
 🎲 Monte Carlo (10.000 simulações)
 
-Mais o CVaR (Expected Shortfall) e 18 testes unitários — incluindo um que valida o resultado contra a teoria da distribuição normal.
+Mais o CVaR (Expected Shortfall) e 21 testes unitários — incluindo um que valida o resultado contra a teoria da distribuição normal.
 
 <b>Stack:</b> Python, NumPy, pandas, SciPy.
 
@@ -801,7 +803,7 @@ A maioria dos fundos menores no Brasil ainda calcula isso manualmente. Resolvi a
 
 Para uma gestora que fazia isso em Excel: 3–4 horas economizadas por semana.
 
-Esse é o Módulo 03 da Calahonda — implementado, com 18 testes unitários.
+Esse é o Módulo 03 da Calahonda — implementado, com 21 testes unitários.
 Código completo no GitHub (link na bio).
 
 <b>Qual métrica de risco você mais usa no dia a dia?</b> 👇
@@ -833,7 +835,7 @@ Deixa eu ser direto sobre o que construí e o que aprendi:
 ✔ Clipboard API para 3 posts LinkedIn prontos
 ✔ Toggle PT/EN sem biblioteca — JS puro, zero reload
 ✔ CSS Grid layout complexo — fr units + gap
-✔ Módulo VaR em Python — 3 métodos, CVaR e 18 testes
+✔ Módulo VaR em Python — 3 métodos, CVaR e 21 testes
 
 <b>O que ainda é roadmap (honestamente):</b>
 ○ Dashboard com dados reais da B3

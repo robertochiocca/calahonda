@@ -50,7 +50,9 @@ def stress_test(
         Índice = cenário; colunas = Choque %, Perda R$, Valor final R$.
     """
     if portfolio_value <= 0:
-        raise ValueError(f"`portfolio_value` deve ser positivo, recebeu {portfolio_value}.")
+        raise ValueError(
+            f"`portfolio_value` deve ser positivo, recebeu {portfolio_value}."
+        )
     if beta <= 0:
         raise ValueError(f"`beta` deve ser positivo, recebeu {beta}.")
     scenarios = HISTORICAL_SCENARIOS if scenarios is None else scenarios
@@ -60,7 +62,9 @@ def stress_test(
     rows = {}
     for name, shock in scenarios.items():
         if shock >= 0:
-            raise ValueError(f"Choque do cenário {name!r} deve ser negativo, recebeu {shock}.")
+            raise ValueError(
+                f"Choque do cenário {name!r} deve ser negativo, recebeu {shock}."
+            )
         effective = shock * beta
         loss = -effective * portfolio_value
         rows[name] = {
@@ -85,6 +89,8 @@ def volatility_shock_var(
     relativo), o que equivale a recalcular o VaR com σ' = m·σ.
     """
     if vol_multiplier <= 0:
-        raise ValueError(f"`vol_multiplier` deve ser positivo, recebeu {vol_multiplier}.")
+        raise ValueError(
+            f"`vol_multiplier` deve ser positivo, recebeu {vol_multiplier}."
+        )
     scaled = pd.Series(returns).dropna() * vol_multiplier
     return parametric_var(scaled, confidence=confidence, horizon_days=horizon_days)

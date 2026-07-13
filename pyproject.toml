@@ -30,8 +30,8 @@ dependencies = [
 [project.optional-dependencies]
 data = ["yfinance>=0.2"]
 viz = ["matplotlib>=3.7"]
-app = ["streamlit>=1.30", "yfinance>=0.2", "matplotlib>=3.7"]
-dev = ["pytest>=7.4"]
+app = ["streamlit>=1.30", "yfinance>=0.2", "matplotlib>=3.7", "plotly>=5.18", "openpyxl>=3.1"]
+dev = ["pytest>=7.4", "pytest-cov>=4.1", "black>=24.0", "ruff>=0.4"]
 
 [project.urls]
 Repository = "https://github.com/robertochiocca/calahonda"
@@ -42,3 +42,30 @@ packages = ["calahonda_var"]
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]
+
+[tool.black]
+line-length = 88
+target-version = ["py310"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle (erros)
+    "W",   # pycodestyle (avisos)
+    "F",   # pyflakes
+    "I",   # isort (ordem dos imports)
+    "UP",  # pyupgrade (sintaxe moderna)
+    "B",   # flake8-bugbear (bugs prováveis)
+    "SIM", # flake8-simplify
+]
+
+[tool.ruff.lint.per-file-ignores]
+# exemplos e testes ajustam sys.path antes dos imports (rodam sem install)
+"examples/*" = ["E402"]
+"tests/*" = ["E402"]
+
+[tool.coverage.run]
+source = ["calahonda_var"]

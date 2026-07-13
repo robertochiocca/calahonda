@@ -6,7 +6,10 @@
 
 [![CI](https://github.com/robertochiocca/calahonda/actions/workflows/ci.yml/badge.svg)](https://github.com/robertochiocca/calahonda/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
-[![Testes](https://img.shields.io/badge/testes-18%2F18-brightgreen.svg)](tests/)
+[![Testes](https://img.shields.io/badge/testes-21%2F21-brightgreen.svg)](tests/)
+[![Cobertura](https://img.shields.io/badge/cobertura-92%25-brightgreen.svg)](.github/workflows/ci.yml)
+[![Código: black](https://img.shields.io/badge/c%C3%B3digo-black-000000.svg)](https://github.com/psf/black)
+[![Lint: ruff](https://img.shields.io/badge/lint-ruff-261230.svg)](https://github.com/astral-sh/ruff)
 [![Licença: MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-green.svg)](LICENSE)
 
 **[🌐 Ver ao vivo / Live demo](https://robertochiocca.github.io/calahonda/)**
@@ -39,7 +42,7 @@ Além do VaR, o módulo calcula **Sharpe, volatilidade anualizada, curva de patr
 
 E a camada de **plataforma** também já existe: **dashboard web** (Streamlit, 5 abas) com **importação de carteira via CSV**, **stress testing** com cenários históricos de crise, **backtesting de VaR** (teste de Kupiec, janela móvel out-of-sample) e **relatório em PDF** para download.
 
-Mais **18 testes unitários** — incluindo um que valida o resultado contra a teoria da distribuição normal (VaR 95% ≈ 1.645·σ). Roda 100% offline (dados sintéticos) ou com dados reais da B3 via `yfinance`.
+Mais **21 testes unitários** — incluindo um que valida o resultado contra a teoria da distribuição normal (VaR 95% ≈ 1.645·σ). Roda 100% offline (dados sintéticos) ou com dados reais da B3 via `yfinance`.
 
 > 🕹️ **Demo interativa:** a [página do projeto](https://robertochiocca.github.io/calahonda/#demo) roda 10.000 simulações de Monte Carlo direto no navegador — monte uma carteira e calcule o VaR.
 
@@ -53,7 +56,7 @@ cd calahonda
 pip install -r requirements.txt
 
 python examples/example_var.py   # exemplo completo
-pytest                           # 18 testes
+pytest                           # 21 testes
 ```
 
 Saída real (carteira de R$1M em PETR4 + VALE3 + ITUB4, VaR 95% em 21 dias úteis):
@@ -78,7 +81,7 @@ Sharpe (rf=0)      :    0.28
 streamlit run streamlit_app.py
 ```
 
-Cinco abas: **Risco (VaR)** · **Performance** · **Stress & Backtest** · **Otimização** · **Relatório PDF**. Importa carteiras em CSV ([exemplo](examples/carteira_exemplo.csv)), usa dados reais da B3 via yfinance (com fallback sintético offline) e gera o [relatório em PDF](docs/relatorio_exemplo.pdf) para download. Deploy gratuito em poucos cliques no [Streamlit Community Cloud](https://streamlit.io/cloud).
+Cinco abas: **Risco (VaR)** · **Performance** · **Stress & Backtest** · **Otimização** · **Relatório PDF**. Gráficos **Plotly interativos** (zoom, hover, exportação), VaR classificado por cor (verde/âmbar/vermelho), comparação da carteira **vs. Ibovespa** com beta e correlação, importação de carteiras em **CSV, Excel ou JSON** ([exemplo](examples/carteira_exemplo.csv)), dados reais da B3 via yfinance (com fallback sintético offline) e [relatório em PDF](docs/relatorio_exemplo.pdf) para download. Deploy gratuito em poucos cliques no [Streamlit Community Cloud](https://streamlit.io/cloud).
 
 ### 🐍 O código do VaR (Monte Carlo)
 
@@ -106,7 +109,7 @@ def monte_carlo_var(returns, confidence=0.95, horizon_days=1,
     return RiskEstimate(var, cvar)
 ```
 
-O módulo completo (em [`calahonda_var/`](calahonda_var/)) tem ainda os métodos **histórico** e **paramétrico**, as métricas de performance, a otimização de carteira, carregamento de dados (yfinance + fallback sintético) e os [18 testes](tests/).
+O módulo completo (em [`calahonda_var/`](calahonda_var/)) tem ainda os métodos **histórico** e **paramétrico**, as métricas de performance, a otimização de carteira, carregamento de dados (yfinance + fallback sintético) e os [21 testes](tests/).
 
 ### 📈 Gráficos gerados pelo módulo
 
@@ -147,7 +150,9 @@ cv.max_sharpe_weights(returns)          # pesos de máximo Sharpe (long-only)
 # Plataforma
 cv.stress_test(1_000_000, beta=1.0)     # perdas em cenários de crise (2008, COVID…)
 cv.backtest_var(portfolio)              # violações + teste de Kupiec (out-of-sample)
-cv.load_portfolio_csv("carteira.csv")   # importa carteira (colunas ticker,peso)
+cv.load_portfolio_file("carteira.xlsx") # importa carteira (CSV, Excel ou JSON)
+cv.load_benchmark()                     # retornos do Ibovespa (^BVSP)
+cv.beta_to_benchmark(portfolio, ibov)   # beta da carteira vs. índice
 cv.generate_pdf_report(portfolio, "relatorio.pdf")   # PDF de 3 páginas
 ```
 
@@ -161,8 +166,21 @@ cv.generate_pdf_report(portfolio, "relatorio.pdf")   # PDF de 3 páginas
 | `min_variance_weights` · `max_sharpe_weights` | `pandas.Series` de pesos (soma 1) |
 | `stress_test` | `DataFrame` de perdas por cenário |
 | `backtest_var` · `kupiec_test` | `VarBacktest` · `(LR, p-valor)` |
-| `load_portfolio_csv` | `(tickers, pesos normalizados)` |
+| `load_portfolio_file` (CSV · XLSX · JSON) | `(tickers, pesos normalizados)` |
+| `load_benchmark` · `beta_to_benchmark` | `pandas.Series` · `float` |
 | `generate_pdf_report` | PDF em caminho ou buffer |
+
+### 🛠️ Qualidade de engenharia
+
+```bash
+pip install -e ".[dev]"      # instala o pacote + black, ruff e pytest-cov
+
+black --check .              # formatação (Black)
+ruff check .                 # lint (Ruff: pyflakes, bugbear, isort…)
+pytest --cov=calahonda_var   # 21 testes + cobertura (92%)
+```
+
+O CI roda **lint, formatação, testes e cobertura mínima de 85%** em Python 3.10, 3.11 e 3.12 a cada push.
 
 ### 📁 Estrutura do repositório
 
@@ -176,8 +194,9 @@ calahonda/
 │   ├── stress.py                        ← cenários de crise · choque de vol
 │   ├── backtest.py                      ← backtest de VaR (Kupiec)
 │   ├── report.py                        ← relatório em PDF
+│   ├── theme.py                         ← paleta e tema compartilhados
 │   └── data.py                          ← yfinance · CSV · sintético
-├── tests/                               ← 18 testes (pytest)
+├── tests/                               ← 21 testes (pytest)
 ├── examples/                            ← exemplos + carteira_exemplo.csv
 ├── docs/                                ← gráficos + relatorio_exemplo.pdf
 ├── requirements.txt · pyproject.toml
@@ -193,7 +212,7 @@ calahonda/
 | Demo interativa de VaR | ✅ Ao vivo | JS puro + Canvas API |
 | Landing page / portfólio | ✅ Ao vivo | HTML + CSS + JS puro |
 | Toggle PT/EN | ✅ Ao vivo | JavaScript puro |
-| CI (testes automáticos) | ✅ Ao vivo | GitHub Actions |
+| CI: lint + formato + testes + cobertura | ✅ Ao vivo | GitHub Actions · Ruff · Black |
 | Dashboard web (5 abas) | ✅ **Implementado** | Streamlit + yfinance |
 | Stress testing + backtest de VaR (Kupiec) | ✅ **Implementado e testado** | Python · SciPy |
 | Relatório em PDF + importação CSV | ✅ **Implementado** | matplotlib · pandas |
@@ -245,7 +264,7 @@ Beyond VaR, the module computes **Sharpe, annualized volatility, equity curve, m
 
 The **platform** layer exists too: a **web dashboard** (Streamlit, 5 tabs) with **CSV portfolio import**, **stress testing** with historical crisis scenarios, **VaR backtesting** (Kupiec test, out-of-sample rolling window) and a downloadable **PDF report**.
 
-Plus **18 unit tests** — including one that validates the result against normal-distribution theory (95% VaR ≈ 1.645·σ). Runs 100% offline (synthetic data) or with real B3 data via `yfinance`.
+Plus **21 unit tests** — including one that validates the result against normal-distribution theory (95% VaR ≈ 1.645·σ). Runs 100% offline (synthetic data) or with real B3 data via `yfinance`.
 
 > 🕹️ **Interactive demo:** the [project page](https://robertochiocca.github.io/calahonda/#demo) runs 10,000 Monte Carlo simulations right in the browser — build a portfolio and calculate its VaR.
 
@@ -259,7 +278,7 @@ cd calahonda
 pip install -r requirements.txt
 
 python examples/example_var.py   # full example
-pytest                           # 18 tests
+pytest                           # 21 tests
 ```
 
 Real output (R$1M portfolio in PETR4 + VALE3 + ITUB4, 95% VaR over 21 trading days):
@@ -284,7 +303,7 @@ Sharpe (rf=0)      :    0.28
 streamlit run streamlit_app.py
 ```
 
-Five tabs: **Risk (VaR)** · **Performance** · **Stress & Backtest** · **Optimization** · **PDF Report**. Imports CSV portfolios ([example](examples/carteira_exemplo.csv)), uses real B3 data via yfinance (with an offline synthetic fallback) and generates a downloadable [PDF report](docs/relatorio_exemplo.pdf). Free deploy in a few clicks on [Streamlit Community Cloud](https://streamlit.io/cloud).
+Five tabs: **Risk (VaR)** · **Performance** · **Stress & Backtest** · **Optimization** · **PDF Report**. Interactive **Plotly charts** (zoom, hover, export), color-coded VaR (green/amber/red), portfolio **vs. Ibovespa** comparison with beta and correlation, portfolio import from **CSV, Excel or JSON** ([example](examples/carteira_exemplo.csv)), real B3 data via yfinance (offline synthetic fallback) and a downloadable [PDF report](docs/relatorio_exemplo.pdf). Free deploy in a few clicks on [Streamlit Community Cloud](https://streamlit.io/cloud).
 
 ### 🐍 The VaR code (Monte Carlo)
 
@@ -312,7 +331,7 @@ def monte_carlo_var(returns, confidence=0.95, horizon_days=1,
     return RiskEstimate(var, cvar)
 ```
 
-The full module (in [`calahonda_var/`](calahonda_var/)) also includes the **historical** and **parametric** methods, the performance metrics, portfolio optimization, data loading (yfinance + synthetic fallback) and the [18 tests](tests/).
+The full module (in [`calahonda_var/`](calahonda_var/)) also includes the **historical** and **parametric** methods, the performance metrics, portfolio optimization, data loading (yfinance + synthetic fallback) and the [21 tests](tests/).
 
 ### 📈 Charts generated by the module
 
@@ -353,7 +372,9 @@ cv.max_sharpe_weights(returns)          # max-Sharpe weights (long-only)
 # Platform
 cv.stress_test(1_000_000, beta=1.0)     # losses under crisis scenarios (2008, COVID…)
 cv.backtest_var(portfolio)              # violations + Kupiec test (out-of-sample)
-cv.load_portfolio_csv("portfolio.csv")  # imports a portfolio (ticker,peso columns)
+cv.load_portfolio_file("portfolio.xlsx")  # imports a portfolio (CSV, Excel or JSON)
+cv.load_benchmark()                     # Ibovespa (^BVSP) returns
+cv.beta_to_benchmark(portfolio, ibov)   # portfolio beta vs. the index
 cv.generate_pdf_report(portfolio, "report.pdf")      # 3-page PDF
 ```
 
@@ -367,8 +388,21 @@ cv.generate_pdf_report(portfolio, "report.pdf")      # 3-page PDF
 | `min_variance_weights` · `max_sharpe_weights` | `pandas.Series` of weights (sum 1) |
 | `stress_test` | `DataFrame` of losses per scenario |
 | `backtest_var` · `kupiec_test` | `VarBacktest` · `(LR, p-value)` |
-| `load_portfolio_csv` | `(tickers, normalized weights)` |
+| `load_portfolio_file` (CSV · XLSX · JSON) | `(tickers, normalized weights)` |
+| `load_benchmark` · `beta_to_benchmark` | `pandas.Series` · `float` |
 | `generate_pdf_report` | PDF to path or buffer |
+
+### 🛠️ Engineering quality
+
+```bash
+pip install -e ".[dev]"      # installs the package + black, ruff and pytest-cov
+
+black --check .              # formatting (Black)
+ruff check .                 # lint (Ruff: pyflakes, bugbear, isort…)
+pytest --cov=calahonda_var   # 21 tests + coverage (92%)
+```
+
+CI runs **lint, formatting, tests and a minimum coverage of 85%** on Python 3.10, 3.11 and 3.12 on every push.
 
 ### 📁 Repository structure
 
@@ -382,8 +416,9 @@ calahonda/
 │   ├── stress.py                        ← crisis scenarios · vol shock
 │   ├── backtest.py                      ← VaR backtesting (Kupiec)
 │   ├── report.py                        ← PDF report
+│   ├── theme.py                         ← shared palette and theme
 │   └── data.py                          ← yfinance · CSV · synthetic
-├── tests/                               ← 18 tests (pytest)
+├── tests/                               ← 21 tests (pytest)
 ├── examples/                            ← examples + carteira_exemplo.csv
 ├── docs/                                ← charts + relatorio_exemplo.pdf
 ├── requirements.txt · pyproject.toml
@@ -399,7 +434,7 @@ calahonda/
 | Interactive VaR demo | ✅ Live | Pure JS + Canvas API |
 | Landing page / portfolio | ✅ Live | Pure HTML + CSS + JS |
 | PT/EN toggle | ✅ Live | Pure JavaScript |
-| CI (automated tests) | ✅ Live | GitHub Actions |
+| CI: lint + format + tests + coverage | ✅ Live | GitHub Actions · Ruff · Black |
 | Web dashboard (5 tabs) | ✅ **Implemented** | Streamlit + yfinance |
 | Stress testing + VaR backtest (Kupiec) | ✅ **Implemented and tested** | Python · SciPy |
 | PDF report + CSV import | ✅ **Implemented** | matplotlib · pandas |

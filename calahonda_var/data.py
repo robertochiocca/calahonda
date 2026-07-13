@@ -65,11 +65,19 @@ def load_returns(
     gerador sintético (a menos que ``fallback=False``).
     """
     try:
+        import logging
+
         import yfinance as yf
 
+        # Sem rede, o yfinance loga erros próprios antes de levantar a
+        # exceção; silencia para o fallback ser limpo.
+        logging.getLogger("yfinance").setLevel(logging.CRITICAL)
         prices = yf.download(
-            list(tickers), period=period, progress=False,
-            auto_adjust=True, timeout=10,
+            list(tickers),
+            period=period,
+            progress=False,
+            auto_adjust=True,
+            timeout=10,
         )["Close"]
         returns = prices.pct_change().dropna(how="any")
         if returns.empty:
@@ -81,19 +89,10 @@ def load_returns(
         return synthetic_returns(tickers=tickers)
 
 
-def load_portfolio_csv(path_or_buffer) -> tuple[tuple[str, ...], np.ndarray]:
-    """Importa uma carteira de um CSV com colunas ``ticker`` e ``peso``.
-
-    Aceita pesos em fração (0.4) ou porcentagem (40); pesos são
-    normalizados para somar 1. Tickers sem sufixo ganham ``.SA`` (B3).
-
-    Returns
-    -------
-    (tickers, weights)
-        Tupla de tickers prontos para o yfinance e array de pesos.
-    """
-    df = pd.read_csv(path_or_buffer)
-    df.columns = [c.strip().lower() for c in df.columns]
+def _parse_portfolio_frame(df: pd.DataFrame) -> tuple[tuple[str, ...], np.ndarray]:
+    """Valida e normaliza um DataFrame de carteira (colunas ticker/peso)."""
+    df = df.copy()
+    df.columns = [str(c).strip().lower() for c in df.columns]
     if not {"ticker", "peso"}.issubset(df.columns):
         raise ValueError(
             f"CSV precisa das colunas 'ticker' e 'peso', recebeu {list(df.columns)}."
@@ -110,6 +109,79 @@ def load_portfolio_csv(path_or_buffer) -> tuple[tuple[str, ...], np.ndarray]:
     if (weights < 0).any() or weights.sum() <= 0:
         raise ValueError("Pesos devem ser não-negativos e somar mais que zero.")
     return tickers, weights / weights.sum()
+
+
+def load_portfolio_file(
+    source, name: str | None = None
+) -> tuple[tuple[str, ...], np.ndarray]:
+    """Importa uma carteira de CSV, Excel (.xlsx) ou JSON.
+
+    O arquivo precisa das colunas ``ticker`` e ``peso`` (JSON: lista de
+    objetos com essas chaves). Pesos em fração (0.4) ou porcentagem (40)
+    são normalizados para somar 1; tickers sem sufixo ganham ``.SA``.
+
+    Parameters
+    ----------
+    source : str | Path | file-like
+        Caminho ou buffer do arquivo.
+    name : str | None
+        Nome do arquivo, para detectar a extensão quando ``source`` é um
+        buffer (ex.: upload do Streamlit). ``None`` usa ``source.name``.
+
+    Returns
+    -------
+    (tickers, weights)
+        Tickers prontos para o yfinance e pesos normalizados.
+    """
+    filename = (name or getattr(source, "name", str(source))).lower()
+    extension = filename.rsplit(".", 1)[-1]
+    if extension == "csv":
+        frame = pd.read_csv(source)
+    elif extension in ("xlsx", "xls"):
+        frame = pd.read_excel(source)
+    elif extension == "json":
+        frame = pd.read_json(source)
+    else:
+        raise ValueError(
+            f"Formato não suportado: .{extension} (aceitos: csv, xlsx, json)."
+        )
+    return _parse_portfolio_frame(frame)
+
+
+def load_portfolio_csv(path_or_buffer) -> tuple[tuple[str, ...], np.ndarray]:
+    """Importa uma carteira de um CSV (atalho para ``load_portfolio_file``)."""
+    return _parse_portfolio_frame(pd.read_csv(path_or_buffer))
+
+
+def load_benchmark(period: str = "3y", fallback: bool = True) -> pd.Series:
+    """Retornos diários do Ibovespa (^BVSP) via yfinance.
+
+    Sem rede (ou sem ``yfinance``), devolve um benchmark sintético: a
+    carteira de pesos iguais dos ativos sintéticos padrão — coerente com
+    o fallback de ``load_returns``.
+    """
+    try:
+        import logging
+
+        import yfinance as yf
+
+        logging.getLogger("yfinance").setLevel(logging.CRITICAL)
+        prices = yf.download(
+            "^BVSP", period=period, progress=False, auto_adjust=True, timeout=10
+        )["Close"]
+        returns = prices.pct_change().dropna()
+        if isinstance(returns, pd.DataFrame):
+            returns = returns.iloc[:, 0]
+        if returns.empty:
+            raise ValueError("yfinance não retornou dados para ^BVSP.")
+        returns.name = "IBOV"
+        return returns
+    except Exception:
+        if not fallback:
+            raise
+        benchmark = portfolio_returns(synthetic_returns())
+        benchmark.name = "IBOV (sintético)"
+        return benchmark
 
 
 def portfolio_returns(returns: pd.DataFrame, weights=None) -> pd.Series:
@@ -129,9 +201,7 @@ def portfolio_returns(returns: pd.DataFrame, weights=None) -> pd.Series:
     else:
         w = np.asarray(weights, dtype=float).ravel()
         if w.size != n_assets:
-            raise ValueError(
-                f"`weights` tem {w.size} pesos para {n_assets} ativos."
-            )
+            raise ValueError(f"`weights` tem {w.size} pesos para {n_assets} ativos.")
         if w.sum() <= 0:
             raise ValueError("A soma dos pesos deve ser positiva.")
         w = w / w.sum()

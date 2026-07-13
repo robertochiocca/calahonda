@@ -19,10 +19,18 @@ jobs:
           cache: pip
 
       - name: Instalar dependências
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
+          pip install ruff black pytest-cov
 
-      - name: Rodar os testes
-        run: pytest -v
+      - name: Lint (ruff)
+        run: ruff check .
+
+      - name: Formatação (black)
+        run: black --check .
+
+      - name: Testes com cobertura
+        run: pytest -v --cov=calahonda_var --cov-report=term --cov-fail-under=85
 
       - name: Rodar o exemplo (offline, dados sintéticos)
         run: python examples/example_var.py

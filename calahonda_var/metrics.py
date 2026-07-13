@@ -81,6 +81,39 @@ def max_drawdown(returns) -> float:
     return float(-drawdown_series(returns).min())
 
 
+def align_with_benchmark(portfolio, benchmark) -> pd.DataFrame:
+    """Alinha carteira e benchmark pelas datas em comum.
+
+    Returns
+    -------
+    pandas.DataFrame
+        Duas colunas (``portfolio`` e ``benchmark``) com índice comum.
+    """
+    frame = pd.concat(
+        [
+            pd.Series(portfolio, name="portfolio"),
+            pd.Series(benchmark, name="benchmark"),
+        ],
+        axis=1,
+        join="inner",
+    ).dropna()
+    if len(frame) < 2:
+        raise ValueError("Carteira e benchmark não têm datas suficientes em comum.")
+    return frame
+
+
+def beta_to_benchmark(portfolio, benchmark) -> float:
+    """Beta da carteira em relação ao benchmark (cov / var).
+
+    Beta 1 = move igual ao índice; 0.5 = metade da sensibilidade.
+    """
+    frame = align_with_benchmark(portfolio, benchmark)
+    variance = frame["benchmark"].var(ddof=1)
+    if variance == 0:
+        raise ValueError("Benchmark com variância zero: beta indefinido.")
+    return float(frame["portfolio"].cov(frame["benchmark"]) / variance)
+
+
 def correlation_matrix(returns: pd.DataFrame) -> pd.DataFrame:
     """Matriz de correlação entre os ativos (Pearson)."""
     return _clean_frame(returns).corr()

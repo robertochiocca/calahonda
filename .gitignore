@@ -18,3 +18,7 @@ Thumbs.db
 *.csv
 *.parquet
 .ipynb_checkpoints/
+
+# Cobertura
+.coverage
+htmlcov/

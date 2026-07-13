@@ -10,3 +10,5 @@ pytest>=7.4
 streamlit>=1.30
 yfinance>=0.2
 matplotlib>=3.7
+plotly>=5.18
+openpyxl>=3.1

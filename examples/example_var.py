@@ -39,8 +39,10 @@ def main() -> None:
     print("=" * 62)
     print("Calahonda VaR — carteira de R$1M em PETR4 + VALE3 + ITUB4")
     print(f"VaR {CONFIDENCE:.0%} · horizonte de {HORIZON_DAYS} dias úteis")
-    print(f"Amostra: {len(portfolio)} pregões "
-          f"({portfolio.index[0]:%Y-%m-%d} a {portfolio.index[-1]:%Y-%m-%d})")
+    print(
+        f"Amostra: {len(portfolio)} pregões "
+        f"({portfolio.index[0]:%Y-%m-%d} a {portfolio.index[-1]:%Y-%m-%d})"
+    )
     print("=" * 62)
     print()
 

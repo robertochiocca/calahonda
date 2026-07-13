@@ -28,9 +28,7 @@ class RiskEstimate(NamedTuple):
     cvar: float
 
 
-def _clean_returns(
-    returns, confidence: float, horizon_days: int
-) -> np.ndarray:
+def _clean_returns(returns, confidence: float, horizon_days: int) -> np.ndarray:
     """Valida os parâmetros e devolve os retornos como array 1-D sem NaN."""
     r = np.asarray(returns, dtype=float).ravel()
     r = r[~np.isnan(r)]
@@ -136,9 +134,7 @@ def monte_carlo_var(
     return RiskEstimate(var, cvar)
 
 
-def sharpe_ratio(
-    returns, risk_free: float = 0.0, periods_per_year: int = 252
-) -> float:
+def sharpe_ratio(returns, risk_free: float = 0.0, periods_per_year: int = 252) -> float:
     """Índice de Sharpe anualizado.
 
     Parameters
