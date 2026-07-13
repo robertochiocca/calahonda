@@ -14,6 +14,7 @@ carteira em CSV, Excel (.xlsx) ou JSON com colunas ``ticker,peso``
 from __future__ import annotations
 
 import io
+import json
 from dataclasses import dataclass
 
 import numpy as np
@@ -37,6 +38,7 @@ from calahonda_var import (
     load_returns,
     max_drawdown,
     max_sharpe_weights,
+    metrics_report,
     min_variance_weights,
     monte_carlo_var,
     portfolio_returns,
@@ -45,6 +47,7 @@ from calahonda_var import (
     stress_test,
     var_report,
     volatility_shock_var,
+    weighted_shock,
 )
 from calahonda_var.theme import AMBER, BLUE, LIME, PLOTLY_LAYOUT, RED
 
@@ -59,6 +62,7 @@ DEFAULT_PORTFOLIO_VALUE = 1_000_000.0
 DEFAULT_HORIZON_DAYS = 21
 CONFIDENCE_LEVELS = (0.90, 0.95, 0.99)
 HISTOGRAM_BINS = 60
+MAX_SAVED_PORTFOLIOS = 4  # limite da paleta de comparação (cores fixas)
 
 # Limiares de leitura do VaR como fração da carteira no horizonte:
 # abaixo do primeiro = risco baixo; acima do segundo = risco alto.
@@ -379,6 +383,13 @@ def render_performance_tab(portfolio: pd.Series, returns: pd.DataFrame) -> None:
     except ValueError as error:
         st.info(f"Comparação indisponível: {error}")
 
+    st.subheader("Métricas avançadas")
+    st.dataframe(metrics_report(portfolio, benchmark), use_container_width=True)
+    st.caption(
+        "Sortino, Calmar, Omega, Treynor, Jensen Alpha, Information Ratio "
+        "e tracking error — valores '—' são indefinidos para a amostra."
+    )
+
     st.subheader("Correlação entre os ativos")
     st.dataframe(correlation_matrix(returns).round(3), use_container_width=True)
 
@@ -421,6 +432,32 @@ def render_stress_tab(config: PortfolioConfig, portfolio: pd.Series) -> None:
         except ValueError as error:
             st.info(f"Histórico insuficiente para backtest: {error}")
 
+    st.subheader("Cenário personalizado")
+    st.caption(
+        "Defina um choque por ativo (negativo = queda) e veja o impacto "
+        "combinado na carteira — ex.: Petrobras -15%, Vale -8%."
+    )
+    editor_default = pd.DataFrame(
+        {
+            "Ativo": [t.replace(".SA", "") for t in config.tickers],
+            "Peso %": np.round(config.weights * 100, 1),
+            "Choque %": np.full(len(config.tickers), -10.0),
+        }
+    )
+    edited = st.data_editor(
+        editor_default,
+        disabled=["Ativo", "Peso %"],
+        hide_index=True,
+        use_container_width=True,
+        key="custom-scenario",
+    )
+    shock = weighted_shock(config.weights, edited["Choque %"].to_numpy() / 100.0)
+    st.metric(
+        "Impacto do cenário na carteira",
+        f"R$ {shock * config.value:,.0f}",
+        f"{shock:.1%}",
+    )
+
 
 def render_optimization_tab(config: PortfolioConfig, returns: pd.DataFrame) -> None:
     st.subheader("Carteiras ótimas (long-only, Markowitz)")
@@ -453,6 +490,89 @@ def render_optimization_tab(config: PortfolioConfig, returns: pd.DataFrame) -> N
     st.caption(
         "Otimização via SciPy (SLSQP): sem alavancagem e sem venda a "
         "descoberto. Restrições de liquidez e drawdown são roadmap."
+    )
+
+
+def render_portfolios_tab(config: PortfolioConfig) -> None:
+    """Salva a carteira atual e compara a evolução entre as salvas."""
+    st.subheader("Salvar e comparar carteiras")
+    saved: dict = st.session_state.setdefault("saved_portfolios", {})
+
+    name_col, save_col, clear_col = st.columns([2, 1, 1])
+    default_name = f"Carteira {chr(65 + (len(saved) % 26))}"
+    name = name_col.text_input("Nome da carteira", value=default_name)
+    if save_col.button("Salvar carteira atual", use_container_width=True):
+        if len(saved) >= MAX_SAVED_PORTFOLIOS and name not in saved:
+            st.warning(f"Máximo de {MAX_SAVED_PORTFOLIOS} carteiras salvas.")
+        else:
+            saved[name] = {
+                "tickers": list(config.tickers),
+                "weights": [float(w) for w in config.weights],
+                "value": float(config.value),
+            }
+            st.success(
+                f"'{name}' salva. Monte outra carteira na sidebar e salve "
+                "de novo para comparar."
+            )
+    if clear_col.button("Limpar salvas", use_container_width=True):
+        saved.clear()
+
+    imported = st.file_uploader(
+        "Importar carteiras salvas (JSON)", type="json", key="import-saved"
+    )
+    if imported is not None:
+        try:
+            data = json.load(imported)
+            valid = {
+                str(label): entry
+                for label, entry in data.items()
+                if isinstance(entry, dict)
+                and {"tickers", "weights", "value"} <= entry.keys()
+            }
+            saved.update(dict(list(valid.items())[:MAX_SAVED_PORTFOLIOS]))
+        except (json.JSONDecodeError, AttributeError):
+            st.error("JSON inválido: use o arquivo exportado por este app.")
+
+    if not saved:
+        st.info(
+            "Salve a carteira atual, monte outra na sidebar e salve de novo — "
+            "aí dá para comparar a evolução, o VaR e o Sharpe entre elas."
+        )
+        return
+
+    figure = themed_figure(height=380)
+    palette = (LIME, BLUE, AMBER, RED)
+    comparison: dict[str, dict[str, str]] = {}
+    for (label, entry), color in zip(saved.items(), palette, strict=False):
+        returns, _ = fetch_returns(tuple(entry["tickers"]))
+        series = portfolio_returns(returns, np.asarray(entry["weights"]))
+        curve = equity_curve(series, initial=100.0)
+        figure.add_trace(
+            go.Scatter(
+                x=curve.index,
+                y=curve,
+                name=label,
+                line={"color": color, "width": 1.6},
+                hovertemplate="%{x|%d/%m/%Y}: %{y:.1f}<extra>" + label + "</extra>",
+            )
+        )
+        var_est, _ = monte_carlo_var(
+            series, config.confidence, config.horizon_days, N_MONTE_CARLO, RANDOM_SEED
+        )
+        comparison[label] = {
+            f"VaR {config.confidence:.0%} ({config.horizon_days}d)": f"{var_est:.1%}",
+            "Volatilidade anual": f"{annualized_volatility(series):.1%}",
+            "Sharpe": f"{sharpe_ratio(series):.2f}",
+            "Máx. drawdown": f"{max_drawdown(series):.1%}",
+        }
+    figure.update_layout(yaxis_title="Base 100", legend={"orientation": "h", "y": 1.08})
+    st.plotly_chart(figure, use_container_width=True)
+    st.dataframe(pd.DataFrame(comparison), use_container_width=True)
+    st.download_button(
+        "Exportar carteiras (JSON)",
+        json.dumps(saved, indent=2, ensure_ascii=False),
+        file_name="carteiras_calahonda.json",
+        mime="application/json",
     )
 
 
@@ -495,12 +615,13 @@ def main() -> None:
     )
     render_header(config, portfolio, var_mc, cvar_mc)
 
-    tab_risk, tab_perf, tab_stress, tab_opt, tab_pdf = st.tabs(
+    tab_risk, tab_perf, tab_stress, tab_opt, tab_saved, tab_pdf = st.tabs(
         [
             "Risco (VaR)",
             "Performance",
             "Stress & Backtest",
             "Otimização",
+            "Carteiras",
             "Relatório PDF",
         ]
     )
@@ -512,6 +633,8 @@ def main() -> None:
         render_stress_tab(config, portfolio)
     with tab_opt:
         render_optimization_tab(config, returns)
+    with tab_saved:
+        render_portfolios_tab(config)
     with tab_pdf:
         render_report_tab(config, portfolio)
 

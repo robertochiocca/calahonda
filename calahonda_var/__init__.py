@@ -28,11 +28,22 @@ from calahonda_var.metrics import (
     min_variance_weights,
     portfolio_volatility,
 )
+from calahonda_var.ratios import (
+    calmar_ratio,
+    information_ratio,
+    jensen_alpha,
+    metrics_report,
+    omega_ratio,
+    sortino_ratio,
+    tracking_error,
+    treynor_ratio,
+)
 from calahonda_var.report import generate_pdf_report
 from calahonda_var.stress import (
     HISTORICAL_SCENARIOS,
     stress_test,
     volatility_shock_var,
+    weighted_shock,
 )
 from calahonda_var.var import (
     RiskEstimate,
@@ -54,8 +65,17 @@ __all__ = [
     "annualized_return",
     "beta_to_benchmark",
     "backtest_var",
+    "calmar_ratio",
     "generate_pdf_report",
+    "information_ratio",
+    "jensen_alpha",
     "kupiec_test",
+    "metrics_report",
+    "omega_ratio",
+    "sortino_ratio",
+    "tracking_error",
+    "treynor_ratio",
+    "weighted_shock",
     "load_benchmark",
     "load_portfolio_csv",
     "load_portfolio_file",

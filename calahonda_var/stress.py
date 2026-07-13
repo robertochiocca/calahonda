@@ -12,6 +12,7 @@ como 2008?".
 
 from __future__ import annotations
 
+import numpy as np
 import pandas as pd
 
 from calahonda_var.var import RiskEstimate, parametric_var
@@ -75,6 +76,29 @@ def stress_test(
     report = pd.DataFrame.from_dict(rows, orient="index")
     report.index.name = "Cenário"
     return report
+
+
+def weighted_shock(weights, shocks) -> float:
+    """Choque da carteira em um cenário personalizado, por ativo.
+
+    Combina o choque de cada ativo (fração; negativo = queda) pelos
+    pesos da carteira: choque = Σ wᵢ·choqueᵢ. Pesos que não somam 1 são
+    normalizados.
+
+    Returns
+    -------
+    float
+        Variação da carteira no cenário (ex.: -0.12 = perda de 12%).
+    """
+    w = np.asarray(weights, dtype=float).ravel()
+    s = np.asarray(shocks, dtype=float).ravel()
+    if w.size != s.size:
+        raise ValueError(f"{w.size} pesos para {s.size} choques.")
+    if w.size == 0:
+        raise ValueError("Carteira vazia.")
+    if (w < 0).any() or w.sum() <= 0:
+        raise ValueError("Pesos devem ser não-negativos e somar mais que zero.")
+    return float((w / w.sum()) @ s)
 
 
 def volatility_shock_var(
