@@ -78,11 +78,15 @@ DEFAULT_UNIVERSE = (
     "B3SA3.SA",
 )
 
-HOW_TO_USE = """
+USER_GUIDE_URL = "https://robertochiocca.github.io/calahonda/docs/guia-do-usuario.pdf"
+
+HOW_TO_USE = f"""
 1. Escolha os ativos (ou envie um arquivo CSV/XLSX/JSON)
 2. Ajuste os pesos de cada ativo
 3. Defina valor, confiança e horizonte
 4. Explore as abas e baixe o relatório em PDF
+
+[📘 Guia completo do usuário (PDF)]({USER_GUIDE_URL})
 """
 
 
